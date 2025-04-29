@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const autenticacaoServico_1 = require("../autenticacao/autenticacaoServico");
-// Troque o email para um novo a cada teste, para evitar conflito de "email já cadastrado"
 const nome = "Usuário Teste";
 const email = `teste${Math.floor(Math.random() * 10000)}@email.com`;
 const senha = "senha123";

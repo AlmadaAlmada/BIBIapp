@@ -29,6 +29,26 @@ export async function comentar(req: Request, res: Response) {
   }
 }
 
+export async function excluirPost(req: Request, res: Response) {
+  try {
+    const { postId } = req.params;
+    await forumService.excluirPost(postId);
+    res.status(204).send();
+  } catch (e) {
+    res.status(500).json({ erro: "Erro ao excluir post." });
+  }
+}
+
+export async function excluirComentario(req: Request, res: Response) {
+  try {
+    const { postId, commentId } = req.params;
+    await forumService.excluirComentario(postId, commentId);
+    res.status(204).send();
+  } catch (e) {
+    res.status(500).json({ erro: "Erro ao excluir comentário." });
+  }
+}
+
 export async function listarComentarios(req: Request, res: Response) {
   try {
     const { postId } = req.params;

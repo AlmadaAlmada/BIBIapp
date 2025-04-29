@@ -1,9 +1,11 @@
-import "./firebase/firebaseConfig";
+import dotenv from "dotenv";
+dotenv.config();
+
+import { db } from "./firebase/firebaseConfig";
+console.log("db importado:", db ? "ok" : "erro");
+
 import express from "express";
 import forumRoutes from "./forum/forumRoutes";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 const app = express();
 app.use(express.json());

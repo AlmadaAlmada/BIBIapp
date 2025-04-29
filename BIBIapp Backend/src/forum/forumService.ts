@@ -1,5 +1,5 @@
 import { db } from "../firebase/firebaseConfig";
-import { collection, addDoc, getDocs, query, where, orderBy, serverTimestamp } from "firebase/firestore";
+import { collection, addDoc, getDocs, query, where, orderBy, serverTimestamp, doc, deleteDoc } from "firebase/firestore";
 
 export interface NovoPost {
   autorId: string;
@@ -26,6 +26,16 @@ export async function criarPost({ autorId, autorNome, texto, fotoUrl }: NovoPost
   };
   const docRef = await addDoc(collection(db, "posts"), post);
   return { id: docRef.id, ...post };
+}
+
+
+export async function excluirPost(postId: string) {
+  await deleteDoc(doc(db, "posts", postId));
+}
+
+
+export async function excluirComentario(postId: string, commentId: string) {
+  await deleteDoc(doc(db, "posts", postId, "comments", commentId));
 }
 
 export async function listarPosts(busca?: string) {
