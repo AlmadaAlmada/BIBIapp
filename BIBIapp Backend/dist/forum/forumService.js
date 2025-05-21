@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.criarPost = criarPost;
+exports.excluirPost = excluirPost;
+exports.excluirComentario = excluirComentario;
 exports.listarPosts = listarPosts;
 exports.comentar = comentar;
 exports.listarComentarios = listarComentarios;
@@ -18,6 +20,12 @@ async function criarPost({ autorId, autorNome, texto, fotoUrl }) {
     };
     const docRef = await (0, firestore_1.addDoc)((0, firestore_1.collection)(firebaseConfig_1.db, "posts"), post);
     return { id: docRef.id, ...post };
+}
+async function excluirPost(postId) {
+    await (0, firestore_1.deleteDoc)((0, firestore_1.doc)(firebaseConfig_1.db, "posts", postId));
+}
+async function excluirComentario(postId, commentId) {
+    await (0, firestore_1.deleteDoc)((0, firestore_1.doc)(firebaseConfig_1.db, "posts", postId, "comments", commentId));
 }
 async function listarPosts(busca) {
     let q;

@@ -36,6 +36,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.criarPost = criarPost;
 exports.listarPosts = listarPosts;
 exports.comentar = comentar;
+exports.excluirPost = excluirPost;
+exports.excluirComentario = excluirComentario;
 exports.listarComentarios = listarComentarios;
 const forumService = __importStar(require("./forumService"));
 async function criarPost(req, res) {
@@ -64,6 +66,26 @@ async function comentar(req, res) {
     }
     catch (e) {
         res.status(500).json({ erro: "Erro ao comentar." });
+    }
+}
+async function excluirPost(req, res) {
+    try {
+        const { postId } = req.params;
+        await forumService.excluirPost(postId);
+        res.status(204).send();
+    }
+    catch (e) {
+        res.status(500).json({ erro: "Erro ao excluir post." });
+    }
+}
+async function excluirComentario(req, res) {
+    try {
+        const { postId, commentId } = req.params;
+        await forumService.excluirComentario(postId, commentId);
+        res.status(204).send();
+    }
+    catch (e) {
+        res.status(500).json({ erro: "Erro ao excluir comentário." });
     }
 }
 async function listarComentarios(req, res) {

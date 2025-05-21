@@ -19,6 +19,8 @@
     "source": "dataconnect"
   },
   "auth": {
-    "providers": ["password"]
+    "providers": [
+      "password"
+    ]
   }
 }

@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+dotenv.config();
 
 console.log("CWD:", process.cwd());
 console.log("USE_FIRESTORE_EMULATOR:", process.env.USE_FIRESTORE_EMULATOR);
