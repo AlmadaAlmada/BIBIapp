@@ -9,7 +9,7 @@ export const style = StyleSheet.create({
     },
     boxTop:{
         width: '100%',
-        height: Dimensions.get('window').height/7.2,
+        height: Dimensions.get('window').height/7.5,
         backgroundColor: themas.colors.secondary,
         alignItems: 'center',
         justifyContent: 'center',
@@ -17,14 +17,14 @@ export const style = StyleSheet.create({
     },
     boxMid:{
         width: '100%',
-        height: Dimensions.get('window').height/1.15,
+        height: Dimensions.get('window').height/1.27,
         backgroundColor: themas.colors.secondary,
         alignItems: 'center',
         rowGap: 5,
     },
     boxBottom:{
         width: '100%',
-        height: Dimensions.get('window').height/50,
+        height: Dimensions.get('window').height/12,
         backgroundColor: themas.colors.secondary
     },
     boxButton:{
@@ -59,5 +59,9 @@ export const style = StyleSheet.create({
         fontSize: 16,
         color: themas.colors.primary
     },
-    
+     plus:{
+        width: 60,
+        height: 60,
+        marginLeft: 340,
+    }
 })

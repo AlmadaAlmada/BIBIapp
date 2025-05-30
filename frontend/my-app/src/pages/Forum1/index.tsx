@@ -7,6 +7,7 @@ import { style } from "./styles";
 import Logo from '../../assets/logoGoogle.png'
 import Camera from '../../assets/camera.png'
 import Teste from '../../assets/teste.png'
+import Plus from '../../assets/plus.png'
 
 import Profile2 from '../../assets/profile2.png'
 import { Input } from "../../components/Input";
@@ -56,7 +57,10 @@ export default function Forum1() {
             </View>
 
             <View style={style.boxBottom}>
-
+                        <TouchableOpacity onPress={()=> navigation.navigate("PostModal") }>
+                                            <Image style={style.plus}
+                                            source={Plus}></Image>
+                        </TouchableOpacity>
             </View>
         </View>
     );

@@ -9,6 +9,7 @@ import { themas } from '../global/themes';
 import Lowbar from '../components/Lowbar';
 import CadastroCarro from '../pages/CadastroCarro';
 import Configura from '../pages/Configura';
+import PostModal from '../pages/PostModal';
 
 
 const Tab = createBottomTabNavigator()
