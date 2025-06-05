@@ -28,4 +28,5 @@ if (process.env.USE_FIRESTORE_EMULATOR === "true") {
   console.log("Firestore e Auth conectados ao emulador!");
 }
 
+
 export { auth, db };
