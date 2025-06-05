@@ -6,31 +6,37 @@ export const style = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        width:'100%'
+        backgroundColor: themas.colors.secondary
     },
     boxTop:{
         width: '100%',
-        height: Dimensions.get('window').height/7.5,
+        height: '10%',
         backgroundColor: themas.colors.primary,
         alignItems: 'center',
         justifyContent: 'center',
         
     },
     boxMid:{
+        flex: 1,
         width: '100%',
-        height: Dimensions.get('window').height/1.2,
+        //height: Dimensions.get('window').height/1.2,
         backgroundColor: themas.colors.secondary,
         alignItems: 'center',
         rowGap: 30,
+        //paddingHorizontal: 10,
+        //paddingVertical: 10
     },
     boxBottom:{
         width: '100%',
-        height: Dimensions.get('window').height/8,
+        height: '8%',
         backgroundColor: themas.colors.secondary
     },
     boxButton:{
         flexDirection: 'row',
-        columnGap: 30
+        columnGap: 30,
+        width: '100%',
+        height: '8%',
+        backgroundColor: themas.colors.secondary,
     },
     button:{
         borderWidth: 1.5,
@@ -60,6 +66,7 @@ export const style = StyleSheet.create({
         
     },
     scroll:{
+        flexGrow: 1,
         flexDirection: 'column',
         rowGap: 10
     },
@@ -89,7 +96,7 @@ export const style = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 20,
         color: '#003049',
-        alignSelf: 'flex-start'
+        alignSelf: 'flex-start',
         
     },
     acima:{

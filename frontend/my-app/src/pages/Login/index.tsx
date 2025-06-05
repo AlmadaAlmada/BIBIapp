@@ -14,6 +14,8 @@ import { Title } from "../../components/Title";
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '@react-navigation/native';
 import { loginUsuario } from "../services/userService";
+import { SafeAreaView } from 'react-native';
+
 
 
 
@@ -51,7 +53,8 @@ const handleLoginAPI = async () => {
 };
 
     return (
-        <View style={style.container}>
+         
+        <SafeAreaView style={style.container}>
             <View style={style.boxTop}>
                 <Title title="Login"></Title>
             </View>
@@ -86,6 +89,6 @@ const handleLoginAPI = async () => {
                 <Google></Google>
 
             </View>
-        </View>
+        </SafeAreaView>
     );
 }

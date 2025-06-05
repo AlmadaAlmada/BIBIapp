@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Text, View, Image, TextInput, Button, TouchableOpacity, Alert, ScrollView } from 'react-native';
+import { Text, View, Image, TextInput, Button, TouchableOpacity, Alert, ScrollView, SafeAreaView } from 'react-native';
 
 import { style } from "./styles";
 
@@ -29,7 +29,7 @@ export default function Forum1() {
 
 
     return (
-        <View style={style.container}>
+        <SafeAreaView style={style.container}>
             <View style={style.boxTop}>
                 <BuscaTopo></BuscaTopo>
             </View>
@@ -62,6 +62,6 @@ export default function Forum1() {
                                             source={Plus}></Image>
                         </TouchableOpacity>
             </View>
-        </View>
+        </SafeAreaView>
     );
 }

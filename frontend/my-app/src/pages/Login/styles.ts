@@ -8,23 +8,26 @@ export const style = StyleSheet.create({
         justifyContent: 'center',
     },
     boxTop:{
+        flex: 1,
         width: '100%',
-        height: Dimensions.get('window').height/3,
+        //height: Dimensions.get('window').height/3,
         backgroundColor: '',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: -20
+        //marginTop: -20
     },
     boxMid:{
+        flex: 1,
         width: '100%',
-        height: Dimensions.get('window').height/3,
+        //height: Dimensions.get('window').height/3,
         backgroundColor: '',
         alignItems: 'center',
         rowGap: 30
     },
     boxBottom:{
+        flex: 1,
         width: '100%',
-        height: Dimensions.get('window').height/3,
+        // height: Dimensions.get('window').height/3,
         backgroundColor: ''
     },
     boxButton:{

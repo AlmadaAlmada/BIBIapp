@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Text, View, Image, TextInput, Button, TouchableOpacity, Alert } from 'react-native';
+import { Text, View, Image, TextInput, Button, TouchableOpacity, Alert, SafeAreaView } from 'react-native';
 
 import { style } from "./styles";
 
@@ -38,7 +38,7 @@ export default function Configura() {
 
 
     return (
-        <View style={style.container}>
+        <SafeAreaView style={style.container}>
             <View style={style.boxTop}>
                 <Header left={-80} title="Configurações"></Header>
             </View>
@@ -88,6 +88,6 @@ export default function Configura() {
             <View style={style.boxBottom}>
 
             </View>
-        </View>
+        </SafeAreaView>
     );
 }

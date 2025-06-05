@@ -9,23 +9,26 @@ export const style = StyleSheet.create({
         backgroundColor: themas.colors.secondary,
     },
     boxTop:{
+        flex: 1,
         width: '100%',
-        height: Dimensions.get('window').height/2.0,
+        //height: Dimensions.get('window').height/2.0,
         backgroundColor: themas.colors.secondary,
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: 30
     },
     boxMid:{
+        flex: 1,
         width: '100%',
-        height: Dimensions.get('window').height/2.1,
+        //height: Dimensions.get('window').height/2.1,
         backgroundColor: themas.colors.secondary,
         alignItems: 'center',
         rowGap: 12
     },
     boxBottom:{
+        flex: 1,
         width: '100%',
-        height: Dimensions.get('window').height/7.90,
+        //height: Dimensions.get('window').height/7.90,
         //backgroundColor: themas.colors.primary, 
     },
     boxCores:{
@@ -39,12 +42,13 @@ export const style = StyleSheet.create({
         height: 274
     },
     logo3:{
-        width: 50,
+       width: 50,
         height: 50,
-        zIndex: 2,
         position: 'absolute',
-        left: 169,
-        top: 2
+        left: '50.5%',
+        top: 0,
+        transform: [{ translateX: -25 }],
+        zIndex: 2,
     },
     bola:{
         width: 52,

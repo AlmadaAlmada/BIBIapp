@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Text, View, Image, TextInput, Button, TouchableOpacity, Alert, ScrollView } from 'react-native';
+import { Text, View, Image, TextInput, Button, TouchableOpacity, Alert, ScrollView, SafeAreaView } from 'react-native';
 
 import { style } from "./styles";
 
@@ -15,7 +15,7 @@ export default function Inicial() {
 
 
     return (
-        <View style={style.container}>
+        <SafeAreaView style={style.container}>
             <View style={style.boxTop}>
                     <Image style={style.foto}
                     source={Foto}></Image>
@@ -88,6 +88,6 @@ export default function Inicial() {
             </View>
 
             
-        </View>
+        </SafeAreaView>
     );
 }

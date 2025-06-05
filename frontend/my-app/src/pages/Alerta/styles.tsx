@@ -9,21 +9,22 @@ export const style = StyleSheet.create({
         backgroundColor: themas.colors.secondary,
     },
     boxTopzao:{
-        height: Dimensions.get('window').height/11,
+        height: '8%',
         backgroundColor: 'red',
         zIndex: 2
     },
     boxTop:{
+        flex: 1,
         width: '100%',
-        height: Dimensions.get('window').height/1.3,
+        //height: Dimensions.get('window').height/1.3,
         backgroundColor: themas.colors.secondary,
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 30
+        //marginTop: 30
     },
     boxMid:{
         width: '100%',
-        height: Dimensions.get('window').height/9,
+        height: '10%',
         backgroundColor: themas.colors.secondary,
         alignItems: 'center',
         rowGap: 12,
@@ -32,24 +33,25 @@ export const style = StyleSheet.create({
     },
     boxBottom:{
         width: '100%',
-        height: Dimensions.get('window').height/7,
+        height: '8%',
         backgroundColor: 'white', 
     },
     scroll:{
         width: '100%',
-        height: '100%',
-        marginLeft: 20,
+        //height: '100%',
+        alignSelf: 'center',
+        marginLeft: '5%',
         flexDirection: 'column',
-        columnGap: 100
+        //columnGap: 100
     },
     formata:{
         flexDirection: 'column',
-        rowGap: 10,
-        marginTop: 80
+        gap: 10,
+        //marginTop: 80
     },
     plus:{
         width: 60,
         height: 60,
-        marginLeft: 320
+        alignSelf: 'flex-end'
     }
 })

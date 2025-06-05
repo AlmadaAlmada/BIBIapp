@@ -6,26 +6,32 @@ export const style = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: themas.colors.secondary,
     },
     boxTop:{
+        flex: 1,
         width: '100%',
-        height: Dimensions.get('window').height/7.5,
+        height: '10%',
         backgroundColor: themas.colors.secondary,
         alignItems: 'center',
         justifyContent: 'center',
         
     },
     boxMid:{
+        flex: 1,
         width: '100%',
-        height: Dimensions.get('window').height/1.27,
         backgroundColor: themas.colors.secondary,
         alignItems: 'center',
         rowGap: 5,
+        paddingHorizontal: 8,
     },
     boxBottom:{
         width: '100%',
-        height: Dimensions.get('window').height/12,
-        backgroundColor: themas.colors.secondary
+        height: '10%',
+        backgroundColor: themas.colors.secondary,
+        justifyContent: 'center',
+        alignItems: 'flex-end',
+        paddingRight: 20,
     },
     boxButton:{
         flexDirection: 'row',
@@ -62,6 +68,6 @@ export const style = StyleSheet.create({
      plus:{
         width: 60,
         height: 60,
-        marginLeft: 340,
+        //marginLeft: 340,
     }
 })
