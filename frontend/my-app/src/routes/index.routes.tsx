@@ -24,7 +24,7 @@ export default function Routes(){
             <Stack.Screen
             name="Login"
             component={Login}>
-            </Stack.Screen>
+            </Stack.Screen> 
 
             <Stack.Screen
             name="BottomRoutes"

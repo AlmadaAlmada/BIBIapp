@@ -1,7 +1,7 @@
-const BASE_URL = 'http://10.0.2.2:5000/api';
+const BASE_URL = 'http://10.0.2.2:3100/api';
 
-export async function cadastroCarro(nome, marca, modelo, ano, mediaKmSemana) {
-    //const usuario = auth.currentUser;
+export async function cadastrarCarro(nome, marca, modelo, ano, mediaKmSemana) {
+    const usuario = auth.currentUser;
 
     if (!usuario) {
         throw { sucesso: false, mensagem: 'Usuário não autenticado.' };
@@ -44,5 +44,4 @@ export async function buscarCarros() {
         const resposta = await fetch(`${BASE_URL}/obterMarcasModelo`);
         return await resposta.json();
     }catch(error){}
-
 }

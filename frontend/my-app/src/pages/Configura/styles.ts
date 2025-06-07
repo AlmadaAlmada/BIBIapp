@@ -9,10 +9,10 @@ export const style = StyleSheet.create({
         backgroundColor: themas.colors.secondary,
     },
     boxTop:{
-        flex: 1,
+        //flex: 1,
         width: '100%',
-        height: '10%',
-        backgroundColor: themas.colors.primary,
+        height: '13%',
+        backgroundColor: 'green',
         alignItems: 'center',
         justifyContent: 'center',
         

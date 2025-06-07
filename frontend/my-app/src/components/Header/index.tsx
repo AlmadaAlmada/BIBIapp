@@ -33,24 +33,23 @@ export const Header = forwardRef((Props: Props, ref: LegacyRef<TextInput> | null
     const { IconLeft, IconRight, IconLeftName, IconRightName, title, left, maxFontSizeMultiplier, onIconLeftPress, onIconRightPress, placeholder, ...rest } = Props
 
     return (
-        <>
+        
             <View style={style.header}>
 
-                <View style={style.backButton}>
-                    <TouchableOpacity>
+                    <TouchableOpacity style={style.backButton}>
                         <Image style={style.back}
                             source={Back}></Image>
                     </TouchableOpacity>
-                </View>
+
 
                 <View
                     ref={ref}
-                    style={[style.backText, { left }]}  // ← aqui usamos o array para combinar estilos
+                    style={[style.backText]}  // ← aqui usamos o array para combinar estilos
                     {...rest}>
                     <Text style={style.textoAba}>{title}</Text>
                 </View>
             </View>
-        </>
+        
     )
 });
 

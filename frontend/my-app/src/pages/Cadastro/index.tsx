@@ -12,7 +12,7 @@ import { Or } from "../../components/Or";
 import { Google } from "../../components/Google";
 import { Title } from "../../components/Title";
 import { NavigationProp, useNavigation } from "@react-navigation/core";
-import { cadastrarUsuario } from "../services/userService";
+import { cadastrarUsuario } from "../bff/userBff";
 
 export default function Cadastro() {
 

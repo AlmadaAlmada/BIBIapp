@@ -1,4 +1,4 @@
-const BASE_URL = 'http://10.0.2.2:3000/api'; // 🔥 Coloque seu IP e porta corretos
+const BASE_URL = 'http://10.0.2.2:3100/api'; // 🔥 Coloque seu IP e porta corretos
 
 export async function cadastrarUsuario(nome, email, senha, confirmarSenha) {
     try {
@@ -41,11 +41,15 @@ export async function loginUsuario(email, senha) {
             }),
         });
 
-        const data = await response.json();
+        const data = await response;
+
+        console.log('Resposta da API de login:', data.json());
 
         if (!response.ok) {
             throw data;
         }
+
+        
 
         return data; // { sucesso: true, mensagem: "..." }
     } catch (error) {

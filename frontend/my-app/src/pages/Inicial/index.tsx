@@ -9,7 +9,9 @@ import Logo3 from '../../assets/fiat2.png'
 import Bola from '../../assets/bola.png'
 import Teste from '../../assets/teste.png'
 import { Card } from "../../components/Card";
+import { Dimensions, Platform } from 'react-native';
 
+const { width, height } = Dimensions.get('window');
 
 export default function Inicial() {
 
@@ -26,7 +28,7 @@ export default function Inicial() {
                     </Image>
                     <Image style={style.bola}
                         source={Bola}></Image>
-                    //<Text style= {style.linhas}>  ─────────────────</Text>
+                    <Text style= {style.linhas}>  ─────────────────</Text>
                 </View>
             </View>
             <View style={style.boxMid}>

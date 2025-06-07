@@ -40,7 +40,7 @@ export default function Configura() {
     return (
         <SafeAreaView style={style.container}>
             <View style={style.boxTop}>
-                <Header left={-80} title="Configurações"></Header>
+                <Header title="Configurações"></Header>
             </View>
             <View style={style.boxMid}>
                 

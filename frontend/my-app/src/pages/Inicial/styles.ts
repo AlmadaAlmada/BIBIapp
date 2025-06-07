@@ -32,7 +32,7 @@ export const style = StyleSheet.create({
         //backgroundColor: themas.colors.primary, 
     },
     boxCores:{
-        marginTop: 40,
+        marginBottom: 50,
         flexDirection: 'row',
         //position: 'relative', // contêiner relativo
     },
@@ -45,7 +45,7 @@ export const style = StyleSheet.create({
        width: 50,
         height: 50,
         position: 'absolute',
-        left: '50.5%',
+        left: '47.5%',
         top: 0,
         transform: [{ translateX: -25 }],
         zIndex: 2,
@@ -61,11 +61,13 @@ export const style = StyleSheet.create({
         fontWeight: 'bold'
     },
     scroll:{
+        flexGrow: 1,
         width: '100%',
         height: '100%',
         marginLeft: 20,
         flexDirection: 'column',
-        columnGap: 100
+        columnGap: 100,
+
     },
     formata:{
         flexDirection: 'column',
