@@ -4,35 +4,42 @@ import { themas } from "../../global/themes";
 export const style = StyleSheet.create({
 
      header:{
-        //borderWidth: 3,
-        //borderColor: 'yellow',
+        flex: 1,
         width: '100%',
+        height: '60%',
         backgroundColor: themas.colors.primary,
-        color: themas.colors.primary,
-        tintColor: themas.colors.secondary,
+        //backgroundColor: themas.colors.primary,
+        //color: themas.colors.primary,
+        //tintColor: themas.colors.secondary,
         flexDirection: 'row',
         alignContent: 'center',
-        justifyContent: 'center',
-        top: 30,
-        gap: 13,
-        
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        paddingVertical: 3,
+        paddingHorizontal: 20,
     },
     backButton:{
-        left: 10,
-        position: 'absolute'
+        marginRight: 12,
+        position: 'absolute',
+        marginTop: 15
         //borderWidth: 3,
 
     },
     backText:{
-        left: -80,
+        alignItems: 'center',
+        marginTop: 28
     },
     back:{
         width: 35,
-        height: 35
+        height: 35,
+        resizeMode: 'contain',
+
     },
     textoAba:{
          fontWeight: 'bold',
         fontSize: 22,
-        color: 'white'
+        color: 'white',
+        paddingLeft: 25,
+        marginBottom: 20
     }
 })

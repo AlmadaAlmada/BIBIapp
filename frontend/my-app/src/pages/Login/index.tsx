@@ -13,7 +13,7 @@ import { Google } from "../../components/Google";
 import { Title } from "../../components/Title";
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '@react-navigation/native';
-import { loginUsuario } from "../services/userService";
+import { loginUsuario } from "../bff/userBff";
 import { SafeAreaView } from 'react-native';
 
 

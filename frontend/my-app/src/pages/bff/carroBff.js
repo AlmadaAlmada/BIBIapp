@@ -1,5 +1,5 @@
 
-const BASE_URL = 'http://10.0.2.2:5000/api';
+const BASE_URL = 'http://10.0.2.2:3100/api';
 
 export async function cadastrarCarro(nome, marca, modelo, ano, mediaKmSemana) {
     const usuario = auth.currentUser;
