@@ -3,9 +3,11 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, setPersiste
 import { salvarUsuario } from "../usuarios/usuarioServico";
 import { traduzirErroFirebase } from "./errosAutenticacao";
 
+
 interface ResultadoAutenticacao {
   sucesso: boolean;
   mensagem: string;
+  token?: string;
 }
 
 export async function cadastrarUsuario(nome: string, email: string, senha: string, confirmarSenha: string): Promise<ResultadoAutenticacao> {
@@ -25,14 +27,19 @@ export async function cadastrarUsuario(nome: string, email: string, senha: strin
   }
 }
 
+
 export async function fazerLogin(email: string, senha: string, lembrarDeMim: boolean): Promise<ResultadoAutenticacao> {
-  if (!email || !senha) {
+   if (!email || !senha) {
     return { sucesso: false, mensagem: "Email e senha são obrigatórios." };
   }
+
   try {
     await setPersistence(auth, lembrarDeMim ? browserLocalPersistence : browserSessionPersistence);
-    await signInWithEmailAndPassword(auth, email, senha);
-    return { sucesso: true, mensagem: "Login realizado com sucesso." };
+    const usuarioCred = await signInWithEmailAndPassword(auth, email, senha);
+
+    const token = await usuarioCred.user.getIdToken();
+
+    return { sucesso: true, mensagem: "Login realizado com sucesso.", token };
   } catch (erro: any) {
     return { sucesso: false, mensagem: traduzirErroFirebase(erro.code) };
   }
