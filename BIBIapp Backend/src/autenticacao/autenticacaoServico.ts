@@ -2,12 +2,14 @@ import { auth } from "../firebase/firebaseConfig";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, setPersistence, browserLocalPersistence, browserSessionPersistence } from "firebase/auth";
 import { salvarUsuario } from "../usuarios/usuarioServico";
 import { traduzirErroFirebase } from "./errosAutenticacao";
+import { log } from "console";
 
 
 interface ResultadoAutenticacao {
   sucesso: boolean;
   mensagem: string;
   token?: string;
+  uid?: string;
 }
 
 export async function cadastrarUsuario(nome: string, email: string, senha: string, confirmarSenha: string): Promise<ResultadoAutenticacao> {
@@ -27,7 +29,6 @@ export async function cadastrarUsuario(nome: string, email: string, senha: strin
   }
 }
 
-
 export async function fazerLogin(email: string, senha: string, lembrarDeMim: boolean): Promise<ResultadoAutenticacao> {
    if (!email || !senha) {
     return { sucesso: false, mensagem: "Email e senha são obrigatórios." };
@@ -38,8 +39,15 @@ export async function fazerLogin(email: string, senha: string, lembrarDeMim: boo
     const usuarioCred = await signInWithEmailAndPassword(auth, email, senha);
 
     const token = await usuarioCred.user.getIdToken();
+    const uid = usuarioCred.user.uid;
+    
+    return { 
+      sucesso: true, 
+      mensagem: "sucesso ao realizar login.", 
+      token: token, 
+      uid: uid, 
+    };
 
-    return { sucesso: true, mensagem: "Login realizado com sucesso.", token };
   } catch (erro: any) {
     return { sucesso: false, mensagem: traduzirErroFirebase(erro.code) };
   }

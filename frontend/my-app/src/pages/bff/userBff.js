@@ -41,11 +41,15 @@ export async function loginUsuario(email, senha) {
             }),
         });
 
-        const data = await response.json();
+        const data = await response;
+
+        console.log('Resposta da API de login:', data.json());
 
         if (!response.ok) {
             throw data;
         }
+
+        
 
         return data; // { sucesso: true, mensagem: "..." }
     } catch (error) {

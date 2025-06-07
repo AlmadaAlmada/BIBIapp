@@ -6,6 +6,7 @@ const firebaseConfig_1 = require("../firebase/firebaseConfig");
 const auth_1 = require("firebase/auth");
 const usuarioServico_1 = require("../usuarios/usuarioServico");
 const errosAutenticacao_1 = require("./errosAutenticacao");
+const { tokenToString } = require("typescript");
 async function cadastrarUsuario(nome, email, senha, confirmarSenha) {
     if (!nome || !email || !senha || !confirmarSenha) {
         return { sucesso: false, mensagem: "Todos os campos são obrigatórios." };
@@ -30,7 +31,7 @@ async function fazerLogin(email, senha, lembrarDeMim) {
     try {
         await (0, auth_1.setPersistence)(firebaseConfig_1.auth, lembrarDeMim ? auth_1.browserLocalPersistence : auth_1.browserSessionPersistence);
         await (0, auth_1.signInWithEmailAndPassword)(firebaseConfig_1.auth, email, senha);
-        return { sucesso: true, mensagem: "Login realizado com sucesso." };
+        return { sucesso: true, mensagem: "cuzinho"};
     }
     catch (erro) {
         return { sucesso: false, mensagem: (0, errosAutenticacao_1.traduzirErroFirebase)(erro.code) };

@@ -1,10 +1,12 @@
 import { Request, Response } from 'express';
 import { cadastrarUsuario, fazerLogin } from '../autenticacao/autenticacaoServico';
+import { getIdToken, getIdTokenResult } from 'firebase/auth';
 
 interface ResultadoLogin {
   sucesso: boolean;
   mensagem: string;
   token?: string;
+  uid?: string;
 }
 
 interface ResultadoCadastro {
@@ -48,11 +50,13 @@ const loginUsuario = async (req: Request, res: Response) => {
   try {
     const resultado: ResultadoLogin = await fazerLogin(email, senha, lembrarDeMim);
 
+
     if (resultado.sucesso) {
       return res.status(200).json({
         sucesso: true,
         mensagem: resultado.mensagem,
-        token: resultado.token,
+        token: resultado.token, 
+        uid: resultado.uid, 
       });
     } else {
       return res.status(400).json(resultado);
