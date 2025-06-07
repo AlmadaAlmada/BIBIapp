@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Text, View, Image, TextInput, Button, TouchableOpacity, Alert } from 'react-native';
+import { Text, View, Image, TextInput, Button, TouchableOpacity, Alert, SafeAreaView } from 'react-native';
 
 import { style } from "./styles";
 
@@ -28,7 +28,7 @@ export default function CadastroCarro() {
 
 
     return (
-        <View style={style.container}>
+        <SafeAreaView style={style.container}>
             <View style={style.boxTop}>
                 <Header left={-50} title="Cadastro de carro"></Header>
             </View>
@@ -103,6 +103,6 @@ export default function CadastroCarro() {
             <View style={style.boxBottom}>
 
             </View>
-        </View>
+        </SafeAreaView>
     );
 }

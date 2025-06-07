@@ -6,25 +6,30 @@ export const style = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: themas.colors.secondary,
     },
     boxTop:{
+        //flex: 1,
         width: '100%',
-        height: Dimensions.get('window').height/7.5,
-        backgroundColor: themas.colors.primary,
+        height: '13%',
+        backgroundColor: 'green',
         alignItems: 'center',
         justifyContent: 'center',
         
     },
     boxMid:{
+        flex: 1,
         width: '100%',
-        height: Dimensions.get('window').height/1.2,
+        //height: Dimensions.get('window').height/1.2,
         backgroundColor: themas.colors.secondary,
         alignItems: 'center',
         rowGap: 5,
+        paddingHorizontal: 1,
+        //paddingVertical: 10,
     },
     boxBottom:{
         width: '100%',
-        height: Dimensions.get('window').height/10,
+        height: '8%',
         backgroundColor: themas.colors.secondary
     },
     boxButton:{

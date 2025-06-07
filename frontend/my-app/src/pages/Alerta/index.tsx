@@ -13,25 +13,26 @@ import { BlurView } from 'expo-blur';
 import { ModalCreate } from "../../components/ModalCreate";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/core";
+import { SafeAreaView } from 'react-native';
 
 
 export default function Alerta() {
 
-     const navigation = useNavigation<NativeStackNavigationProp<any>>();
+    const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
     return (
-        <View style={style.container}>
+        <SafeAreaView style={style.container}>
 
             <View style={style.boxTopzao}>
 
             </View>
-            
-            
+
+
             <View style={style.boxTop}>
 
-        
-            <ScrollView style= {style.scroll}>
-                    
+
+                <ScrollView style={style.scroll}>
+
                     <View style={style.formata}>
 
                         <Card2
@@ -104,25 +105,25 @@ export default function Alerta() {
                             subtitle2="Última troca: XX/XX"
                             imageRight={Editar}
                             imageRightStyle={{ width: 340, height: 330 }}>
-                        </Card2> 
+                        </Card2>
 
-                        
+
 
                     </View>
                 </ScrollView>
-                    
+
             </View>
             <View style={style.boxMid}>
-                
 
-                <TouchableOpacity onPress={()=> navigation.navigate("TestModal2") }>
+
+                <TouchableOpacity onPress={() => navigation.navigate("TestModal2")}>
                     <Image style={style.plus}
-                    source={Plus}
+                        source={Plus}
                     ></Image>
                 </TouchableOpacity>
 
             </View>
 
-        </View>
+        </SafeAreaView>
     );
 }

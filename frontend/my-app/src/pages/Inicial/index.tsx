@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Text, View, Image, TextInput, Button, TouchableOpacity, Alert, ScrollView } from 'react-native';
+import { Text, View, Image, TextInput, Button, TouchableOpacity, Alert, ScrollView, SafeAreaView } from 'react-native';
 
 import { style } from "./styles";
 
@@ -9,13 +9,15 @@ import Logo3 from '../../assets/fiat2.png'
 import Bola from '../../assets/bola.png'
 import Teste from '../../assets/teste.png'
 import { Card } from "../../components/Card";
+import { Dimensions, Platform } from 'react-native';
 
+const { width, height } = Dimensions.get('window');
 
 export default function Inicial() {
 
 
     return (
-        <View style={style.container}>
+        <SafeAreaView style={style.container}>
             <View style={style.boxTop}>
                     <Image style={style.foto}
                     source={Foto}></Image>
@@ -26,7 +28,7 @@ export default function Inicial() {
                     </Image>
                     <Image style={style.bola}
                         source={Bola}></Image>
-                    //<Text style= {style.linhas}>  ─────────────────</Text>
+                    <Text style= {style.linhas}>  ─────────────────</Text>
                 </View>
             </View>
             <View style={style.boxMid}>
@@ -88,6 +90,6 @@ export default function Inicial() {
             </View>
 
             
-        </View>
+        </SafeAreaView>
     );
 }

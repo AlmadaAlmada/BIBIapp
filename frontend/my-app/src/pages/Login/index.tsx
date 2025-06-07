@@ -13,6 +13,9 @@ import { Google } from "../../components/Google";
 import { Title } from "../../components/Title";
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '@react-navigation/native';
+import { loginUsuario } from "../bff/userBff";
+import { SafeAreaView } from 'react-native';
+
 
 
 
@@ -21,32 +24,37 @@ export default function Login() {
     const navigation = useNavigation<NavigationProp<any>>();
 
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [senha, setSenha] = useState('');
 
-    async function getLogin() {
-        try {
-            if (!email || !password) {
-                return Alert.alert('Atenção', 'Informe os campos obrigatórios!');
-            }
-
-            if (email == '1' && password == '1') {
-                navigation.navigate("BottomRoutes");
-                Alert.alert('Logado com sucesso');
-            }
-            else {
-                Alert.alert('Usuário não encontrado');
-            }
-
-            console.log('Logado com sucesso');
-        }
-        catch (error) {
-
-            console.log('Erro no Login');
-        }
+const handleLoginAPI = async () => {
+    if (!email || !senha) {
+        Alert.alert("Atenção", "Por favor, preencha todos os campos.");
+        return;
     }
 
+    try {
+        const resultado = await loginUsuario(email, senha);
+
+        console.log(resultado.mensagem);
+
+        if (resultado.sucesso) {
+            Alert.alert('Sucesso', resultado.mensagem, [
+                {
+                    text: 'OK',
+                    onPress: () => navigation.navigate('BottomRoutes') // 🔥 Redireciona para a Home
+                }
+            ]);
+        } else {
+            Alert.alert('Erro', resultado.mensagem);
+        }
+    } catch (error) {
+        Alert.alert('Erro', 'Erro inesperado');
+    }
+};
+
     return (
-        <View style={style.container}>
+         
+        <SafeAreaView style={style.container}>
             <View style={style.boxTop}>
                 <Title title="Login"></Title>
             </View>
@@ -58,13 +66,13 @@ export default function Login() {
                 >
                 </Input>
                 <Input placeholder="password"
-                    value={password}
-                    onChangeText={setPassword}
+                    value={senha}
+                    onChangeText={setSenha}
                     backgroundColor=""
                 >
                 </Input>
                 <View style={style.boxButton}>
-                    <TouchableOpacity style={style.button} onPress={getLogin}>
+                    <TouchableOpacity style={style.button} onPress={handleLoginAPI}>
                         <Text style={style.criar}>Concluído</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={style.button2} onPress={()=> navigation.navigate("Cadastro") }>
@@ -81,6 +89,6 @@ export default function Login() {
                 <Google></Google>
 
             </View>
-        </View>
+        </SafeAreaView>
     );
 }
