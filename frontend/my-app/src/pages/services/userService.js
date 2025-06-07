@@ -1,4 +1,4 @@
-const BASE_URL = 'http://10.0.2.2:3000/api'; // 🔥 Coloque seu IP e porta corretos
+const BASE_URL = 'http://10.0.2.2:3100/api'; // 🔥 Coloque seu IP e porta corretos
 
 export async function cadastrarUsuario(nome, email, senha, confirmarSenha) {
     try {

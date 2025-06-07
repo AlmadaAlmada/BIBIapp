@@ -1,11 +1,15 @@
 import { Request, Response } from 'express';
 import { cadastrarUsuario, fazerLogin } from '../autenticacao/autenticacaoServico';
 
-// ✅ Definição opcional da estrutura de resposta (se desejar usar tipagem mais forte)
-interface Resultado {
+interface ResultadoLogin {
   sucesso: boolean;
   mensagem: string;
-  [key: string]: any;
+  token?: string;
+}
+
+interface ResultadoCadastro {
+  sucesso: boolean;
+  mensagem: string;
 }
 
 const criarUsuario = async (req: Request, res: Response) => {
@@ -19,18 +23,9 @@ const criarUsuario = async (req: Request, res: Response) => {
   }
 
   try {
-    const resultado: Resultado = await cadastrarUsuario(
-      nome,
-      email,
-      senha,
-      confirmarSenha
-    );
+    const resultado: ResultadoCadastro = await cadastrarUsuario(nome, email, senha, confirmarSenha);
 
-    if (resultado.sucesso) {
-      return res.status(201).json(resultado);
-    } else {
-      return res.status(400).json(resultado);
-    }
+    return res.status(resultado.sucesso ? 201 : 400).json(resultado);
   } catch (error) {
     console.error('Erro no controller de cadastro:', error);
     return res.status(500).json({
@@ -51,10 +46,14 @@ const loginUsuario = async (req: Request, res: Response) => {
   }
 
   try {
-    const resultado: Resultado = await fazerLogin(email, senha, lembrarDeMim);
+    const resultado: ResultadoLogin = await fazerLogin(email, senha, lembrarDeMim);
 
     if (resultado.sucesso) {
-      return res.status(200).json(resultado);
+      return res.status(200).json({
+        sucesso: true,
+        mensagem: resultado.mensagem,
+        token: resultado.token,
+      });
     } else {
       return res.status(400).json(resultado);
     }
