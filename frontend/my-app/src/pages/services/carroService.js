@@ -1,8 +1,7 @@
-
 const BASE_URL = 'http://10.0.2.2:5000/api';
 
-export async function cadastrarCarro(nome, marca, modelo, ano, mediaKmSemana) {
-    const usuario = auth.currentUser;
+export async function cadastroCarro(nome, marca, modelo, ano, mediaKmSemana) {
+    //const usuario = auth.currentUser;
 
     if (!usuario) {
         throw { sucesso: false, mensagem: 'Usuário não autenticado.' };
@@ -37,4 +36,13 @@ export async function cadastrarCarro(nome, marca, modelo, ano, mediaKmSemana) {
         console.error('Erro ao cadastrar carro:', error);
         throw error;
     }
+}
+
+
+export async function buscarCarros() {
+    try{
+        const resposta = await fetch(`${BASE_URL}/obterMarcasModelo`);
+        return await resposta.json();
+    }catch(error){}
+
 }
