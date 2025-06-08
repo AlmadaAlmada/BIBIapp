@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 
 import { Text, View, Image, TextInput, Button, TouchableOpacity, Alert, SafeAreaView } from 'react-native';
 
@@ -16,10 +16,16 @@ import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '@react-navigation/native';
 import { Header } from "../../components/Header";
 import SelectBox from "../../components/SelectBox";
-import { ScrollView } from "react-native-gesture-handler";
+import { FlatList, ScrollView } from "react-native-gesture-handler";
 import { Input2 } from "../../components/Input2";
-import { cadastroCarro, buscarCarros } from "../services/carroService";
+import { buscarCarros } from "../bff/carroBff";
 import { useEffect } from "react";
+
+type ResultadoBusca = {
+    sucesso: boolean;
+    marcas: { [key: string]: string[] };
+    modelos: { [key: string]: string[] };
+};
 
 
 export default function CadastroCarro() {
@@ -32,51 +38,62 @@ export default function CadastroCarro() {
     const [modeloSelecionado, setModeloSelecionado] = useState('');
     const navigation = useNavigation<NavigationProp<any>>();
 
-    useEffect(() => {
-        const carregarCarros = async () => {
-            try {
-                const resposta = await buscarCarros();
-                if (resposta?.sucesso) {
-                    setMarcas(resposta.marcas);
-                    setModelosPorMarca(resposta.modelos);
-                }
-            } catch (error) {
-                console.error('Erro ao buscar carros:', error);
-            }
-        };
+   useEffect(() => {
+  const carregarCarros = async () => {
+    try {
+      const resposta = await buscarCarros();
+      if (resposta.sucesso) {
+        const nomesMarcas = Object.keys(resposta.marcas);
+        setMarcas(nomesMarcas);
+        setModelosPorMarca(resposta.modelos);
 
-        carregarCarros();
+        console.log('Marcas disponíveis:', nomesMarcas);
+        console.log('Modelos por marca:', resposta.modelos);
 
-    }, []);
+        console.log("Estado de marcas:", marcas);
+        console.log("Estado de modelosPorMarca:", modelosPorMarca);
+
+      }
+    } catch (error) {
+      console.error('Erro ao buscar carros:', error);
+    }
+  };
+
+  carregarCarros();
+}, []);
+
+
+
+    
 
     const [nome, setNome] = useState('');
     const [ano, setAno] = useState('');
     const [mediaKmSemana, setMediaKmSemana] = useState('');
 
-    const salvarCarro = async () => {
-        if (!nome || !marcaSelecionada || !modeloSelecionado || !ano || !mediaKmSemana) {
-            Alert.alert('Todos os campos devem estar preenchidos !');
-            return;
-        }
+    // const salvarCarro = async () => {
+    //     if (!nome || !marcaSelecionada || !modeloSelecionado || !ano || !mediaKmSemana) {
+    //         Alert.alert('Todos os campos devem estar preenchidos !');
+    //         return;
+    //     }
 
-        try {
-            const resposta = await cadastroCarro(nome, marcaSelecionada, modeloSelecionado, ano, mediaKmSemana);
-            console.log(resposta.mensagem);
+    //     try {
+    //         const resposta = await cadastrarCarro(nome, marcaSelecionada, modeloSelecionado, ano, mediaKmSemana);
+    //         console.log(resposta.mensagem);
 
-            if (resposta.sucesso) {
-                Alert.alert('Sucesso!', resposta.mensagem, [
-                    {
-                        text: 'OK',
-                        onPress: () => navigation.navigate('BottomRoutes')
-                    }
-                ]);
-            } else {
-                Alert.alert('Erro', resposta.mensagem);
-            }
-        } catch (error) {
-            Alert.alert('Erro', 'Não foi possível salvar o carro')
-        }
-    }
+    //         if (resposta.sucesso) {
+    //             Alert.alert('Sucesso!', resposta.mensagem, [
+    //                 {
+    //                     text: 'OK',
+    //                     onPress: () => navigation.navigate('BottomRoutes')
+    //                 }
+    //             ]);
+    //         } else {
+    //             Alert.alert('Erro', resposta.mensagem);
+    //         }
+    //     } catch (error) {
+    //         Alert.alert('Erro', 'Não foi possível salvar o carro')
+    //     }
+    // }
 
     return (
         <SafeAreaView style={style.container}>
@@ -85,7 +102,7 @@ export default function CadastroCarro() {
             </View>
             <View style={style.boxMid}>
 
-                <ScrollView style={style.scroll}>
+                <View style={style.scroll} >
                     <View style={style.apelido}>
                         <View style={style.acima}>
                             <Text style={style.subTitle}>Apelido</Text>
@@ -121,12 +138,15 @@ export default function CadastroCarro() {
                             placeholder="Escolha uma marca"
                         />
 
+
+
                     </View>
 
                     <View style={style.apelido2}>
                         <View style={style.acima}>
                             <Text style={style.subTitle}>Modelo</Text>
                         </View>
+
                         <SelectBox
                             items={modelosDisponiveis.map(modelo => ({ label: modelo, value: modelo }))}
                             defaultValue="Selecione"
@@ -134,15 +154,15 @@ export default function CadastroCarro() {
                             placeholder="Escolha um modelo"
                         />
 
+
                     </View>
 
                     <View style={style.done}>
-                        <TouchableOpacity style={style.button} onPress={salvarCarro} >
+                        <TouchableOpacity style={style.button} onPress={() => console.log("ainda nao")} >
                             <Text style={style.criar}>Concluído</Text>
                         </TouchableOpacity>
                     </View>
-
-                </ScrollView>
+                </View>
             </View>
 
             <View style={style.boxBottom}>

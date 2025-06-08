@@ -43,7 +43,7 @@ export async function loginUsuario(email, senha) {
 
         const data = await response;
 
-        console.log('Resposta da API de login:', data.json());
+        console.log('Resposta da API de login:', response.json());
 
         if (!response.ok) {
             throw data;
@@ -51,7 +51,7 @@ export async function loginUsuario(email, senha) {
 
         
 
-        return data; // { sucesso: true, mensagem: "..." }
+        return {sucesso: true, mensagem: 'Usuário logado com sucesso!'};// { sucesso: true, mensagem: "..." }
     } catch (error) {
         console.error('Erro ao fazer login:', error);
         throw error;
