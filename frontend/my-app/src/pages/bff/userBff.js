@@ -1,5 +1,7 @@
 const BASE_URL = 'http://10.0.2.2:3100/api'; // 🔥 Coloque seu IP e porta corretos
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 export async function cadastrarUsuario(nome, email, senha, confirmarSenha) {
     try {
         const response = await fetch(`${BASE_URL}/cadastroUser`, {
@@ -41,15 +43,15 @@ export async function loginUsuario(email, senha) {
             }),
         });
 
-        const data = await response;
+        const data = await response.json();
 
-        console.log('Resposta da API de login:', response.json());
+        console.log('Resposta da API de login:', data);
 
         if (!response.ok) {
             throw data;
         }
 
-        
+        await AsyncStorage.setItem('uid', data.uid);
 
         return {sucesso: true, mensagem: 'Usuário logado com sucesso!'};// { sucesso: true, mensagem: "..." }
     } catch (error) {

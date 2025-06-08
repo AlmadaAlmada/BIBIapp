@@ -13,48 +13,46 @@ interface ResultadoBusca {
   };
 }
 
-// export async function cadastrarCarro(
-//   nome: string,
-//   marca: string,
-//   modelo: string,
-//   ano: string,
-//   mediaKmSemana: string
-// ): Promise<ResultadoCadastro> {
-  //const usuario = auth.currentUser;
+export async function cadastrarCarro(
+  uidUsuario: string,
+  nome: string,
+  marca: string,
+  modelo: string,
+  ano:number,
+  mediaKmSemana: number
+): Promise<ResultadoCadastro> {
+  
 
-//   if (!usuario) {
-//     throw { sucesso: false, mensagem: 'Usuário não autenticado.' };
-//   }
+  try {
+    const response = await fetch(`${BASE_URL}/cadastroCarro`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        uidUsuario,
+        nome,
+        marca,
+        modelo,
+        ano,
+        mediaKmSemana,
+      }),
+    });
 
-  // const uidUsuario = usuario.uid; // caso você use no futuro
+    const data: ResultadoCadastro = await response.json();
 
-//   try {
-//     const response = await fetch(`${BASE_URL}/cadastroCarro`, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify({
-//         nome,
-//         marca,
-//         modelo,
-//         ano,
-//         mediaKmSemana,
-//       }),
-//     });
+    if (!response.ok) {
+      throw data;
+    }
 
-//     const data: ResultadoCadastro = await response.json();
+    console.log("xique xique -> ", data);
 
-//     if (!response.ok) {
-//       throw data;
-//     }
-
-//     return data;
-//   } catch (error) {
-//     console.error('Erro ao cadastrar carro:', error);
-//     throw error;
-//   }
-
+    return {sucesso: true, mensagem: "FINALMENTE BFF PORRA CARRO"};
+  } catch (error) {
+    console.error('Erro ao cadastrar carro na BFF:', error);
+    throw error;
+  }
+}
 
 export async function buscarCarros(): Promise<ResultadoBusca> {
   try {
