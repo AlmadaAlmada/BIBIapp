@@ -9,26 +9,26 @@ export default function PostModal() {
 
     return (
         <View style={style.container}>
-        
-                    <View style={style.boxTop}>
-                        
-                    </View>
-        
-                    <View style={style.boxMid}>
-                        <View style={style.modalCentro}>
-                            <ModalPost visible={true} onClose={function (): void {
+
+            <View style={style.boxTop}>
+
+            </View>
+
+            <View style={style.boxMid}>
+                <View style={style.modalCentro}>
+                    <ModalPost visible={true} onClose={function (): void {
                         throw new Error('Function not implemented.');
-                    } } onPost={function (data: { text: string; image: string | null; }): void {
+                    }} onPost={function (data: { text: string; image: string | null; }): void {
                         throw new Error('Function not implemented.');
-                    } }></ModalPost>
-                        </View>
-                    </View>
-        
-                    <View style={style.boxBottom}>
-                        
-                        
-                    </View>
-            
+                    }}></ModalPost>
                 </View>
+            </View>
+
+            <View style={style.boxBottom}>
+
+
+            </View>
+
+        </View>
     );
 };

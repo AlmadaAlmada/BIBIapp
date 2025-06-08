@@ -2,20 +2,19 @@ import { themas } from "../../global/themes";
 import { Dimensions, StyleSheet } from "react-native";
 
 export const style = StyleSheet.create({
-   
-    card: {
+
+  card: {
     backgroundColor: 'white',
     borderRadius: 12,
     padding: 12,
     marginBottom: 16,
-    //marginHorizontal: 16,
     elevation: 10,
-    width: 405
+    width: '100%'
   },
   header: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 6,
+    marginBottom: 7,
   },
   userImage: {
     width: 32,
@@ -24,12 +23,12 @@ export const style = StyleSheet.create({
     marginRight: 8,
   },
   userName: {
-    fontWeight: "bold",
+    fontWeight: "600",
     color: themas.colors.primary,
   },
   content: {
-    marginVertical: 6,
-    color: themas.colors.secondary,
+    margin: 10,
+    color: '#003049',
   },
   postImage: {
     width: '100%',
@@ -39,39 +38,44 @@ export const style = StyleSheet.create({
     marginVertical: 10,
   },
   actions: {
+    width: '90%',
+    gap: '90%',
     flexDirection: "row",
-    marginVertical: 8,
+    margin: 10,
+    paddingHorizontal: 20
   },
   icon: {
     fontSize: 20,
     marginRight: 16,
   },
   commentContainer: {
+    display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 6,
+    marginTop: 20,
     backgroundColor: "#e6e6e6",
-    borderRadius: 8,
-    padding: 8,
+    borderRadius: 25,
+    padding: 15,
   },
   commentUserImage: {
-    width: 20,
-    height: 20,
+    width: 30,
+    height: 30,
     borderRadius: 10,
-    marginRight: 8,
+    bottom: 30
   },
   commentText: {
+    fontWeight: "400",
     fontSize: 13,
-    color: "#333",
+    color: "#30495A",
   },
-  likeIcon:{
+  likeIcon: {
     width: 24,
     height: 24,
-    marginRight: 12,
+    //marginRight: 12,
   },
-  commenIcon:{
+  commenIcon: {
     width: 24,
     height: 24,
-  }, 
+  },
 
 })
