@@ -51,13 +51,18 @@ export async function cadastrarCarro(
     return { sucesso: true, mensagem: "Carro cadastrado com sucesso." };
   } catch (e) {
     return { sucesso: false, mensagem: "Erro ao cadastrar carro." };
-  }
+  }  
 }
 
 export const buscarCarros = () => {
-    return {
-    sucesso: true,
-    marcas: Object.keys(MARCAS_MODELOS),
-    modelos: MARCAS_MODELOS
-  };
+ 
+    const marcas = MARCAS_MODELOS;
+    const modelos =MARCAS_MODELOS;
+    
+    return { 
+      sucesso: true, 
+      mensagem: "sucesso ao realizar login.", 
+      marcas: marcas, 
+      modelos: modelos, 
+    };
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 
@@ -22,6 +22,11 @@ export default function SelectBox({
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(defaultValue);
   const [options, setOptions] = useState(items);
+
+  // 🔥 Atualiza as opções sempre que items mudar
+  useEffect(() => {
+    setOptions(items);
+  }, [items]);
 
   return (
     <View style={{ flex: 1, padding: 16, justifyContent: 'center', height: 80 }}>

@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import userController from '../controllers/userController';
 import carroController from '../controllers/carroController';
-
+import alertaController from '../controllers/alertaController'; 
 const route = Router();
 
 // Rotas de usuário
@@ -12,6 +12,12 @@ route.post('/loginUser', userController.loginUsuario);
 route.post('/criarCarro', carroController.criarCarro);
 route.get('/obterMarcasModelo', carroController.obterMarcasModelo);
 
-// ROtas de Alerta
+// Rotas de Alerta
+route.post('/alertas', alertaController.criarAlerta);
+route.put('/alertas', alertaController.atualizarDataAlerta); 
+route.get('/alertas/:uidUsuario/:carroId/:alertaId/status', alertaController.obterStatusAlerta);
+route.get('/alertas/pecas-disponiveis', alertaController.obterPecasDisponiveis);
+route.get('/alertas/:uidUsuario/:carroId', alertaController.listarAlertasDoCarro); 
+route.get('/alertas/:uidUsuario/:carroId/:alertaId', alertaController.obterAlertaPorId); 
 
 export default route;

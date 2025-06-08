@@ -208,3 +208,50 @@ export async function StatusAlertaPorId(
     return { erro: "Erro ao calcular status do alerta." };
   }
 }
+
+export async function listarAlertasPorCarro(
+  uidUsuario: string,
+  carroId: string
+) {
+  try {
+    const alertasRef = collection(db, "usuarios", uidUsuario, "carros", carroId, "alertas");
+    const querySnapshot = await getDocs(alertasRef);
+    
+    if (querySnapshot.empty) {
+      return { sucesso: false, mensagem: "Nenhum alerta encontrado para este carro.", alertas: [] };
+    }
+
+    const alertas = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+    return { sucesso: true, mensagem: "Alertas listados com sucesso.", alertas };
+  } catch (e) {
+    console.error("Erro ao listar alertas:", e);
+    return { sucesso: false, mensagem: "Erro ao listar alertas." };
+  }
+}
+
+export async function buscarAlertaPorId(
+  uidUsuario: string,
+  carroId: string,
+  alertaId: string
+) {
+  try {
+    const alertaRef = doc(db, "usuarios", uidUsuario, "carros", carroId, "alertas", alertaId);
+    const alertaSnap = await getDoc(alertaRef);
+
+    if (!alertaSnap.exists()) {
+      return { sucesso: false, mensagem: "Alerta não encontrado." };
+    }
+    
+    const alerta = {
+      id: alertaSnap.id,
+      ...alertaSnap.data()
+    };
+    return { sucesso: true, mensagem: "Alerta encontrado com sucesso.", alerta };
+  } catch (e) {
+    console.error("Erro ao buscar alerta por ID:", e);
+    return { sucesso: false, mensagem: "Erro ao buscar alerta." };
+  }
+}
