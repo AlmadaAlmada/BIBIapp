@@ -21,8 +21,7 @@ import { Input2 } from "../../components/Input2";
 import { buscarCarros, cadastrarCarro } from "../bff/carroBff";
 import { useEffect } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-
+import back from "../../assets/back.png"
 
 
 type ResultadoBusca = {
@@ -32,7 +31,7 @@ type ResultadoBusca = {
 };
 
 
-export default function CadastrarCarro() {
+export default function CadastroCarro() {
 
     const [marcas, setMarcas] = useState<string[]>([]);
     const [modelosPorMarca, setModelosPorMarca] = useState<{ [key: string]: string[] }>({});
@@ -82,7 +81,6 @@ export default function CadastrarCarro() {
     const [ano, setAno] = useState('');
     const [mediaKmSemana, setMediaKmSemana] = useState('');
 
-
     const salvarCarro = async () => {
         setMarcaSelecionada(marcaSelecionada);
         setModeloSelecionado(modeloSelecionado);
@@ -130,9 +128,13 @@ export default function CadastrarCarro() {
         }
     }
 
-
     return (
         <SafeAreaView style={style.container}>
+
+            <TouchableOpacity>
+                <Image source={back} style={style.backIcon}></Image>
+            </TouchableOpacity>
+
             <View style={style.boxTop}>
                 <Header left={-50} title="Cadastro de carro"></Header>
             </View>
@@ -207,5 +209,3 @@ export default function CadastrarCarro() {
         </SafeAreaView>
     );
 }
-
-

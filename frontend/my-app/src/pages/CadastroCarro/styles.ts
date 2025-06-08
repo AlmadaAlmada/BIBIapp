@@ -16,6 +16,9 @@ export const style = StyleSheet.create({
         justifyContent: 'center',
         
     },
+    backIcon:{
+
+    },
     boxMid:{
         flex: 1,
         width: '100%',

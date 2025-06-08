@@ -3,34 +3,33 @@ import { themas } from "../../global/themes";
 
 export const style = StyleSheet.create({
     container:{
-        flex: 1,
+        flex: 0.8,
         alignItems: 'center',
         justifyContent: 'center',
     },
     boxTop:{
         flex: 1,
         width: '100%',
-        //height: Dimensions.get('window').height/3,
-        backgroundColor: '',
         alignItems: 'center',
         justifyContent: 'center',
-        //marginTop: -20
     },
     boxMid:{
         flex: 1,
         width: '100%',
-        //height: Dimensions.get('window').height/3,
-        backgroundColor: '',
-        alignItems: 'center',
-        rowGap: 30
+        paddingHorizontal:12,
+        alignItems: 'flex-start',
+        rowGap:40
     },
+   inputGroup:{
+        width: '100%',
+        rowGap: 10
+   },
     boxBottom:{
         flex: 1,
         width: '100%',
-        // height: Dimensions.get('window').height/3,
-        backgroundColor: ''
     },
     boxButton:{
+        marginTop:'15%',
         flexDirection: 'row',
         columnGap: 30
     },
