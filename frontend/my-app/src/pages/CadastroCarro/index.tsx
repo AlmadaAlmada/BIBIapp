@@ -76,6 +76,7 @@ export default function CadastrarCarro() {
     const [ano, setAno] = useState('');
     const [mediaKmSemana, setMediaKmSemana] = useState('');
 
+
     // const salvarCarro = async () => {
     //     if (!nome || !marcaSelecionada || !modeloSelecionado || !ano || !mediaKmSemana) {
     //         Alert.alert('Todos os campos devem estar preenchidos !');
