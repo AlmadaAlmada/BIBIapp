@@ -1,5 +1,5 @@
 
-import React, { forwardRef, useState, LegacyRef } from "react";
+import React, { forwardRef, useState, LegacyRef, useEffect } from "react";
 
 import { Text, View, Image, TextInput, Button, TouchableOpacity, Alert, TextInputProps, ImageSourcePropType, Modal } from 'react-native';
 
@@ -22,6 +22,8 @@ import { MaterialIcons, FontAwesome, Octicons } from '@expo/vector-icons';
 import { Input } from "../Input";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/core";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { cadastrarAlerta } from "../../pages/bff/alertaBff";
 
 type IconComponent = React.ComponentType<React.ComponentProps<typeof MaterialIcons>> |
     React.ComponentType<React.ComponentProps<typeof FontAwesome>> |
@@ -53,6 +55,72 @@ export const ModalCreate = forwardRef((Props: Props, ref: LegacyRef<TextInput> |
 
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
+    const [idCarro, setidCarro] = useState<string | null>(null);
+    const [peca, setPeca] = useState('');
+    const [data, setData] = useState('');
+
+    useEffect(() => {
+        const buscaridCarro = async () => {
+            const idCarroSalvo = await AsyncStorage.getItem('idCarro');
+            setidCarro(idCarroSalvo);
+            console.log("CADE O ID DO CARRO?", idCarroSalvo);
+        };
+
+        buscaridCarro();
+    }, []);
+
+    const [uid, setUid] = useState<string | null>(null);
+
+    useEffect(() => {
+        const buscarUid = async () => {
+            const uidSalvo = await AsyncStorage.getItem('uid');
+            setUid(uidSalvo);
+            console.log("CADE O ID DO USUARIO?", uidSalvo);
+        };
+
+        buscarUid();
+    }, []);
+
+    const salvarAlerta = async () => {
+    
+            if (!peca || !data ) {
+                console.log('Campos preenchidos:', {
+                    peca,
+                    data,
+                });
+                Alert.alert('Todos os campos devem estar preenchidos !');
+                console.log("socorro" + peca, data);
+                return;
+            }
+    
+            console.log('Dados antes do cadastro:', {
+                uid,
+                idCarro,
+                peca,
+                data,
+            });
+    
+            try {
+                const resposta = await cadastrarAlerta(uid!, idCarro!, peca, data);
+                console.log(resposta.mensagem);
+    
+                if (resposta.sucesso) {
+                    Alert.alert('Sucesso!', resposta.mensagem, [
+                        {
+                            text: 'OK',
+                            onPress: () => navigation.navigate('BottomRoutes')
+                        }
+                    ]);
+    
+                    navigation.navigate("BottomRoutes")
+                } else {
+                    Alert.alert('Erro', resposta.mensagem);
+                }
+            } catch (error) {
+                Alert.alert('Erro', 'Não foi possível salvar o carro')
+            }
+        }
+
     return (
         <>
             <Modal style={style.modal}>
@@ -77,14 +145,14 @@ export const ModalCreate = forwardRef((Props: Props, ref: LegacyRef<TextInput> |
                             <View style={style.b1}>
                                 <View style={style.b2}>
                                     <Text style={style.t1}>Selecione uma peça</Text>
-                                    <Input backgroundColor='white' placeholder="Selecionar"></Input>
+                                    <Input value={peca} onChangeText={setPeca} backgroundColor='white' placeholder="Selecionar"></Input>
                                     <Image style={style.downArrow}
                                         source={DownArrow}></Image>
                                 </View>
 
                                 <View style={style.b22}>
                                     <Text style={style.t1}>Última troca</Text>
-                                    <Input backgroundColor='white' placeholder="DD/MM/AAAA">
+                                    <Input value={data} onChangeText={setData} backgroundColor='white' placeholder="DD/MM/AAAA">
                                     </Input>
                                     <Image style={style.calendar}
                                         source={Calendar}></Image>
@@ -95,7 +163,7 @@ export const ModalCreate = forwardRef((Props: Props, ref: LegacyRef<TextInput> |
 
                         <View style={style.A3}>
                             <View style={style.c1}>
-                                <TouchableOpacity style={style.button} onPress={() => setModalVisible(false)}>
+                                <TouchableOpacity style={style.button} onPress={salvarAlerta}>
                                     <View>e
                                         <Text style={style.criar}>Concluído</Text>
                                     </View>

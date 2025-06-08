@@ -1,4 +1,5 @@
 const BASE_URL = 'http://10.0.2.2:3100/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface ResultadoCadastro {
   sucesso: boolean;
@@ -39,11 +40,13 @@ export async function cadastrarCarro(
       }),
     });
 
-    const data: ResultadoCadastro = await response.json();
+    const data = await response.json();
 
     if (!response.ok) {
       throw data;
     }
+
+    await AsyncStorage.setItem('idCarro', data.idCarro);
 
     console.log("xique xique -> ", data);
 
