@@ -1,29 +1,26 @@
 import { Dimensions, StyleSheet } from "react-native";
 import { themas } from "../../global/themes";
+import { PostCard } from "../../components/PostCard";
 
 export const style = StyleSheet.create({
     container:{
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
         backgroundColor: themas.colors.secondary,
     },
     boxTop:{
-        flex: 1,
+        flex: 0.2,
         width: '100%',
         height: '10%',
         backgroundColor: themas.colors.secondary,
         alignItems: 'center',
-        justifyContent: 'center',
-        
+        justifyContent: 'center',  
     },
     boxMid:{
         flex: 1,
-        width: '100%',
+        width: '95%',
         backgroundColor: themas.colors.secondary,
-        alignItems: 'center',
-        rowGap: 5,
-        paddingHorizontal: 8,
+        rowGap: 5,        
     },
     boxBottom:{
         width: '100%',
