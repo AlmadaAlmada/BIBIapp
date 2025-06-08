@@ -7,6 +7,7 @@ const route = Router();
 // Rotas de usuário
 route.post('/cadastroUser', userController.criarUsuario);
 route.post('/loginUser', userController.loginUsuario);
+route.post('/logoutUser', userController.logoutUsuario);
 
 // Rotas de carro
 route.post('/criarCarro', carroController.criarCarro);
@@ -19,5 +20,6 @@ route.get('/alertas/:uidUsuario/:carroId/:alertaId/status', alertaController.obt
 route.get('/alertas/pecas-disponiveis', alertaController.obterPecasDisponiveis);
 route.get('/alertas/:uidUsuario/:carroId', alertaController.listarAlertasDoCarro); 
 route.get('/alertas/:uidUsuario/:carroId/:alertaId', alertaController.obterAlertaPorId); 
+route.delete('/alertas/:uidUsuario/:carroId/:alertaId', alertaController.removerAlerta);
 
 export default route;

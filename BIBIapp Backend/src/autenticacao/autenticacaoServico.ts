@@ -1,5 +1,5 @@
 import { auth } from "../firebase/firebaseConfig";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, setPersistence, browserLocalPersistence, browserSessionPersistence } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, setPersistence, browserLocalPersistence, browserSessionPersistence, signOut } from "firebase/auth";
 import { salvarUsuario } from "../usuarios/usuarioServico";
 import { traduzirErroFirebase } from "./errosAutenticacao";
 import { log } from "console";
@@ -10,6 +10,11 @@ interface ResultadoAutenticacao {
   mensagem: string;
   token?: string;
   uid?: string;
+}
+
+export interface ResultadoLogout {
+  sucesso: boolean;
+  mensagem: string;
 }
 
 export async function cadastrarUsuario(nome: string, email: string, senha: string, confirmarSenha: string): Promise<ResultadoAutenticacao> {
@@ -50,5 +55,21 @@ export async function fazerLogin(email: string, senha: string, lembrarDeMim: boo
 
   } catch (erro: any) {
     return { sucesso: false, mensagem: traduzirErroFirebase(erro.code) };
+  }
+}
+
+export async function fazerLogout(token?: string): Promise<ResultadoLogout> {
+  try {
+    await signOut(auth);
+    return { 
+      sucesso: true, 
+      mensagem: "Logout realizado com sucesso." 
+    };
+  } catch (erro: any) {
+    console.error("Erro ao fazer logout:", erro);
+    return { 
+      sucesso: false, 
+      mensagem: traduzirErroFirebase(erro.code) || "Erro ao realizar logout." 
+    };
   }
 }
