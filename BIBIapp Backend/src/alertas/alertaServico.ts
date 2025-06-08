@@ -13,46 +13,56 @@ export const PECAS_DISPONIVEIS = [
 ];
 
 export async function cadastrarAlerta(
-    uidUsuario: string,
-    carroId: string,
-    peca: string,
-    dataUltimaTroca: string 
-  ) {
-    if (!peca || !dataUltimaTroca) {
-      return { sucesso: false, mensagem: "Peça e data são obrigatórias." };
-    }
-    if (!PECAS_DISPONIVEIS.includes(peca)) {
-      return { sucesso: false, mensagem: "Peça inválida." };
-    }
-  
-    // Validação: não permitir peça duplicada
-    const alertasRef = collection(db, "usuarios", uidUsuario, "carros", carroId, "alertas");
-    const q = query(alertasRef, where("peca", "==", peca));
-    const querySnapshot = await getDocs(q);
-    if (!querySnapshot.empty) {
-      return { sucesso: false, mensagem: "Já existe um alerta para essa peça neste carro." };
-    }
-  
-    let data;
-    try {
-      const partes = dataUltimaTroca.includes("-")
-        ? dataUltimaTroca.split("-").map(Number)
-        : dataUltimaTroca.split("/").reverse().map(Number);
-      data = Timestamp.fromDate(new Date(partes[0], partes[1] - 1, partes[2]));
-    } catch {
-      return { sucesso: false, mensagem: "Data inválida." };
-    }
-  
-    try {
-      await addDoc(alertasRef, {
-        peca,
-        dataUltimaTroca: data
-      });
-      return { sucesso: true, mensagem: "Alerta cadastrado com sucesso." };
-    } catch (e) {
-      return { sucesso: false, mensagem: "Erro ao cadastrar alerta." };
-    }
+  uidUsuario: string,
+  carroId: string,
+  peca: string,
+  dataUltimaTroca: string
+) {
+  if (!peca || !dataUltimaTroca) {
+    return { sucesso: false, mensagem: "Peça e data são obrigatórias." };
   }
+  if (!PECAS_DISPONIVEIS.includes(peca)) {
+    return { sucesso: false, mensagem: "Peça inválida." };
+  }
+
+  // Validação: não permitir peça duplicada
+  const alertasRef = collection(db, "usuarios", uidUsuario, "carros", carroId, "alertas");
+  const q = query(alertasRef, where("peca", "==", peca));
+  const querySnapshot = await getDocs(q);
+  if (!querySnapshot.empty) {
+    return { sucesso: false, mensagem: "Já existe um alerta para essa peça neste carro." };
+  }
+
+  let data;
+  try {
+    const partes = dataUltimaTroca.includes("-")
+      ? dataUltimaTroca.split("-").map(Number)
+      : dataUltimaTroca.split("/").reverse().map(Number);
+    data = Timestamp.fromDate(new Date(partes[0], partes[1] - 1, partes[2]));
+  } catch {
+    return { sucesso: false, mensagem: "Data inválida." };
+  }
+
+  try {
+    const documenta = await addDoc(alertasRef, {
+      peca,
+      dataUltimaTroca: data
+    });
+
+    const idAlerta = documenta.id;
+    console.log(idAlerta);
+    console.log(documenta.id);
+
+    return {
+      sucesso: true,
+      mensagem: "sucesso ao criar alerta",
+      idAlerta: idAlerta
+    };
+
+  } catch (e) {
+    return { sucesso: false, mensagem: "Erro ao cadastrar alerta." };
+  }
+}
 
 export async function editarDataAlerta(
   uidUsuario: string,
@@ -114,29 +124,29 @@ export async function excluirAlerta(
 }
 
 const INTERVALOS_PECA: { [key: string]: { km: number, meses: number } } = {
-  "Óleo do motor":         { km: 5000,   meses: 6 },
-  "Água do radiador":      { km: 20000,  meses: 24 },
-  "Pneus":                 { km: 40000,  meses: 36 },
-  "Pastilhas de freios":   { km: 20000,  meses: 18 },
-  "Bateria":               { km: 40000,  meses: 36 },
-  "Filtro de ar":          { km: 15000,  meses: 12 },
-  "Airbag":                { km: 100000, meses: 120 },
-  "Filtro de combustível": { km: 20000,  meses: 24 }
+  "Óleo do motor": { km: 5000, meses: 6 },
+  "Água do radiador": { km: 20000, meses: 24 },
+  "Pneus": { km: 40000, meses: 36 },
+  "Pastilhas de freios": { km: 20000, meses: 18 },
+  "Bateria": { km: 40000, meses: 36 },
+  "Filtro de ar": { km: 15000, meses: 12 },
+  "Airbag": { km: 100000, meses: 120 },
+  "Filtro de combustível": { km: 20000, meses: 24 }
 };
 
 const PESOS_MODELO_CARRO: { [modelo: string]: number } = {
-    "Corolla": 1.0,
-    "Hilux": 1.1,
-    "Onix": 0.95,
-    "S10": 1.0,
-    "DEFAULT": 1.0
+  "Corolla": 1.0,
+  "Hilux": 1.1,
+  "Onix": 0.95,
+  "S10": 1.0,
+  "DEFAULT": 1.0
 };
 
 function pesoKmSemana(mediaKmSemana: number): number {
-    if (mediaKmSemana > 400) return 1.2; // uso muito intenso
-    if (mediaKmSemana > 200) return 1.1; // uso acima da média
-    if (mediaKmSemana < 70) return 0.9;  // uso leve
-    return 1.0; // uso normal
+  if (mediaKmSemana > 400) return 1.2; // uso muito intenso
+  if (mediaKmSemana > 200) return 1.1; // uso acima da média
+  if (mediaKmSemana < 70) return 0.9;  // uso leve
+  return 1.0; // uso normal
 }
 
 export function calcularStatusAlerta(
@@ -234,7 +244,7 @@ export async function listarAlertasPorCarro(
   try {
     const alertasRef = collection(db, "usuarios", uidUsuario, "carros", carroId, "alertas");
     const querySnapshot = await getDocs(alertasRef);
-    
+
     if (querySnapshot.empty) {
       return { sucesso: false, mensagem: "Nenhum alerta encontrado para este carro.", alertas: [] };
     }
@@ -262,7 +272,7 @@ export async function buscarAlertaPorId(
     if (!alertaSnap.exists()) {
       return { sucesso: false, mensagem: "Alerta não encontrado." };
     }
-    
+
     const alerta = {
       id: alertaSnap.id,
       ...alertaSnap.data()

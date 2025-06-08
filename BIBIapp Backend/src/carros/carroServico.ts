@@ -1,7 +1,7 @@
 import { db } from "../firebase/firebaseConfig";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 
-const MARCAS_MODELOS: { [key: string]: string[] } = {
+  export const MARCAS_MODELOS: { [key: string]: string[] } = {
     "Toyota": ["Corolla", "Hilux"],
     "Chevrolet": ["Onix", "S10"]
   };
@@ -44,14 +44,24 @@ export async function cadastrarCarro(
   const imagemUrl = IMAGENS_MODELO[dados.modelo];
 
   try {
-    await addDoc(collection(db, "usuarios", uidUsuario, "carros"), {
+    const documenta = await addDoc(collection(db, "usuarios", uidUsuario, "carros"), {
       ...dados,
       imagemUrl
     });
-    return { sucesso: true, mensagem: "Carro cadastrado com sucesso." };
+
+    const idCarro = documenta.id;
+    console.log("id do carro aa", idCarro);
+    console.log(documenta.id);
+
+    return {
+      sucesso: true,
+      mensagem: "sucesso ao cadastrar carro adadasd",
+      idCarro: documenta.id
+    };
+
   } catch (e) {
     return { sucesso: false, mensagem: "Erro ao cadastrar carro." };
-  }  
+  }
 }
 
 export async function buscarCarrosPorUsuario(uidUsuario: string) {

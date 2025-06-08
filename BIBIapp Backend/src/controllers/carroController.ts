@@ -18,7 +18,7 @@ export const criarCarro = async (req: Request, res: Response) => {
         const resultado = await cadastrarCarro(uidUsuario, dadosCarro);
 
         if (resultado.sucesso) {
-            return res.status(201).json({ mensagem: resultado.mensagem });
+            return res.status(201).json(resultado);
         } else {
             return res.status(400).json({ mensagem: resultado.mensagem });
         }
@@ -31,6 +31,8 @@ export const criarCarro = async (req: Request, res: Response) => {
 export const obterCarrosPorUsuario = async (req: Request, res: Response) => {
   const { uidUsuario } = req.params;
 
+  console.log("uid capturado pela tela no Controller", uidUsuario);
+
   if (!uidUsuario) {
     return res.status(400).json({ sucesso: false, mensagem: "Parâmetro uidUsuario é obrigatório." });
   }
@@ -38,7 +40,8 @@ export const obterCarrosPorUsuario = async (req: Request, res: Response) => {
   try {
     const resultado = await buscarCarrosPorUsuario(uidUsuario);
     if (resultado.sucesso) {
-      return res.status(200).json({ sucesso: true, carros: resultado.carros });
+      console.log("resultado do controller dados do caror", resultado)
+      return res.status(200).json(resultado);
     } else {
       return res.status(500).json({ sucesso: false, mensagem: resultado.mensagem });
     }

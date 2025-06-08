@@ -1,4 +1,5 @@
 const BASE_URL = 'http://10.0.2.2:3100/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface ResultadoCadastro {
   sucesso: boolean;
@@ -13,48 +14,49 @@ interface ResultadoBusca {
   };
 }
 
-// export async function cadastrarCarro(
-//   nome: string,
-//   marca: string,
-//   modelo: string,
-//   ano: string,
-//   mediaKmSemana: string
-// ): Promise<ResultadoCadastro> {
-  //const usuario = auth.currentUser;
+export async function cadastrarCarro(
+  uidUsuario: string,
+  nome: string,
+  marca: string,
+  modelo: string,
+  ano:number,
+  mediaKmSemana: number
+): Promise<ResultadoCadastro> {
+  
 
-//   if (!usuario) {
-//     throw { sucesso: false, mensagem: 'Usuário não autenticado.' };
-//   }
+  try {
+    const response = await fetch(`${BASE_URL}/cadastroCarro`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        uidUsuario,
+        nome,
+        marca,
+        modelo,
+        ano,
+        mediaKmSemana,
+      }),
+    });
 
-  // const uidUsuario = usuario.uid; // caso você use no futuro
+    const data = await response.json();
 
-//   try {
-//     const response = await fetch(`${BASE_URL}/cadastroCarro`, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify({
-//         nome,
-//         marca,
-//         modelo,
-//         ano,
-//         mediaKmSemana,
-//       }),
-//     });
+    if (!response.ok) {
+      throw data;
+    }
 
-//     const data: ResultadoCadastro = await response.json();
+    await AsyncStorage.setItem('idCarro', data.idCarro);
+    await AsyncStorage.setItem('uid', data.uid);
 
-//     if (!response.ok) {
-//       throw data;
-//     }
+    console.log("xique xique -> ", data);
 
-//     return data;
-//   } catch (error) {
-//     console.error('Erro ao cadastrar carro:', error);
-//     throw error;
-//   }
-
+    return {sucesso: true, mensagem: "FINALMENTE BFF PORRA CARRO"};
+  } catch (error) {
+    console.error('Erro ao cadastrar carro na BFF:', error);
+    throw error;
+  }
+}
 
 export async function buscarCarros(): Promise<ResultadoBusca> {
   try {
@@ -72,6 +74,30 @@ export async function buscarCarros(): Promise<ResultadoBusca> {
     }
 
     console.log("xique xique -> " + response);
+    console.log('Resposta da API de marcas e modelos:', data);
+    return data;
+  } catch (error) {
+    console.error('Erro ao buscar marcas e modelos:', error);
+    throw error;
+  }
+}
+
+export async function buscarDadosCarroBff(uidUsuario: string,) {
+  try {
+    const response = await fetch(`${BASE_URL}/carros/${uidUsuario}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw data;
+    }
+
+    console.log('Response', response);
     console.log('Resposta da API de marcas e modelos:', data);
     return data;
   } catch (error) {

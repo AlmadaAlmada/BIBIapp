@@ -16,7 +16,6 @@ route.post('/cadastroCarro', carroController.criarCarro);
 route.get('/obterMarcasModelo', carroController.obterMarcasModelo);
 route.get('/carros/:uidUsuario', carroController.obterCarrosPorUsuario);
 
-// Rotas de Alerta
 route.post('/alertas', alertaController.criarAlerta);
 route.put('/alertas', alertaController.atualizarDataAlerta);
 route.get('/alertas/pecas-disponiveis', alertaController.obterPecasDisponiveis);
