@@ -89,7 +89,9 @@ export const style = StyleSheet.create({
     apelido2:{
         width: '100%',
         marginTop: 10,
-        flexDirection: 'column'
+        flexDirection: 'column',
+        rowGap: 5,
+        paddingVertical: 10
         
     },
     subTitle:{
@@ -100,7 +102,9 @@ export const style = StyleSheet.create({
         
     },
     acima:{
-        marginLeft: 23
+        marginLeft: 23,
+        rowGap: 20,
+        columnGap: 20
     }
 
 })

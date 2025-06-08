@@ -10,6 +10,7 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-native": "^0.79.2",
+    "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-web": "^0.20.0"
   }
 }
