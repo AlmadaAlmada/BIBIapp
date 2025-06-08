@@ -14,6 +14,9 @@ route.post('/cadastroCarro', carroController.criarCarro);
 route.get('/obterMarcasModelo', carroController.obterMarcasModelo);
 route.get('/carros/:uidUsuario', carroController.obterCarrosPorUsuario);
 
+//route.get('/carros/:uidUsuario', carroController.obterCarrosPorUsuario);
+
+
 // Rotas de Alerta - ORDEM CORRIGIDA
 route.post('/alertas', alertaController.criarAlerta);
 route.put('/alertas', alertaController.atualizarDataAlerta); 
