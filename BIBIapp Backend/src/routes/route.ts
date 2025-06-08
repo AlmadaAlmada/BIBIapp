@@ -13,17 +13,18 @@ route.post('/logoutUser', userController.logoutUsuario);
 route.post('/cadastroCarro', carroController.criarCarro);
 route.get('/obterMarcasModelo', carroController.obterMarcasModelo);
 route.get('/carros/:uidUsuario', carroController.obterCarrosPorUsuario);
-route.get('/carros/:uidUsuario', carroController.obterCarrosPorUsuario);
 
-// Rotas de Alerta
+// Rotas de Alerta - ORDEM CORRIGIDA
 route.post('/alertas', alertaController.criarAlerta);
 route.put('/alertas', alertaController.atualizarDataAlerta); 
-route.get('/alertas/:uidUsuario/:carroId/:alertaId/status', alertaController.obterStatusAlerta);
 route.get('/alertas/pecas-disponiveis', alertaController.obterPecasDisponiveis);
-route.get('/alertas/:uidUsuario/:carroId', alertaController.listarAlertasDoCarro); 
-route.get('/alertas/:uidUsuario/:carroId/:alertaId', alertaController.obterAlertaPorId); 
-route.delete('/alertas/:uidUsuario/:carroId/:alertaId', alertaController.removerAlerta);
-route.get('/alertas/:uidUsuario/:carroId/:alertaId/status', alertaController.obterStatusAlerta);
 
+// Rotas mais específicas DEVEM vir ANTES das mais genéricas
+route.get('/alertas/status/:uidUsuario/:carroId', alertaController.listarAlertasComStatus);
+route.get('/alertas/:uidUsuario/:carroId/:alertaId/status', alertaController.obterStatusAlerta);
+route.get('/alertas/:uidUsuario/:carroId/:alertaId', alertaController.obterAlertaPorId); 
+route.get('/alertas/:uidUsuario/:carroId', alertaController.listarAlertasDoCarro); 
+
+route.delete('/alertas/:uidUsuario/:carroId/:alertaId', alertaController.removerAlerta);
 
 export default route;
