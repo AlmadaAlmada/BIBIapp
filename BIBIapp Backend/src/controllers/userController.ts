@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { cadastrarUsuario, fazerLogin } from '../autenticacao/autenticacaoServico';
+import { cadastrarUsuario, fazerLogin, fazerLogout, ResultadoLogout } from '../autenticacao/autenticacaoServico';
 import { getIdToken, getIdTokenResult } from 'firebase/auth';
 
 interface ResultadoLogin {
@@ -70,7 +70,33 @@ const loginUsuario = async (req: Request, res: Response) => {
   }
 };
 
+const logoutUsuario = async (req: Request, res: Response) => {
+  try {
+    const authHeader = req.headers.authorization;
+    
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({
+        sucesso: false,
+        mensagem: 'Token de autenticação não fornecido.',
+      });
+    }
+
+    const token = authHeader.replace('Bearer ', '');
+    
+    const resultado: ResultadoLogout = await fazerLogout(token);
+
+    return res.status(resultado.sucesso ? 200 : 400).json(resultado);
+  } catch (error) {
+    console.error('Erro no controller de logout:', error);
+    return res.status(500).json({
+      sucesso: false,
+      mensagem: 'Erro interno no servidor.',
+    });
+  }
+};
+
 export default {
   criarUsuario,
   loginUsuario,
+  logoutUsuario,
 };
