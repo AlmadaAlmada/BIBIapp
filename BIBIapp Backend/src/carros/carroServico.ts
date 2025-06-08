@@ -1,5 +1,5 @@
 import { db } from "../firebase/firebaseConfig";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs } from "firebase/firestore";
 
 const MARCAS_MODELOS: { [key: string]: string[] } = {
     "Toyota": ["Corolla", "Hilux"],
@@ -54,7 +54,23 @@ export async function cadastrarCarro(
   }  
 }
 
-export const buscarCarros = () => {
+export async function buscarCarrosPorUsuario(uidUsuario: string) {
+  try {
+    const carrosSnapshot = await getDocs(collection(db, "usuarios", uidUsuario, "carros"));
+    
+    const carros: any[] = [];
+    carrosSnapshot.forEach((doc) => {
+      carros.push({ id: doc.id, ...doc.data() });
+    });
+
+    return { sucesso: true, carros };
+  } catch (error) {
+    console.error("Erro ao buscar carros do usuário:", error);
+    return { sucesso: false, mensagem: "Erro ao buscar carros do usuário." };
+  }
+}
+
+export const buscarMarcasModelos = () => {
  
     const marcas = MARCAS_MODELOS;
     const modelos =MARCAS_MODELOS;
