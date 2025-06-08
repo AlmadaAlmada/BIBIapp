@@ -18,8 +18,12 @@ import { Header } from "../../components/Header";
 import SelectBox from "../../components/SelectBox";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import { Input2 } from "../../components/Input2";
-import { buscarCarros } from "../bff/carroBff";
+import { buscarCarros, cadastrarCarro } from "../bff/carroBff";
 import { useEffect } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
+
 
 type ResultadoBusca = {
     sucesso: boolean;
@@ -37,63 +41,93 @@ export default function CadastroCarro() {
     const [marcaSelecionada, setMarcaSelecionada] = useState('');
     const [modeloSelecionado, setModeloSelecionado] = useState('');
     const navigation = useNavigation<NavigationProp<any>>();
+    const [uid, setUid] = useState<string | null>(null);
 
-   useEffect(() => {
-  const carregarCarros = async () => {
-    try {
-      const resposta = await buscarCarros();
-      if (resposta.sucesso) {
-        const nomesMarcas = Object.keys(resposta.marcas);
-        setMarcas(nomesMarcas);
-        setModelosPorMarca(resposta.modelos);
+    useEffect(() => {
+        const buscarUid = async () => {
+            const uidSalvo = await AsyncStorage.getItem('uid');
+            setUid(uidSalvo);
+        };
 
-        console.log('Marcas disponíveis:', nomesMarcas);
-        console.log('Modelos por marca:', resposta.modelos);
-
-        console.log("Estado de marcas:", marcas);
-        console.log("Estado de modelosPorMarca:", modelosPorMarca);
-
-      }
-    } catch (error) {
-      console.error('Erro ao buscar carros:', error);
-    }
-  };
-
-  carregarCarros();
-}, []);
+        buscarUid();
+    }, []);
 
 
+    useEffect(() => {
+        const carregarCarros = async () => {
+            try {
+                const resposta = await buscarCarros();
+                if (resposta.sucesso) {
+                    const nomesMarcas = Object.keys(resposta.marcas);
+                    setMarcas(nomesMarcas);
+                    setModelosPorMarca(resposta.modelos);
 
-    
+                    console.log('Marcas disponíveis:', nomesMarcas);
+                    console.log('Modelos por marca:', resposta.modelos);
+
+                    console.log("Estado de marcas:", marcas);
+                    console.log("Estado de modelosPorMarca:", modelosPorMarca);
+
+                }
+            } catch (error) {
+                console.error('Erro ao buscar carros:', error);
+            }
+        };
+
+        carregarCarros();
+    }, []);
+
 
     const [nome, setNome] = useState('');
     const [ano, setAno] = useState('');
     const [mediaKmSemana, setMediaKmSemana] = useState('');
 
-    // const salvarCarro = async () => {
-    //     if (!nome || !marcaSelecionada || !modeloSelecionado || !ano || !mediaKmSemana) {
-    //         Alert.alert('Todos os campos devem estar preenchidos !');
-    //         return;
-    //     }
+    const salvarCarro = async () => {
+        setMarcaSelecionada(marcaSelecionada);
+        setModeloSelecionado(modeloSelecionado);
 
-    //     try {
-    //         const resposta = await cadastrarCarro(nome, marcaSelecionada, modeloSelecionado, ano, mediaKmSemana);
-    //         console.log(resposta.mensagem);
+        if (!nome || !marcaSelecionada || !modeloSelecionado || !ano || !mediaKmSemana) {
+            console.log('Campos preenchidos:', {
+                nome,
+                marcaSelecionada,
+                modeloSelecionado,
+                ano,
+                mediaKmSemana
+            });
+            Alert.alert('Todos os campos devem estar preenchidos !');
+            console.log("socorro" + nome, marcaSelecionada, modeloSelecionado, ano, mediaKmSemana);
+            return;
+        }
 
-    //         if (resposta.sucesso) {
-    //             Alert.alert('Sucesso!', resposta.mensagem, [
-    //                 {
-    //                     text: 'OK',
-    //                     onPress: () => navigation.navigate('BottomRoutes')
-    //                 }
-    //             ]);
-    //         } else {
-    //             Alert.alert('Erro', resposta.mensagem);
-    //         }
-    //     } catch (error) {
-    //         Alert.alert('Erro', 'Não foi possível salvar o carro')
-    //     }
-    // }
+        console.log('Dados antes do cadastro:', {
+            uid,
+            nome,
+            marcaSelecionada,
+            modeloSelecionado,
+            ano: Number(ano),
+            mediaKmSemana: Number(mediaKmSemana)
+        });
+
+        try {
+            const resposta = await cadastrarCarro(uid!, nome, marcaSelecionada, modeloSelecionado, Number(ano), Number(mediaKmSemana));
+            console.log(resposta.mensagem);
+
+            if (resposta.sucesso) {
+                Alert.alert('Sucesso!', resposta.mensagem, [
+                    {
+                        text: 'OK',
+                        onPress: () => navigation.navigate('BottomRoutes')
+                    }
+                ]);
+
+                navigation.navigate("BottomRoutes")
+            } else {
+                Alert.alert('Erro', resposta.mensagem);
+            }
+        } catch (error) {
+            Alert.alert('Erro', 'Não foi possível salvar o carro')
+        }
+    }
 
     return (
         <SafeAreaView style={style.container}>
@@ -158,7 +192,7 @@ export default function CadastroCarro() {
                     </View>
 
                     <View style={style.done}>
-                        <TouchableOpacity style={style.button} onPress={() => console.log("ainda nao")} >
+                        <TouchableOpacity style={style.button} onPress={salvarCarro} >
                             <Text style={style.criar}>Concluído</Text>
                         </TouchableOpacity>
                     </View>
@@ -171,3 +205,5 @@ export default function CadastroCarro() {
         </SafeAreaView>
     );
 }
+
+
