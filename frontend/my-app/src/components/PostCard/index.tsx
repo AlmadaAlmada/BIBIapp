@@ -7,14 +7,8 @@ import { style } from "././styles";
 import LikeIcon from '../../assets/likeIcon.png'
 import CommenIcon from '../../assets/commenIcon.png'
 
-import Alerta from '../../pages/Alerta';
-
-import House from '../../assets/house.png'
-import Car from '../../assets/car.png'
-import Chat from '../../assets/chat.png'
-import Settings from '../../assets/settings.png'
-import Profile from '../../assets/profile.png'
-import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
+import { useNavigation } from '@react-navigation/native';
+import { NavigationProp } from '@react-navigation/native';
 
 interface Props {
   userName: string;
@@ -24,7 +18,10 @@ interface Props {
   comments: string[];
 }
 
+
 export const PostCard = ({ userName, userImage, content, postImage, comments }: Props) => {
+  
+  const navigation = useNavigation<NavigationProp<any>>();
   return (
     <View style={style.card}>
 
@@ -43,8 +40,9 @@ export const PostCard = ({ userName, userImage, content, postImage, comments }: 
         <TouchableOpacity>
           <Image source={LikeIcon} style={style.likeIcon} />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("ModalComent")}>
           <Image source={CommenIcon} style={style.commenIcon} />
+
         </TouchableOpacity>
         <TouchableOpacity style={{ marginLeft: "auto" }}>
           <Text style={style.icon}></Text>

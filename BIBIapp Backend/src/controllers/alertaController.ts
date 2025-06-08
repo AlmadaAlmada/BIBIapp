@@ -204,6 +204,73 @@ const obterStatusAlertaPorId = async (req: Request, res: Response) => {
   }
 };
 
+const listarAlertasComStatus = async (req: Request, res: Response) => {
+  const { uidUsuario, carroId } = req.params;
+
+  if (!uidUsuario || !carroId) {
+    return res.status(400).json({
+      sucesso: false,
+      mensagem: 'UID do usuário e ID do carro são obrigatórios.',
+    });
+  }
+
+  try {
+    const { sucesso, alertas, mensagem } = await listarAlertasPorCarro(uidUsuario, carroId);
+
+    if (!sucesso || !alertas) {
+      return res.status(404).json({ sucesso: false, mensagem });
+    }
+
+    // Processar cada alerta com seu status
+
+    const alertasComStatus = await Promise.all(alertas.map(async (alerta: any) => {
+      try {
+        // Tente diferentes possibilidades para o ID do alerta
+        const alertaId = alerta.id || alerta.alertaId || alerta.key || alerta.documentId;
+        
+        if (!alertaId) {
+          console.error('ID do alerta não encontrado:', alerta);
+          return {
+            ...alerta,
+            dataUltimaTroca: new Date(alerta.dataUltimaTroca.seconds * 1000).toISOString(),
+            status: null,
+            kmRestante: null,
+            mesesRestantes: null,
+            erro: 'ID do alerta não encontrado'
+          };
+        }
+
+        const status = await StatusAlertaPorId(uidUsuario, carroId, alertaId);
+
+        return {
+          ...alerta,
+          dataUltimaTroca: new Date(alerta.dataUltimaTroca.seconds * 1000).toISOString(),
+          status: 'erro' in status ? null : status.status,
+          kmRestante: 'erro' in status ? null : status.kmRestante,
+          mesesRestantes: 'erro' in status ? null : status.mesesRestantes,
+        };
+      } catch (error) {
+        console.error('Erro ao processar alerta:', alerta, error);
+        return {
+          ...alerta,
+          dataUltimaTroca: new Date(alerta.dataUltimaTroca.seconds * 1000).toISOString(),
+          status: null,
+          kmRestante: null,
+          mesesRestantes: null,
+          erro: 'Erro ao calcular status'
+        };
+      }
+    }));
+
+    return res.status(200).json({ sucesso: true, alertas: alertasComStatus });
+  } catch (error) {
+    console.error('Erro ao listar alertas com status:', error);
+    return res.status(500).json({
+      sucesso: false,
+      mensagem: 'Erro interno no servidor ao listar alertas com status.',
+    });
+  }
+};
 
 export default {
   criarAlerta,
@@ -212,5 +279,6 @@ export default {
   obterStatusAlerta,
   obterPecasDisponiveis,
   listarAlertasDoCarro,
-  obterAlertaPorId  
+  obterAlertaPorId,
+  listarAlertasComStatus,
 };
