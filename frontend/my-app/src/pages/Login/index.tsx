@@ -69,6 +69,7 @@ const handleLoginAPI = async () => {
                     value={senha}
                     onChangeText={setSenha}
                     backgroundColor=""
+                    secureTextEntry
                 >
                 </Input>
                 <View style={style.boxButton}>

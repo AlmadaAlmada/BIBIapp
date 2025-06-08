@@ -9,7 +9,7 @@ route.post('/cadastroUser', userController.criarUsuario);
 route.post('/loginUser', userController.loginUsuario);
 
 // Rotas de carro
-route.post('/criarCarro', carroController.criarCarro);
+route.post('/cadastroCarro', carroController.criarCarro);
 route.get('/obterMarcasModelo', carroController.obterMarcasModelo);
 
 // Rotas de Alerta
