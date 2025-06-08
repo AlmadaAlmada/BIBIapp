@@ -25,37 +25,37 @@ export default function Cadastro() {
 
 
     const handleCadastroAPI = async () => {
-    if (!nome || !email || !senha || !confirmarSenha) {
-        Alert.alert("Atenção", "Por favor, preencha todos os campos.");
-        return;
-    }
-    if (senha !== confirmarSenha) {
-        Alert.alert("Atenção", "As senhas não coincidem.");
-        return;
-    }
-
-    try {
-        const resultado = await cadastrarUsuario(nome, email, senha, confirmarSenha);
-
-        console.log(resultado.mensagem);
-
-        if (resultado.sucesso) {
-            Alert.alert('Sucesso', resultado.mensagem, [
-                {
-                    text: 'OK',
-                    onPress: () => navigation.navigate('Login')  // ← redireciona para a Home
-                }
-            ]);
-        } else {
-            Alert.alert('Erro', resultado.mensagem);
+        if (!nome || !email || !senha || !confirmarSenha) {
+            Alert.alert("Atenção", "Por favor, preencha todos os campos.");
+            return;
         }
-    } catch (error) {
-        Alert.alert('Erro', 'Erro inesperado');
-    }
-};
+        if (senha !== confirmarSenha) {
+            Alert.alert("Atenção", "As senhas não coincidem.");
+            return;
+        }
+
+        try {
+            const resultado = await cadastrarUsuario(nome, email, senha, confirmarSenha);
+
+            console.log(resultado.mensagem);
+
+            if (resultado.sucesso) {
+                Alert.alert('Sucesso', resultado.mensagem, [
+                    {
+                        text: 'OK',
+                        onPress: () => navigation.navigate('Login')  // ← redireciona para a Home
+                    }
+                ]);
+            } else {
+                Alert.alert('Erro', resultado.mensagem);
+            }
+        } catch (error) {
+            Alert.alert('Erro', 'Erro inesperado');
+        }
+    };
 
 
-     return (
+    return (
         <View style={style.container}>
             <View style={style.boxTop}>
                 <Title title="Create an account"></Title>
@@ -76,13 +76,13 @@ export default function Cadastro() {
                 <Input
                     placeholder="confirm password"
                     value={confirmarSenha}
-                    onChangeText={setConfirmarSenha} 
+                    onChangeText={setConfirmarSenha}
                     secureTextEntry></Input>
                 <View style={style.boxButton}>
-                    <TouchableOpacity style={style.button} 
+                    <TouchableOpacity style={style.button}
                         onPress={handleCadastroAPI}
-                        
-                        >
+
+                    >
                         <Text style={style.criar}>Concluído</Text>
                     </TouchableOpacity>
                 </View>

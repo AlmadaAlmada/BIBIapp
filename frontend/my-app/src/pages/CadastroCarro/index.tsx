@@ -32,7 +32,7 @@ type ResultadoBusca = {
 };
 
 
-export default function CadastroCarro() {
+export default function CadastrarCarro() {
 
     const [marcas, setMarcas] = useState<string[]>([]);
     const [modelosPorMarca, setModelosPorMarca] = useState<{ [key: string]: string[] }>({});
@@ -82,6 +82,7 @@ export default function CadastroCarro() {
     const [ano, setAno] = useState('');
     const [mediaKmSemana, setMediaKmSemana] = useState('');
 
+
     const salvarCarro = async () => {
         setMarcaSelecionada(marcaSelecionada);
         setModeloSelecionado(modeloSelecionado);
@@ -128,6 +129,7 @@ export default function CadastroCarro() {
             Alert.alert('Erro', 'Não foi possível salvar o carro')
         }
     }
+
 
     return (
         <SafeAreaView style={style.container}>
