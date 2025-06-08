@@ -49,7 +49,7 @@ const loginUsuario = async (req: Request, res: Response) => {
 
   try {
     const resultado: ResultadoLogin = await fazerLogin(email, senha, lembrarDeMim);
-
+    
 
     if (resultado.sucesso) {
       return res.status(200).json({

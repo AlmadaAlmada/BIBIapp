@@ -29,7 +29,13 @@ export const criarCarro = async (req: Request, res: Response) => {
 
 export const obterMarcasModelo = async(req: Request, res: Response) => {
     const resultado = buscarCarros();
-    return res.status(200).json(resultado);
+    if(resultado.sucesso){
+        return res.status(200).json({
+        sucesso: true,
+        marcas: resultado.marcas,
+        modelos: resultado.modelos, 
+      });
+    }
 }
 
 export default{
