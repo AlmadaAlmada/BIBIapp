@@ -26,69 +26,71 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
-const handleLoginAPI = async () => {
-    if (!email || !senha) {
-        Alert.alert("Atenção", "Por favor, preencha todos os campos.");
-        return;
-    }
-
-    try {
-        const resultado = await loginUsuario(email, senha);
-
-        console.log(resultado.mensagem);
-
-        if (resultado.sucesso) {
-            Alert.alert('Sucesso', resultado.mensagem, [
-                {
-                    text: 'OK',
-                    onPress: () => navigation.navigate('BottomRoutes') // 🔥 Redireciona para a Home
-                }
-            ]);
-        } else {
-            Alert.alert('Erro', resultado.mensagem);
+    const handleLoginAPI = async () => {
+        if (!email || !senha) {
+            Alert.alert("Atenção", "Por favor, preencha todos os campos.");
+            return;
         }
-    } catch (error) {
-        Alert.alert('Erro', 'Erro inesperado');
-    }
-};
+
+        try {
+            const resultado = await loginUsuario(email, senha);
+
+            console.log(resultado.mensagem);
+
+            if (resultado.sucesso) {
+                Alert.alert('Sucesso', resultado.mensagem, [
+                    {
+                        text: 'OK',
+                        onPress: () => navigation.navigate('BottomRoutes') // 🔥 Redireciona para a Home
+                    }
+                ]);
+            } else {
+                Alert.alert('Erro', resultado.mensagem);
+            }
+        } catch (error) {
+            Alert.alert('Erro', 'Erro inesperado');
+        }
+    };
 
     return (
-         
+
         <SafeAreaView style={style.container}>
             <View style={style.boxTop}>
                 <Title title="Login"></Title>
             </View>
+
+
             <View style={style.boxMid}>
-                <Input placeholder="email@domain.com"
-                    value={email}
-                    onChangeText={setEmail}
-                    backgroundColor=""
-                >
-                </Input>
-                <Input placeholder="password"
-                    value={senha}
-                    onChangeText={setSenha}
-                    backgroundColor=""
-                    secureTextEntry
-                >
-                </Input>
+                <View style={style.inputGroup}>
+                    <Text>Email:</Text>
+                    <Input placeholder="email@domain.com"
+                        value={email}
+                        onChangeText={setEmail}
+                    >
+                    </Input>
+                </View>
+                <View style={style.inputGroup}>
+                    <Text>Senha:</Text>
+                    <Input placeholder="password"
+                        value={senha}
+                        onChangeText={setSenha}
+                        secureTextEntry
+                    >
+                    </Input>
+                </View>
+
+
                 <View style={style.boxButton}>
                     <TouchableOpacity style={style.button} onPress={handleLoginAPI}>
                         <Text style={style.criar}>Concluído</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={style.button2} onPress={()=> navigation.navigate("Cadastro") }>
+                    <TouchableOpacity style={style.button2} onPress={() => navigation.navigate("Cadastro")}>
                         <View>
                             <Text style={style.criar2}>Criar conta</Text>
                         </View>
-                        
+
                     </TouchableOpacity>
                 </View>
-                <Or></Or>
-            </View>
-
-            <View style={style.boxBottom}>
-                <Google></Google>
-
             </View>
         </SafeAreaView>
     );
