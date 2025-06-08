@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Text, View, Image, TextInput, Button, TouchableOpacity, Alert, Modal } from 'react-native';
 
@@ -15,6 +15,7 @@ import { Card } from "../../components/Card";
 import { themas } from "../../global/themes";
 import { ModalEdit } from "../../components/ModalEdit";
 import { ModalCreate } from "../../components/ModalCreate";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function TestModal2() {
 

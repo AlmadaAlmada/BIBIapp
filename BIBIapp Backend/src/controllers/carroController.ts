@@ -17,7 +17,7 @@ export const criarCarro = async (req: Request, res: Response) => {
         const resultado = await cadastrarCarro(uidUsuario, dadosCarro);
 
         if (resultado.sucesso) {
-            return res.status(201).json({ mensagem: resultado.mensagem });
+            return res.status(201).json(resultado);
         } else {
             return res.status(400).json({ mensagem: resultado.mensagem });
         }
