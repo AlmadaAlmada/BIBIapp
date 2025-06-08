@@ -1,7 +1,9 @@
 import { Router } from 'express';
 import userController from '../controllers/userController';
 import carroController from '../controllers/carroController';
-import alertaController from '../controllers/alertaController'; 
+import alertaController from '../controllers/alertaController';
+import forumController from '../controllers/forumController';
+
 const route = Router();
 
 // Rotas de usuário
@@ -14,20 +16,24 @@ route.post('/cadastroCarro', carroController.criarCarro);
 route.get('/obterMarcasModelo', carroController.obterMarcasModelo);
 route.get('/carros/:uidUsuario', carroController.obterCarrosPorUsuario);
 
-//route.get('/carros/:uidUsuario', carroController.obterCarrosPorUsuario);
-
-
-// Rotas de Alerta - ORDEM CORRIGIDA
 route.post('/alertas', alertaController.criarAlerta);
-route.put('/alertas', alertaController.atualizarDataAlerta); 
+route.put('/alertas', alertaController.atualizarDataAlerta);
 route.get('/alertas/pecas-disponiveis', alertaController.obterPecasDisponiveis);
-
-// Rotas mais específicas DEVEM vir ANTES das mais genéricas
 route.get('/alertas/status/:uidUsuario/:carroId', alertaController.listarAlertasComStatus);
 route.get('/alertas/:uidUsuario/:carroId/:alertaId/status', alertaController.obterStatusAlerta);
-route.get('/alertas/:uidUsuario/:carroId/:alertaId', alertaController.obterAlertaPorId); 
-route.get('/alertas/:uidUsuario/:carroId', alertaController.listarAlertasDoCarro); 
-
+route.get('/alertas/:uidUsuario/:carroId/:alertaId', alertaController.obterAlertaPorId);
+route.get('/alertas/:uidUsuario/:carroId', alertaController.listarAlertasDoCarro);
 route.delete('/alertas/:uidUsuario/:carroId/:alertaId', alertaController.removerAlerta);
+
+// Rotas do Fórum
+route.post('/posts', forumController.criarPost);
+route.get('/posts/all', forumController.listarTodosPosts);
+route.get('/posts/search', forumController.pesquisarPosts);
+route.get('/posts/:userId', forumController.listarPosts);
+route.delete('/posts/:userId/:postId', forumController.excluirPost);
+
+route.post('/posts/:postAutorId/:postId/comments', forumController.comentar);
+route.get('/posts/:postAutorId/:postId/comments', forumController.listarComentarios);
+route.delete('/posts/:postAutorId/:postId/comments/:commentId', forumController.excluirComentario);
 
 export default route;
