@@ -1,7 +1,7 @@
 //const { cadastrarCarro } = require('../../src/carros/carroServico');
 //import { auth } from '../firebase/firebaseConfig.ts';
 import { Request, Response } from 'express';
-import { cadastrarCarro, buscarCarros } from '../carros/carroServico.js';
+import { cadastrarCarro, buscarCarros } from '../carros/carroServico';
 
 
 export const criarCarro = async (req: Request, res: Response) => {

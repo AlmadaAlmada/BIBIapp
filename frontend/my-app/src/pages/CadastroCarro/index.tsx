@@ -18,11 +18,11 @@ import { Header } from "../../components/Header";
 import SelectBox from "../../components/SelectBox";
 import { ScrollView } from "react-native-gesture-handler";
 import { Input2 } from "../../components/Input2";
-import { cadastroCarro, buscarCarros } from "../services/carroService";
+import { cadastrarCarro, buscarCarros } from "../bff/carroBff";
 import { useEffect } from "react";
 
 
-export default function CadastroCarro() {
+export default function CadastrarCarro() {
 
     const [marcas, setMarcas] = useState<string[]>([]);
     const [modelosPorMarca, setModelosPorMarca] = useState<{ [key: string]: string[] }>({});
@@ -60,7 +60,7 @@ export default function CadastroCarro() {
         }
 
         try {
-            const resposta = await cadastroCarro(nome, marcaSelecionada, modeloSelecionado, ano, mediaKmSemana);
+            const resposta = await cadastrarCarro(nome, marcaSelecionada, modeloSelecionado, ano, mediaKmSemana);
             console.log(resposta.mensagem);
 
             if (resposta.sucesso) {

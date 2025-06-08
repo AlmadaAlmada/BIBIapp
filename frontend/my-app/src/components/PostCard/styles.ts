@@ -38,11 +38,11 @@ export const style = StyleSheet.create({
     marginVertical: 10,
   },
   actions: {
-    width: '90%',
-    gap: '90%',
+    width: '80%',
+    gap: '100%',
     flexDirection: "row",
     margin: 10,
-    paddingHorizontal: 20
+    paddingHorizontal: 15
   },
   icon: {
     fontSize: 20,
