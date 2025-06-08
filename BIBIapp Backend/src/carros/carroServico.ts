@@ -1,7 +1,7 @@
 import { db } from "../firebase/firebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 
-const MARCAS_MODELOS: { [key: string]: string[] } = {
+  export const MARCAS_MODELOS: { [key: string]: string[] } = {
     "Toyota": ["Corolla", "Hilux"],
     "Chevrolet": ["Onix", "S10"]
   };
@@ -61,7 +61,7 @@ export async function cadastrarCarro(
 
   } catch (e) {
     return { sucesso: false, mensagem: "Erro ao cadastrar carro." };
-  }  
+  }
 }
 
 export const buscarCarros = () => {
