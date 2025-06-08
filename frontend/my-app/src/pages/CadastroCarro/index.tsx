@@ -28,7 +28,7 @@ type ResultadoBusca = {
 };
 
 
-export default function CadastroCarro() {
+export default function CadastrarCarro() {
 
     const [marcas, setMarcas] = useState<string[]>([]);
     const [modelosPorMarca, setModelosPorMarca] = useState<{ [key: string]: string[] }>({});
@@ -69,6 +69,7 @@ export default function CadastroCarro() {
     const [nome, setNome] = useState('');
     const [ano, setAno] = useState('');
     const [mediaKmSemana, setMediaKmSemana] = useState('');
+
 
     // const salvarCarro = async () => {
     //     if (!nome || !marcaSelecionada || !modeloSelecionado || !ano || !mediaKmSemana) {

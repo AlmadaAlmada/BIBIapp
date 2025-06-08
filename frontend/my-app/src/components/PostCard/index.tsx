@@ -1,8 +1,8 @@
 import React, { forwardRef, useState, LegacyRef } from "react";
 
-import { Text, View, Image, TextInput, Button, TouchableOpacity, Alert, TextInputProps, ImageSourcePropType } from 'react-native';
+import { Text, View, Image, TextInput, Button, TouchableOpacity, Alert, TextInputProps, ImageSourcePropType, StyleProp, ViewStyle } from 'react-native';
 
-import {style} from "././styles";
+import { style } from "././styles";
 
 import LikeIcon from '../../assets/likeIcon.png'
 import CommenIcon from '../../assets/commenIcon.png'
@@ -27,18 +27,18 @@ interface Props {
 export const PostCard = ({ userName, userImage, content, postImage, comments }: Props) => {
   return (
     <View style={style.card}>
-     
+
       <View style={style.header}>
         <Image source={userImage} style={style.userImage} />
         <Text style={style.userName}>{userName}</Text>
       </View>
 
-     
+
       <Text style={style.content}>{content}</Text>
 
       {postImage && <Image source={postImage} style={style.postImage} />}
 
-  
+
       <View style={style.actions}>
         <TouchableOpacity>
           <Image source={LikeIcon} style={style.likeIcon} />
@@ -60,4 +60,3 @@ export const PostCard = ({ userName, userImage, content, postImage, comments }: 
     </View>
   );
 };
-
