@@ -47,6 +47,7 @@ export async function cadastrarCarro(
     }
 
     await AsyncStorage.setItem('idCarro', data.idCarro);
+    await AsyncStorage.setItem('uid', data.uid);
 
     console.log("xique xique -> ", data);
 
@@ -73,6 +74,30 @@ export async function buscarCarros(): Promise<ResultadoBusca> {
     }
 
     console.log("xique xique -> " + response);
+    console.log('Resposta da API de marcas e modelos:', data);
+    return data;
+  } catch (error) {
+    console.error('Erro ao buscar marcas e modelos:', error);
+    throw error;
+  }
+}
+
+export async function buscarDadosCarroBff(uidUsuario: string,) {
+  try {
+    const response = await fetch(`${BASE_URL}/carros/${uidUsuario}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw data;
+    }
+
+    console.log('Response', response);
     console.log('Resposta da API de marcas e modelos:', data);
     return data;
   } catch (error) {

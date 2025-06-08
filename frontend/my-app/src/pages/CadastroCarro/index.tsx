@@ -117,7 +117,7 @@ export default function CadastrarCarro() {
                 Alert.alert('Sucesso!', resposta.mensagem, [
                     {
                         text: 'OK',
-                        onPress: () => navigation.navigate('BottomRoutes')
+                        onPress: () => navigation.navigate('Login')
                     }
                 ]);
 

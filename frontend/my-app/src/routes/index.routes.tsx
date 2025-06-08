@@ -9,6 +9,7 @@ import TestModal from "../pages/TestModal";
 import TestModal2 from "../pages/TestModal2";
 import Cadastro from "../pages/Cadastro";
 import PostModal from "../pages/PostModal";
+import Inicial from "../pages/Inicial";
 
 
 
@@ -40,6 +41,8 @@ export default function Routes(){
             <Stack.Screen name="Cadastro" component={Cadastro} />
 
             <Stack.Screen name="PostModal" component={PostModal} />
+
+            <Stack.Screen name="Inicial" component={Inicial} />
 
         </Stack.Navigator>
     )
