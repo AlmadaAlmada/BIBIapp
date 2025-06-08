@@ -12,6 +12,8 @@ route.post('/logoutUser', userController.logoutUsuario);
 // Rotas de carro
 route.post('/cadastroCarro', carroController.criarCarro);
 route.get('/obterMarcasModelo', carroController.obterMarcasModelo);
+route.get('/carros/:uidUsuario', carroController.obterCarrosPorUsuario);
+route.get('/carros/:uidUsuario', carroController.obterCarrosPorUsuario);
 
 // Rotas de Alerta
 route.post('/alertas', alertaController.criarAlerta);

@@ -1,7 +1,8 @@
 //const { cadastrarCarro } = require('../../src/carros/carroServico');
 //import { auth } from '../firebase/firebaseConfig.ts';
 import { Request, Response } from 'express';
-import { cadastrarCarro, buscarCarros } from '../carros/carroServico';
+import { cadastrarCarro, buscarMarcasModelos, buscarCarrosPorUsuario} from '../carros/carroServico';
+
 
 
 export const criarCarro = async (req: Request, res: Response) => {
@@ -27,8 +28,27 @@ export const criarCarro = async (req: Request, res: Response) => {
     }
 }
 
+export const obterCarrosPorUsuario = async (req: Request, res: Response) => {
+  const { uidUsuario } = req.params;
+
+  if (!uidUsuario) {
+    return res.status(400).json({ sucesso: false, mensagem: "Parâmetro uidUsuario é obrigatório." });
+  }
+
+  try {
+    const resultado = await buscarCarrosPorUsuario(uidUsuario);
+    if (resultado.sucesso) {
+      return res.status(200).json({ sucesso: true, carros: resultado.carros });
+    } else {
+      return res.status(500).json({ sucesso: false, mensagem: resultado.mensagem });
+    }
+  } catch (error: any) {
+    return res.status(500).json({ sucesso: false, mensagem: "Erro interno do servidor.", erro: error.message });
+  }
+};
+
 export const obterMarcasModelo = async(req: Request, res: Response) => {
-    const resultado = buscarCarros();
+    const resultado = buscarMarcasModelos();
     if(resultado.sucesso){
         return res.status(200).json({
         sucesso: true,
@@ -41,4 +61,5 @@ export const obterMarcasModelo = async(req: Request, res: Response) => {
 export default{
     criarCarro,
     obterMarcasModelo,
+    obterCarrosPorUsuario,
 }
