@@ -23,5 +23,7 @@ route.get('/alertas/pecas-disponiveis', alertaController.obterPecasDisponiveis);
 route.get('/alertas/:uidUsuario/:carroId', alertaController.listarAlertasDoCarro); 
 route.get('/alertas/:uidUsuario/:carroId/:alertaId', alertaController.obterAlertaPorId); 
 route.delete('/alertas/:uidUsuario/:carroId/:alertaId', alertaController.removerAlerta);
+route.get('/alertas/:uidUsuario/:carroId/:alertaId/status', alertaController.obterStatusAlerta);
+
 
 export default route;

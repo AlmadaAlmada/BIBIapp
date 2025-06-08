@@ -148,27 +148,37 @@ export function calcularStatusAlerta(
   const intervalo = INTERVALOS_PECA[peca];
   if (!intervalo) return { status: "ok", kmRestante: Infinity, mesesRestantes: Infinity };
 
-  // Pesos
+  console.log("ENTRADA calcularStatusAlerta:", {
+    peca,
+    dataUltimaTroca,
+    mediaKmSemana,
+    modeloCarro
+  });
+
+  // Validação da data
+  if (!(dataUltimaTroca instanceof Date) || isNaN(dataUltimaTroca.getTime())) {
+    console.error("Data inválida em calcularStatusAlerta:", dataUltimaTroca);
+    return { status: "ok", kmRestante: Infinity, mesesRestantes: Infinity };
+  }
+
   const pesoModelo = PESOS_MODELO_CARRO[modeloCarro] ?? PESOS_MODELO_CARRO.DEFAULT;
   const pesoKm = pesoKmSemana(mediaKmSemana);
 
-  // Ajuste dos intervalos
   const kmLimiteAjustado = intervalo.km / (pesoModelo * pesoKm);
   const mesesLimiteAjustado = intervalo.meses / pesoModelo;
 
-  // Calcula semanas desde a última troca
   const agora = new Date();
   const msPorSemana = 1000 * 60 * 60 * 24 * 7;
   const semanas = Math.floor((agora.getTime() - dataUltimaTroca.getTime()) / msPorSemana);
 
-  // Estimativas
   const kmRodados = semanas * mediaKmSemana;
   const mesesPassados = (agora.getFullYear() - dataUltimaTroca.getFullYear()) * 12 + (agora.getMonth() - dataUltimaTroca.getMonth());
 
   const kmRestante = kmLimiteAjustado - kmRodados;
   const mesesRestantes = mesesLimiteAjustado - mesesPassados;
 
-  // Critérios de alerta
+  console.log(`Km restante: ${kmRestante}, Meses restantes: ${mesesRestantes}`);
+
   const limiteKmRecomendado = kmLimiteAjustado * 0.15;
   const limiteMesesRecomendado = mesesLimiteAjustado * 0.15;
 
@@ -193,21 +203,29 @@ export async function StatusAlertaPorId(
       return { erro: "Alerta não encontrado." };
     }
     const alerta = alertaSnap.data();
+
     const carroRef = doc(db, "usuarios", uidUsuario, "carros", carroId);
     const carroSnap = await getDoc(carroRef);
     if (!carroSnap.exists()) {
       return { erro: "Carro não encontrado." };
     }
     const carro = carroSnap.data();
+
     const peca = alerta.peca;
-    const dataUltimaTroca = new Date(alerta.dataUltimaTroca);
+    const dataUltimaTroca = typeof alerta.dataUltimaTroca?.toDate === "function"
+      ? alerta.dataUltimaTroca.toDate()
+      : new Date(alerta.dataUltimaTroca);
+
     const mediaKmSemana = carro.mediaKmSemana;
     const modeloCarro = carro.modelo;
+
     return calcularStatusAlerta(peca, dataUltimaTroca, mediaKmSemana, modeloCarro);
   } catch (e) {
+    console.error("Erro em StatusAlertaPorId:", e);
     return { erro: "Erro ao calcular status do alerta." };
   }
 }
+
 
 export async function listarAlertasPorCarro(
   uidUsuario: string,

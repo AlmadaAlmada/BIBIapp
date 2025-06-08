@@ -177,6 +177,33 @@ const obterAlertaPorId = async (req: Request, res: Response) => {
   }
 };
 
+const obterStatusAlertaPorId = async (req: Request, res: Response) => {
+  const { uidUsuario, carroId, alertaId } = req.params;
+
+  if (!uidUsuario || !carroId || !alertaId) {
+    return res.status(400).json({
+      sucesso: false,
+      mensagem: 'UID do usuário, ID do carro e ID do alerta são obrigatórios.',
+    });
+  }
+
+  try {
+    const resultado = await StatusAlertaPorId(uidUsuario, carroId, alertaId);
+
+    if ('erro' in resultado) {
+      return res.status(404).json({ sucesso: false, mensagem: resultado.erro });
+    }
+
+    return res.status(200).json({ sucesso: true, ...resultado });
+  } catch (error) {
+    console.error('Erro ao obter status do alerta por ID:', error);
+    return res.status(500).json({
+      sucesso: false,
+      mensagem: 'Erro interno no servidor ao obter status do alerta por ID.',
+    });
+  }
+};
+
 
 export default {
   criarAlerta,
