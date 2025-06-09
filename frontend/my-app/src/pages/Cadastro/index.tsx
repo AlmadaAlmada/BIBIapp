@@ -38,8 +38,6 @@ export default function Cadastro() {
         try {
             const resultado = await cadastrarUsuario(nome, email, senha, confirmarSenha);
 
-            console.log(resultado.mensagem);
-
             if (resultado.sucesso) {
                 Alert.alert('Sucesso', resultado.mensagem, [
                     {

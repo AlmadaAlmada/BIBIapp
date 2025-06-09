@@ -10,6 +10,7 @@ const route = Router();
 route.post('/cadastroUser', userController.criarUsuario);
 route.post('/loginUser', userController.loginUsuario);
 route.post('/logoutUser', userController.logoutUsuario);
+route.put('/atualizarUser', userController.atualizarUsuario);
 
 // Rotas de carro
 route.post('/cadastroCarro', carroController.criarCarro);
