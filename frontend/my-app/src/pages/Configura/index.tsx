@@ -27,52 +27,66 @@ import { logoutUsuario } from "../bff/userBff";
 import AsyncStorage from "@react-native-async-storage/async-storage"; 
 
 export default function Configura() {
-  const navigation = useNavigation<NavigationProp<any>>();
+    const navigation = useNavigation<NavigationProp<any>>();
 
-  const handleLogout = async () => {
-    try {
-      const resultado = await logoutUsuario();
-      Alert.alert("Sucesso", resultado.mensagem);
 
-      await AsyncStorage.removeItem("uid");
 
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'Login' }],
-      });
+    return (
+        <SafeAreaView style={style.container}>
+            <View style={style.boxTop}>
+                {/* Header component */}
+                <Header title="Configurações" onIconLeftPress={() => navigation.goBack()}></Header>
+            </View>
+            <View style={style.boxMid}>
+                {/* Wrap CustomBtns in a View with the settingsBlock style */}
+                <View style={style.settingsBlock}>
+                    <View style={style.abaixa}>
+                        <View style={style.btn}>
+                            <CustomBtn
+                                imageLeft={Car2}
+                                subtitle="Adicionar carro"
+                                goToo="CadastroCarro"
+                            >
+                            </CustomBtn>
+                        </View>
+                        <View style={style.btn}>
+                            <CustomBtn
+                                imageLeft={Sino}
+                                subtitle="Notificações"
+                            >
+                            </CustomBtn>
+                        </View>
+                        <View style={style.btn}>
+                            <CustomBtn
+                                imageLeft={Engrena}
+                                subtitle="Conta"
+                            >
+                            </CustomBtn>
+                        </View>
+                        <View style={style.btn}>
 
-    } catch (error: any) {
-      Alert.alert("Erro", error?.mensagem || "Erro ao deslogar.");
-    }
-  };
+                            <CustomBtn
+                                imageLeft={World}
+                                subtitle="Idioma"
+                            >
+                            </CustomBtn>
+                        </View>
+                        <View style={style.btn}>
+                            <CustomBtn
+                                imageLeft={Lock}
+                                subtitle="Privacidade"
+                            >
+                            </CustomBtn>
+                        </View>
+                    </View>
+                </View>
 
-  return (
-    <SafeAreaView style={style.container}>
-      <View style={style.boxTop}>
-        <Header title="Configurações" />
-      </View>
-
-      <View style={style.boxMid}>
-        <View style={style.abaixa}>
-          <CustomBtn
-            imageLeft={Car2}
-            subtitle="Adicionar carro"
-            imageRight={Car2}
-            left={-80}
-            goToo="CadastroCarro"
-          />
-
-          <CustomBtn
-            imageLeft={logout}
-            subtitle="Sair da conta"
-            imageRight={logout}
-            left={-94}
-            onPress={handleLogout}
-          />
-        </View>
-      </View>
-
-      <View style={style.boxBottom} />
-    </SafeAreaView>
-  );
+                {/* Bottom text links */}
+                <View style={style.bottomTextContainer}>
+                    <Text style={style.bottomText}>Políticas de Privacidade - Termos de serviço</Text>
+                    <Text style={style.bottomText}>Declaração de acessibilidade</Text>
+                </View>
+            </View>
+        </SafeAreaView>
+    );
 }

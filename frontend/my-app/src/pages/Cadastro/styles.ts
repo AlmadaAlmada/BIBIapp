@@ -3,20 +3,22 @@ import { themas } from "../../global/themes";
 import { Input } from "../../components/Input";
 
 export const style = StyleSheet.create({
-     container: {
+    container: {
         flex: 1,
+        alignItems: 'center',
+        justifyContent: 'flex-start',
     },
     boxTop: {
-        flexDirection: 'column',
+        width: '100%',
         alignItems: 'center',
-        paddingTop: 60,
-        paddingBottom: 50,
+        justifyContent: 'flex-start',
+        marginTop: 40,
     },
-       buttonTitle: {
+    buttonTitle: {
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 20,
-        marginBottom: 30,          
+        marginVertical: 30,
     },
     backIcon: {
         width: 30,
@@ -29,42 +31,45 @@ export const style = StyleSheet.create({
         flex: 1,
         textAlign: 'center',
         marginRight: 40,
-        alignSelf:'center', 
+        alignSelf: 'center',
     },
     pageSubtitle: {
         fontSize: 20,
         fontWeight: '700',
         color: themas.colors.primary,
-        marginVertical: 20, 
+        marginVertical: 20,
     },
     inputGroup: {
-        width: '100%',
+        width: '95%',
         marginBottom: 20,
-        alignSelf:'stretch',
     },
     inputLabel: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: '#333', 
+        color: '#333',
         marginBottom: 5,
+        left: 10,
     },
     boxMid: {
         width: '100%',
+        marginTop:'15%',
         paddingHorizontal: 10,
+        alignItems: 'center',
     },
     boxBottom: {
         width: '100%',
     },
     boxButton: {
-        flexDirection: 'row',
-        columnGap: 30,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 20,
     },
     button: {
         backgroundColor: themas.colors.primary,
         borderRadius: 14,
         padding: 10,
-        paddingRight: 134,
-        paddingLeft: 134
+        paddingVertical: 12,
+        paddingHorizontal: '30%',
     },
     criar: {
         fontWeight: 'bold',

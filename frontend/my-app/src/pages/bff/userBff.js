@@ -1,4 +1,4 @@
-const BASE_URL = 'http://10.0.2.2:3100/api'; // 🔥 Coloque seu IP e porta corretos
+const BASE_URL = 'http://192.168.3.6:3100/api'; // 🔥 Coloque seu IP e porta corretos
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -20,8 +20,11 @@ export async function cadastrarUsuario(nome, email, senha, confirmarSenha) {
         const data = await response.json();
 
         if (!response.ok) {
-            throw data;
+            throw data; 
         }
+            //adicionado para conseguir o nome do usuário
+        await AsyncStorage.setItem('nome', nome);
+        console.log('Nome salvo no AsyncStorage após cadastro:', nome);
 
         return data; 
     } catch (error) {
@@ -51,7 +54,17 @@ export async function loginUsuario(email, senha) {
             throw data;
         }
 
-        await AsyncStorage.setItem('uid', data.uid); 
+        //verificar se está sendo executado
+        if (data.uid) { // SE data.uid NÃO ESTIVER VINDO, este bloco não é executado
+            await AsyncStorage.setItem('uid', data.uid);
+            console.log('UID salvo no AsyncStorage após login:', data.uid);
+        } else {
+            // 🔥 Adicione um alerta ou log CLARO se o UID não vier
+            console.error('ERRO: UID não retornado na resposta do login!', data);
+            throw new Error('UID não recebido do servidor.'); // Interrompe o fluxo para o usuário
+        }
+
+        await AsyncStorage.setItem('uid', data.uid);
 
         return {sucesso: true, mensagem: 'Usuário logado com sucesso!'};
     } catch (error) {
