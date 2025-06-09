@@ -68,5 +68,28 @@ export async function listarAlertasComStatusBff(
   }
 }
 
+export async function obterPecasDisponiveis() {
+  try {
+    const response = await fetch(`${BASE_URL}/alertas/pecas-disponiveis`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw data;
+    }
+
+    console.log('Peças disponíveis:', data.pecas);
+    return data;
+  } catch (error) {
+    console.error('Erro ao buscar peças disponíveis na BFF:', error);
+    throw error;
+  }
+}
+
 
   
