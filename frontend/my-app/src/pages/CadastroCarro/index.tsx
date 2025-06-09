@@ -21,7 +21,6 @@ import { Input2 } from "../../components/Input2";
 import { buscarCarros, cadastrarCarro } from "../bff/carroBff";
 import { useEffect } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import back from "../../assets/back.png"
 
 
 type ResultadoBusca = {
@@ -130,11 +129,6 @@ export default function CadastroCarro() {
 
     return (
         <SafeAreaView style={style.container}>
-
-            <TouchableOpacity>
-                <Image source={back} style={style.backIcon}></Image>
-            </TouchableOpacity>
-
             <View style={style.boxTop}>
                 <Header left={-50} title="Cadastro de carro"></Header>
             </View>

@@ -11,6 +11,10 @@ import Logo from '../../assets/logoGoogle.png'
 
 import Logo2 from '../../assets/logoApple.png'
 
+import { useNavigation } from '@react-navigation/native';
+
+import { NavigationProp } from '@react-navigation/native';
+
 import { MaterialIcons, FontAwesome, Octicons } from '@expo/vector-icons';
 
 type IconComponent = React.ComponentType<React.ComponentProps<typeof MaterialIcons>> |
@@ -31,20 +35,22 @@ type Props = TextInputProps & {
 export const Header = forwardRef((Props: Props, ref: LegacyRef<TextInput> | null) => {
 
     const { IconLeft, IconRight, IconLeftName, IconRightName, title, left, maxFontSizeMultiplier, onIconLeftPress, onIconRightPress, placeholder, ...rest } = Props
+    const navigation = useNavigation<NavigationProp<any>>();
 
     return (
         
             <View style={style.header}>
 
-                    <TouchableOpacity style={style.backButton}>
+                    <TouchableOpacity style={style.backButton} onPress = {() => navigation.navigate("Configura")} >
                         <Image style={style.back}
                             source={Back}></Image>
+                           
                     </TouchableOpacity>
 
 
                 <View
                     ref={ref}
-                    style={[style.backText]}  // ← aqui usamos o array para combinar estilos
+                    style={[style.backText]}
                     {...rest}>
                     <Text style={style.textoAba}>{title}</Text>
                 </View>
