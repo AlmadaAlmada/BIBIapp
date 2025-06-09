@@ -25,7 +25,6 @@ export async function cadastrarAlerta(
     return { sucesso: false, mensagem: "Peça inválida." };
   }
 
-  // Validação: não permitir peça duplicada
   const alertasRef = collection(db, "usuarios", uidUsuario, "carros", carroId, "alertas");
   const q = query(alertasRef, where("peca", "==", peca));
   const querySnapshot = await getDocs(q);
@@ -50,8 +49,6 @@ export async function cadastrarAlerta(
     });
 
     const idAlerta = documenta.id;
-    console.log(idAlerta);
-    console.log(documenta.id);
 
     return {
       sucesso: true,
@@ -143,10 +140,10 @@ const PESOS_MODELO_CARRO: { [modelo: string]: number } = {
 };
 
 function pesoKmSemana(mediaKmSemana: number): number {
-  if (mediaKmSemana > 400) return 1.2; // uso muito intenso
-  if (mediaKmSemana > 200) return 1.1; // uso acima da média
-  if (mediaKmSemana < 70) return 0.9;  // uso leve
-  return 1.0; // uso normal
+  if (mediaKmSemana > 400) return 1.2; 
+  if (mediaKmSemana > 200) return 1.1; 
+  if (mediaKmSemana < 70) return 0.9; 
+  return 1.0; 
 }
 
 export function calcularStatusAlerta(
@@ -158,14 +155,7 @@ export function calcularStatusAlerta(
   const intervalo = INTERVALOS_PECA[peca];
   if (!intervalo) return { status: "ok", kmRestante: Infinity, mesesRestantes: Infinity };
 
-  console.log("ENTRADA calcularStatusAlerta:", {
-    peca,
-    dataUltimaTroca,
-    mediaKmSemana,
-    modeloCarro
-  });
 
-  // Validação da data
   if (!(dataUltimaTroca instanceof Date) || isNaN(dataUltimaTroca.getTime())) {
     console.error("Data inválida em calcularStatusAlerta:", dataUltimaTroca);
     return { status: "ok", kmRestante: Infinity, mesesRestantes: Infinity };
@@ -186,8 +176,6 @@ export function calcularStatusAlerta(
 
   const kmRestante = kmLimiteAjustado - kmRodados;
   const mesesRestantes = mesesLimiteAjustado - mesesPassados;
-
-  console.log(`Km restante: ${kmRestante}, Meses restantes: ${mesesRestantes}`);
 
   const limiteKmRecomendado = kmLimiteAjustado * 0.15;
   const limiteMesesRecomendado = mesesLimiteAjustado * 0.15;

@@ -63,7 +63,6 @@ export const ModalCreate = forwardRef((Props: Props, ref: LegacyRef<TextInput> |
         const buscaridCarro = async () => {
             const idCarroSalvo = await AsyncStorage.getItem('idCarro');
             setidCarro(idCarroSalvo);
-            console.log("CADE O ID DO CARRO?", idCarroSalvo);
         };
 
         buscaridCarro();
@@ -75,7 +74,6 @@ export const ModalCreate = forwardRef((Props: Props, ref: LegacyRef<TextInput> |
         const buscarUid = async () => {
             const uidSalvo = await AsyncStorage.getItem('uid');
             setUid(uidSalvo);
-            console.log("CADE O ID DO USUARIO?", uidSalvo);
         };
 
         buscarUid();
@@ -89,7 +87,6 @@ export const ModalCreate = forwardRef((Props: Props, ref: LegacyRef<TextInput> |
                     data,
                 });
                 Alert.alert('Todos os campos devem estar preenchidos !');
-                console.log("socorro" + peca, data);
                 return;
             }
     
@@ -102,7 +99,6 @@ export const ModalCreate = forwardRef((Props: Props, ref: LegacyRef<TextInput> |
     
             try {
                 const resposta = await cadastrarAlerta(uid!, idCarro!, peca, data);
-                console.log(resposta.mensagem);
     
                 if (resposta.sucesso) {
                     Alert.alert('Sucesso!', resposta.mensagem, [

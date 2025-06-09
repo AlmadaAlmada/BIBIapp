@@ -221,11 +221,9 @@ const listarAlertasComStatus = async (req: Request, res: Response) => {
       return res.status(404).json({ sucesso: false, mensagem });
     }
 
-    // Processar cada alerta com seu status
 
     const alertasComStatus = await Promise.all(alertas.map(async (alerta: any) => {
       try {
-        // Tente diferentes possibilidades para o ID do alerta
         const alertaId = alerta.id || alerta.alertaId || alerta.key || alerta.documentId;
         
         if (!alertaId) {

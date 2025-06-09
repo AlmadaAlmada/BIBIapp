@@ -20,10 +20,10 @@ export async function cadastrarUsuario(nome, email, senha, confirmarSenha) {
         const data = await response.json();
 
         if (!response.ok) {
-            throw data; // 🔥 O backend já retorna {sucesso: false, mensagem: "..."}
+            throw data;
         }
 
-        return data; // 🔥 Vai retornar {sucesso: true, mensagem: "..."}
+        return data; 
     } catch (error) {
         console.error('Erro ao cadastrar usuário:', error);
         throw error;
@@ -51,11 +51,45 @@ export async function loginUsuario(email, senha) {
             throw data;
         }
 
-        await AsyncStorage.setItem('uid', data.uid); //analise essa linha chat
+        await AsyncStorage.setItem('uid', data.uid); 
 
-        return {sucesso: true, mensagem: 'Usuário logado com sucesso!'};// { sucesso: true, mensagem: "..." }
+        return {sucesso: true, mensagem: 'Usuário logado com sucesso!'};
     } catch (error) {
         console.error('Erro ao fazer login:', error);
         throw error;
     }
 }
+
+export async function logoutUsuario() {
+  try {
+    const token = await AsyncStorage.getItem('token');
+
+    if (!token) {
+      throw { sucesso: false, mensagem: 'Token não encontrado no armazenamento local.' };
+    }
+
+    const response = await fetch(`${BASE_URL}/logoutUser`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`, 
+      },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw data;
+    }
+
+    // Remove o token e UID após logout
+    await AsyncStorage.removeItem('token');
+    await AsyncStorage.removeItem('uid');
+
+    return { sucesso: true, mensagem: 'Logout realizado com sucesso.' };
+  } catch (error) {
+    console.error('Erro ao fazer logout:', error);
+    throw error;
+  }
+}
+

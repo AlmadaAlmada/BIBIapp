@@ -1,6 +1,11 @@
-import React, { useState } from "react";
-
-import { Text, View, Image, TextInput, Button, TouchableOpacity, Alert, SafeAreaView } from 'react-native';
+import React from "react";
+import {
+  Text,
+  View,
+  SafeAreaView,
+  Alert,
+  ScrollView
+} from 'react-native';
 
 import { style } from "./styles";
 
@@ -9,85 +14,65 @@ import Sino from '../../assets/sino.png'
 import Engrena from '../../assets/engrena.png'
 import World from '../../assets/world.png'
 import Lock from '../../assets/lock.png'
+import logout from '../../assets/logout.png';
 
-import Logo from '../../assets/logoGoogle.png'
-import Back from '../../assets/back.png'
-
-import Logo2 from '../../assets/logoApple.png'
-import { Input } from "../../components/Input";
-import { Or } from "../../components/Or";
-import { Google } from "../../components/Google";
-import { Title } from "../../components/Title";
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '@react-navigation/native';
+
 import { Header } from "../../components/Header";
-import SelectBox from "../../components/SelectBox";
-import { ScrollView } from "react-native-gesture-handler";
-import { Input2 } from "../../components/Input2";
-import Alerta from "../Alerta";
 import { CustomBtn } from "../../components/CustomBtn";
-import { Card2 } from "../../components/Card2";
-import CadastroCarro from "../CadastroCarro";
 
+import { logoutUsuario } from "../bff/userBff";
 
+import AsyncStorage from "@react-native-async-storage/async-storage"; 
 
 export default function Configura() {
+  const navigation = useNavigation<NavigationProp<any>>();
 
-    const navigation = useNavigation<NavigationProp<any>>();
+  const handleLogout = async () => {
+    try {
+      const resultado = await logoutUsuario();
+      Alert.alert("Sucesso", resultado.mensagem);
 
+      await AsyncStorage.removeItem("uid");
 
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Login' }],
+      });
 
-    return (
-        <SafeAreaView style={style.container}>
-            <View style={style.boxTop}>
-                <Header title="Configurações"></Header>
-            </View>
-            <View style={style.boxMid}>
-                
-                <View style={style.abaixa}>
-                    <CustomBtn
-                        imageLeft={Car2}
-                        subtitle="Adicionar carro"
-                        imageRight={Car2}
-                        left={-80}
-                        goToo="CadastroCarro">
-                    </CustomBtn>
+    } catch (error: any) {
+      Alert.alert("Erro", error?.mensagem || "Erro ao deslogar.");
+    }
+  };
 
-                    <CustomBtn
-                        imageLeft={Sino}
-                        subtitle="Notificações"
-                        imageRight={Sino}
-                        left={-94}>
-                    </CustomBtn>
+  return (
+    <SafeAreaView style={style.container}>
+      <View style={style.boxTop}>
+        <Header title="Configurações" />
+      </View>
 
-                    <CustomBtn
-                        imageLeft={Engrena}
-                        subtitle="Conta"
-                        imageRight={Engrena}
-                        left={-127}>
-                    </CustomBtn>
+      <View style={style.boxMid}>
+        <View style={style.abaixa}>
+          <CustomBtn
+            imageLeft={Car2}
+            subtitle="Adicionar carro"
+            imageRight={Car2}
+            left={-80}
+            goToo="CadastroCarro"
+          />
 
-                    <CustomBtn
-                        imageLeft={World}
-                        subtitle="Idioma"
-                        imageRight={World}
-                        left={-122}>
-                    </CustomBtn>
+          <CustomBtn
+            imageLeft={logout}
+            subtitle="Sair da conta"
+            imageRight={logout}
+            left={-94}
+            onPress={handleLogout}
+          />
+        </View>
+      </View>
 
-                    <CustomBtn
-                        imageLeft={Lock}
-                        subtitle="Privacidade"
-                        imageRight={Lock}
-                        left={-98}>
-                    </CustomBtn>
-
-                </View>
-
-            </View>
-
-            <View style={style.boxBottom}>
-
-            </View>
-        </SafeAreaView>
-    );
+      <View style={style.boxBottom} />
+    </SafeAreaView>
+  );
 }

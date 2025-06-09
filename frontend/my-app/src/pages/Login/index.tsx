@@ -22,7 +22,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 export default function Login() {
-    const { setUid } = useUser(); // <- acessa o setter do contexto
+    const { setUid } = useUser(); 
 
 
     const navigation = useNavigation<NavigationProp<any>>();
@@ -49,7 +49,8 @@ export default function Login() {
                 Alert.alert('Sucesso', resultado.mensagem, [
                     {
                         text: 'OK',
-                        onPress: () => navigation.navigate('CadastroCarro') // 🔥 Redireciona para a Home
+
+                        onPress: () => navigation.navigate('CadastroCarro') 
                     }
                 ]);
             } else {

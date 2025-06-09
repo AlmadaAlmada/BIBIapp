@@ -22,7 +22,6 @@ import { useCallback } from 'react';
 
 const { width, height } = Dimensions.get('window');
 
-// 🧠 Mapa das imagens locais (adicione conforme necessário)
 const imagensCarros: Record<string, any> = {
     "BIBIapp Backendimagenshilux.png": require('../../assets/hilux.png'),
     "BIBIapp Backendimagenscorolla.png": require('../../assets/corolla.png'),
@@ -53,7 +52,7 @@ export default function Inicial() {
 
     const [uid, setUid] = useState<string | null>(null);
 
-    // Buscar o UID ao montar a tela
+
     useFocusEffect(
         useCallback(() => {
             const buscarUid = async () => {
@@ -66,19 +65,15 @@ export default function Inicial() {
         }, [])
     );
 
-
     useEffect(() => {
 
 
         const buscarDadosCarro = async () => {
             try {
-                console.log("uid tela inicial debto da busca carro:", uid)
                 const resposta = await buscarDadosCarroBff(uid!);
-                console.log("tem um texto aqui")
-                console.log(resposta);
+            
 
                 let imagemUrl = resposta.carros[0]?.imagemUrl;
-                console.log(" vetor na posicao 0 ", imagemUrl);
 
                 if (imagensCarros[imagemUrl]) {
                     setCarroImage(imagensCarros[imagemUrl]);
@@ -87,9 +82,7 @@ export default function Inicial() {
                 }
 
                 if (resposta.sucesso) {
-
-                    console.log("its so confusing sometimes to be a girl")
-
+                    console.log("Dados do carro:", resposta.carros);
                 } else {
                     Alert.alert('Erro', resposta.mensagem);
                 }
@@ -145,14 +138,14 @@ export default function Inicial() {
     function formatarData(data: string): string {
     const objData = new Date(data);
     if (isNaN(objData.getTime())) return "Data inválida";
-    return objData.toISOString().split("T")[0]; // Fica "YYYY-MM-DD"
+    return objData.toISOString().split("T")[0];
     }
 
     function getImagemStatus(status: string) {
   if (status === "ok") return Ok;
   if (status === "recomendada") return Recomendada;
   if (status === "necessaria") return Necessaria;
-  return "Logo"; // Ou outra imagem padrão para "necessária", etc.
+  return "Logo";
 }
 
 

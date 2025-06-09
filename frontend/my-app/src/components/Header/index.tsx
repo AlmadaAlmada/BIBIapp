@@ -1,7 +1,9 @@
-
 import React, { forwardRef, useState, LegacyRef } from "react";
 
 import { Text, View, Image, TextInput, Button, TouchableOpacity, Alert, TextInputProps } from 'react-native';
+
+import { useNavigation } from '@react-navigation/native';
+import { NavigationProp } from '@react-navigation/native';
 
 import { style } from "./styles";
 
@@ -10,10 +12,6 @@ import Back from '../../assets/back.png'
 import Logo from '../../assets/logoGoogle.png'
 
 import Logo2 from '../../assets/logoApple.png'
-
-import { useNavigation } from '@react-navigation/native';
-
-import { NavigationProp } from '@react-navigation/native';
 
 import { MaterialIcons, FontAwesome, Octicons } from '@expo/vector-icons';
 
@@ -29,13 +27,23 @@ type Props = TextInputProps & {
     title?: string,
     left?: number,
     onIconLeftPress?: () => void,
-    onIconRightPress?: () => void
+    onIconRightPress?: () => void,
+    onBackPress?: () => void 
 }
 
 export const Header = forwardRef((Props: Props, ref: LegacyRef<TextInput> | null) => {
 
-    const { IconLeft, IconRight, IconLeftName, IconRightName, title, left, maxFontSizeMultiplier, onIconLeftPress, onIconRightPress, placeholder, ...rest } = Props
     const navigation = useNavigation<NavigationProp<any>>();
+
+    const { IconLeft, IconRight, IconLeftName, IconRightName, title, left, maxFontSizeMultiplier, onIconLeftPress, onIconRightPress, onBackPress, placeholder, ...rest } = Props
+
+    const handleBackPress = () => {
+        if (onBackPress) {
+            onBackPress(); 
+        } else {           
+             navigation.navigate('BottomRoutes'); 
+        }
+    };
 
     return (
         
@@ -47,10 +55,9 @@ export const Header = forwardRef((Props: Props, ref: LegacyRef<TextInput> | null
                            
                     </TouchableOpacity>
 
-
                 <View
                     ref={ref}
-                    style={[style.backText]}
+                    style={[style.backText]}  
                     {...rest}>
                     <Text style={style.textoAba}>{title}</Text>
                 </View>
@@ -58,7 +65,3 @@ export const Header = forwardRef((Props: Props, ref: LegacyRef<TextInput> | null
         
     )
 });
-
-
-
-

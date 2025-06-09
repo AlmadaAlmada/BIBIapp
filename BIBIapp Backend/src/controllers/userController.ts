@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { cadastrarUsuario, fazerLogin, fazerLogout, ResultadoLogout } from '../autenticacao/autenticacaoServico';
+import { cadastrarUsuario, fazerLogin, fazerLogout, ResultadoLogout, atualizarCadastroUsuario} from '../autenticacao/autenticacaoServico';
 import { getIdToken, getIdTokenResult } from 'firebase/auth';
 
 interface ResultadoLogin {
@@ -95,8 +95,49 @@ const logoutUsuario = async (req: Request, res: Response) => {
   }
 };
 
+const atualizarUsuario = async (req: Request, res: Response) => {
+  const { emailAtual, senhaAtual, novoEmail, novaSenha } = req.body;
+
+  if (!emailAtual || !senhaAtual) {
+    return res.status(400).json({
+      sucesso: false,
+      mensagem: 'Email e senha atuais são obrigatórios.',
+    });
+  }
+
+  if (!novoEmail && !novaSenha) {
+    return res.status(400).json({
+      sucesso: false,
+      mensagem: 'É necessário fornecer pelo menos um campo para atualização (novoEmail ou novaSenha).',
+    });
+  }
+
+  try {
+    const resultado = await atualizarCadastroUsuario({
+      emailAtual,
+      senhaAtual,
+      novoEmail,
+      novaSenha
+    });
+
+    return res.status(resultado.sucesso ? 200 : 400).json({
+      sucesso: resultado.sucesso,
+      mensagem: resultado.mensagem,
+      ...(resultado.novoToken && { token: resultado.novoToken }),
+      ...(resultado.uid && { uid: resultado.uid }) 
+    });
+  } catch (error) {
+    console.error('Erro no controller de atualização:', error);
+    return res.status(500).json({
+      sucesso: false,
+      mensagem: 'Erro interno no servidor.',
+    });
+  }
+};
+
 export default {
   criarUsuario,
   loginUsuario,
   logoutUsuario,
+  atualizarUsuario,
 };
