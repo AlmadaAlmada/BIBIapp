@@ -8,7 +8,7 @@ import CadastroCarro from "../pages/CadastroCarro";
 import TestModal from "../pages/TestModal";
 import TestModal2 from "../pages/TestModal2";
 import Cadastro from "../pages/Cadastro";
-import PostModal from "../pages/PostModal";
+// import PostModal from "../pages/PostModal";
 import Inicial from "../pages/Inicial";
 import ModalComent from "../pages/ComentModal";
 import Configura from "../pages/Configura";
@@ -40,7 +40,7 @@ export default function Routes(){
 
             <Stack.Screen name="Cadastro" component={Cadastro} />
 
-            <Stack.Screen name="PostModal" component={PostModal} />
+            {/* <Stack.Screen name="PostModal" component={PostModal} /> */}
 
             <Stack.Screen name="Inicial" component={Inicial} />
 

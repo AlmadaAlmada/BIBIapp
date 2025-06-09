@@ -8,10 +8,12 @@ import { useNavigation } from '@react-navigation/core';
 type ModalPostProps = {
   visible: boolean;
   onClose: () => void;
-  onPost: (data: { text: string; image: string | null }) => void;
+  onSendPost: (data: { text: string; image: string | null }) => void;
+  autorId: string | null;
+  autorNome: string | null;
 };
 
-const ModalPost = ({ visible, onClose, onPost }: ModalPostProps) => {
+const ModalPost = ({ visible, onClose, onSendPost, autorId, autorNome }: ModalPostProps) => {
   const [text, setText] = useState('');
   const [image, setImage] = useState<string | null>(null);
 
@@ -30,7 +32,7 @@ const ModalPost = ({ visible, onClose, onPost }: ModalPostProps) => {
   };
 
   const handlePost = () => {
-    onPost({ text, image });
+    onSendPost({ text, image });
     setText('');
     setImage(null);
     onClose();
@@ -85,7 +87,4 @@ const ModalPost = ({ visible, onClose, onPost }: ModalPostProps) => {
         </Modal>
     );
 };
-
-
-
 export default ModalPost;
