@@ -47,7 +47,6 @@ export async function cadastrarCarro(
     }
 
     await AsyncStorage.setItem('idCarro', data.idCarro);
-    await AsyncStorage.setItem('uid', data.uid);
 
     console.log("xique xique -> ", data);
 
