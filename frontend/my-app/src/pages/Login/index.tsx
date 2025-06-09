@@ -62,7 +62,7 @@ export default function Login() {
 
             <View style={style.boxMid}>
                 <View style={style.inputGroup}>
-                    <Text>Email:</Text>
+                    <Text style={style.inputLabel}>Email:</Text>
                     <Input placeholder="email@domain.com"
                         value={email}
                         onChangeText={setEmail}
@@ -70,7 +70,7 @@ export default function Login() {
                     </Input>
                 </View>
                 <View style={style.inputGroup}>
-                    <Text>Senha:</Text>
+                    <Text style={style.inputLabel}>Senha:</Text>
                     <Input placeholder="password"
                         value={senha}
                         onChangeText={setSenha}

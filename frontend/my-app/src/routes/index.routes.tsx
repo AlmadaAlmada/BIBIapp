@@ -11,6 +11,7 @@ import Cadastro from "../pages/Cadastro";
 import PostModal from "../pages/PostModal";
 import Inicial from "../pages/Inicial";
 import ModalComent from "../pages/ComentModal";
+import Configura from "../pages/Configura";
 
 export default function Routes(){
 
@@ -45,6 +46,7 @@ export default function Routes(){
 
             <Stack.Screen name="ModalComent" component={ModalComent}/>
 
+            <Stack.Screen name="Configura" component={Configura}/>
         </Stack.Navigator>
     )
 }
