@@ -5,12 +5,15 @@ import { StyleSheet, Text, View } from 'react-native';
 import Routes from './src/routes/index.routes';
 import {NavigationContainer} from '@react-navigation/native'
 import Alerta from './src/pages/Alerta';
+import { UserProvider } from './src/pages/UserContext';
 
 
 export default function App() {
   return (
     <NavigationContainer>
+      <UserProvider>
       <Routes></Routes>
+      </UserProvider>
     </NavigationContainer>
   );
 }

@@ -58,7 +58,7 @@ export const ModalCreate = forwardRef((Props: Props, ref: LegacyRef<TextInput> |
     const [idCarro, setidCarro] = useState<string | null>(null);
     const [peca, setPeca] = useState('');
     const [data, setData] = useState('');
-
+    
     useEffect(() => {
         const buscaridCarro = async () => {
             const idCarroSalvo = await AsyncStorage.getItem('idCarro');

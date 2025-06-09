@@ -38,5 +38,35 @@ export async function cadastrarAlerta(
   }
 }
 
+export async function listarAlertasComStatusBff(
+  uidUsuario: string,
+  carroId: string
+){ 
+  console.log("CADE O ID DO USUARIO PARA LISTAR OS PARAMETROS DE LISTAR ALERTAS COM STATUS?", uidUsuario);
+  console.log("CADE O ID DO CARRO PARA LISTAR OS PARAMETROS DE LISTAR ALERTAS COM STATUS?", carroId);
+  try {
+    const response = await fetch(`${BASE_URL}/alertas/status/${uidUsuario}/${carroId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw data;
+    }
+
+
+    console.log("xique xique -> " + response);
+    console.log('dados do bff:', data);
+    return data;
+  } catch (error) {
+    console.error('Erro ao listar alertas com status na BFF:', error);
+    throw error;
+  }
+}
+
 
   

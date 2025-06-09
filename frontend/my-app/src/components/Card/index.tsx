@@ -1,7 +1,7 @@
  
 import React, { forwardRef, useState, LegacyRef } from "react";
 
-import { Text, View, Image, TextInput, Button, TouchableOpacity, Alert, TextInputProps, ImageSourcePropType } from 'react-native';
+import { Text, View, Image, TextInput, Button, TouchableOpacity, Alert, TextInputProps, ImageSourcePropType, SafeAreaView } from 'react-native';
 
 import {style} from "../Card/styles";
 
@@ -37,10 +37,10 @@ type Props = TextInputProps & {
 
 export const Card = forwardRef((Props:Props, ref: LegacyRef<TextInput> | null )=> {
 
-    const { title = "Produto", subtitle = "Próxima troca: XX/XX", subtitle2 = "Última troca: XX/XX", bottomText = "Estado Vazio", imageLeft, imageRight , ...rest} = Props
+    const { title, subtitle, subtitle2, bottomText, imageLeft, imageRight , ...rest} = Props
 
     return(
-        <>
+        <SafeAreaView>
             <View style= {style.boxCard}>
                     <View style= {style.a1}>
                         <Image style={style.bola}
@@ -60,7 +60,7 @@ export const Card = forwardRef((Props:Props, ref: LegacyRef<TextInput> | null )=
                         </View> 
                     </View>
                 </View>    
-        </>  
+        </SafeAreaView>  
     )
 });
 

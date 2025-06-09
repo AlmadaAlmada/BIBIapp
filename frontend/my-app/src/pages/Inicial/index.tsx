@@ -4,6 +4,9 @@ import { Text, View, Image, TextInput, Button, TouchableOpacity, Alert, ScrollVi
 
 import { style } from "./styles";
 
+import Ok from '../../assets/ok.png'
+import Recomendada from '../../assets/recomendada.png'
+import Necessaria from '../../assets/necessaria.png'
 import Foto from '../../assets/1.png'
 import Logo3 from '../../assets/fiat2.png'
 import Bola from '../../assets/bola.png'
@@ -12,10 +15,13 @@ import { Card } from "../../components/Card";
 import { Dimensions, Platform } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { buscarDadosCarroBff } from "../bff/carroBff";
+import { listarAlertasComStatusBff } from "../bff/alertaBff";
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback } from 'react';
+
 
 const { width, height } = Dimensions.get('window');
 
-// 🧠 Mapa das imagens locais (adicione conforme necessário)
 const imagensCarros: Record<string, any> = {
     "BIBIapp Backendimagenshilux.png": require('../../assets/hilux.png'),
     "BIBIapp Backendimagenscorolla.png": require('../../assets/corolla.png'),
@@ -26,20 +32,41 @@ export default function Inicial() {
 
     const [carroImage, setCarroImage] = useState('');
 
+    const [idCarro, setidCarro] = useState<string | null>(null);
+
+    const [alertas, setAlertas] = useState<any[]>([]);
+
+
+    useFocusEffect(
+        useCallback(() => {
+            const buscaridCarro = async () => {
+                const idCarroSalvo = await AsyncStorage.getItem('idCarro');
+                setidCarro(idCarroSalvo);
+                console.log("CADE O ID DO CARRO NA TELA INICIAL??", idCarroSalvo);
+            };
+
+            buscaridCarro();
+        }, [])
+    );
+
+
     const [uid, setUid] = useState<string | null>(null);
 
-    // Buscar o UID ao montar a tela
-    useEffect(() => {
-        const buscarUid = async () => {
-            const uidSalvo = await AsyncStorage.getItem('uid');
-            setUid(uidSalvo);
-        };
-        buscarUid();
-    }, []);
+
+    useFocusEffect(
+        useCallback(() => {
+            const buscarUid = async () => {
+                const uidSalvo = await AsyncStorage.getItem('uid');
+                setUid(uidSalvo);
+                console.log("CADE O ID DO USUARIO NA TELA INICIAL?", uidSalvo);
+            };
+
+            buscarUid();
+        }, [])
+    );
 
     useEffect(() => {
 
-        if (!uid) return;
 
         const buscarDadosCarro = async () => {
             try {
@@ -67,6 +94,62 @@ export default function Inicial() {
         buscarDadosCarro();
     }, [uid]);
 
+    useEffect(() => {
+
+        if (!uid) return;
+        if (!idCarro) return;
+
+        const listarAlertasComStatus = async () => {
+            try {
+
+                const resposta = await listarAlertasComStatusBff(uid!, idCarro!);
+
+                console.log("Resposta dos cards do alerta com status:")
+                console.log(resposta);
+
+                if (resposta.sucesso && Array.isArray(resposta.alertas)) {
+                    resposta.alertas.forEach((alerta: { peca: any; dataUltimaTroca: any; status: any; kmRestante: any; mesesRestantes: any; }, index: number) => {
+                        console.log(`Alerta ${index + 1}`);
+                        console.log(`Peça: ${alerta.peca}`);
+                        console.log(`Última troca: ${alerta.dataUltimaTroca}`);
+                        console.log(`Status: ${alerta.status}`);
+                        console.log(`KM restante: ${alerta.kmRestante}`);
+                        console.log(`Meses restantes: ${alerta.mesesRestantes}`);
+                    });
+
+                    setAlertas(resposta.alertas);
+                }
+
+                if (resposta.sucesso) {
+
+                    console.log("alertas com status vieram perfeitos!")
+
+                } else {
+                    Alert.alert('Erro', resposta.mensagem);
+                }
+            } catch (error) {
+                Alert.alert('Erro', 'Não foi possível salvar o carro')
+            }
+        }
+
+        listarAlertasComStatus();
+    }, [uid, idCarro]);
+
+    function formatarData(data: string): string {
+    const objData = new Date(data);
+    if (isNaN(objData.getTime())) return "Data inválida";
+    return objData.toISOString().split("T")[0];
+    }
+
+    function getImagemStatus(status: string) {
+  if (status === "ok") return Ok;
+  if (status === "recomendada") return Recomendada;
+  if (status === "necessaria") return Necessaria;
+  return "Logo";
+}
+
+
+
     return (
         <SafeAreaView style={style.container}>
             <View style={style.boxTop}>
@@ -86,55 +169,20 @@ export default function Inicial() {
                 <ScrollView style={style.scroll}>
 
                     <View style={style.formata}>
-                        {/* <Card  
-                            imageLeft={Bola}
-                            title="Produto"
-                            subtitle="Próxima troca: XX/XX"
-                            subtitle2="Última troca: XX/XX"
-                            imageRight={Teste}
-                            bottomText="Estado Vazio">
+                        {alertas.map((alerta, index) => (
+                            <View style={style.formata} key={index}>
+                                <Card
+                                    imageLeft={Bola}
+                                    title={alerta.peca}
+                                    subtitle={`Próxima troca: ${alerta.mesesRestantes} meses`}
+                                    subtitle2={`Última troca: ${formatarData(alerta.dataUltimaTroca)}`}
+                                    imageRight={getImagemStatus(alerta.status)}
+                                    bottomText={alerta.status}
+                                />
+                            </View>
+                        ))}
 
-                        </Card>
 
-                        <Card  
-                            imageLeft={Bola}
-                            title="Produto"
-                            subtitle="Próxima troca: XX/XX"
-                            subtitle2="Última troca: XX/XX"
-                            imageRight={Teste}
-                            bottomText="Estado Vazio">
-
-                        </Card>
-
-                        <Card  
-                            imageLeft={Bola}
-                            title="Produto"
-                            subtitle="Próxima troca: XX/XX"
-                            subtitle2="Última troca: XX/XX"
-                            imageRight={Teste}
-                            bottomText="Estado Vazio">
-
-                        </Card>
-
-                        <Card  
-                            imageLeft={Bola}
-                            title="Produto"
-                            subtitle="Próxima troca: XX/XX"
-                            subtitle2="Última troca: XX/XX"
-                            imageRight={Teste}
-                            bottomText="Estado Vazio">
-
-                        </Card>
-
-                        <Card  
-                            imageLeft={Bola}
-                            title="Produto"
-                            subtitle="Próxima troca: XX/XX"
-                            subtitle2="Última troca: XX/XX"
-                            imageRight={Teste}
-                            bottomText="Estado Vazio">
-
-                        </Card> */}
                     </View>
                 </ScrollView>
 

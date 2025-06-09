@@ -51,8 +51,7 @@ export async function loginUsuario(email, senha) {
             throw data;
         }
 
-        await AsyncStorage.setItem('uid', data.uid);
-        await AsyncStorage.setItem('token', data.token);
+        await AsyncStorage.setItem('uid', data.uid); 
 
         return {sucesso: true, mensagem: 'Usuário logado com sucesso!'};
     } catch (error) {
