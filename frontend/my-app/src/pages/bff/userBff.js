@@ -51,7 +51,7 @@ export async function loginUsuario(email, senha) {
             throw data;
         }
 
-        await AsyncStorage.setItem('uid', data.uid);
+        await AsyncStorage.setItem('uid', data.uid); //analise essa linha chat
 
         return {sucesso: true, mensagem: 'Usuário logado com sucesso!'};// { sucesso: true, mensagem: "..." }
     } catch (error) {

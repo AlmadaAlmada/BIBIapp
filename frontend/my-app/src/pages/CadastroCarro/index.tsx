@@ -21,6 +21,8 @@ import { Input2 } from "../../components/Input2";
 import { buscarCarros, cadastrarCarro } from "../bff/carroBff";
 import { useEffect } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useUser } from "../UserContext"; // ajuste o caminho se necessário
+
 
 
 type ResultadoBusca = {
@@ -31,7 +33,7 @@ type ResultadoBusca = {
 
 
 export default function CadastroCarro() {
-
+    const { uid } = useUser();
     const [marcas, setMarcas] = useState<string[]>([]);
     const [modelosPorMarca, setModelosPorMarca] = useState<{ [key: string]: string[] }>({});
     const [modelosDisponiveis, setModelosDisponiveis] = useState<string[]>([]);
@@ -39,17 +41,7 @@ export default function CadastroCarro() {
     const [marcaSelecionada, setMarcaSelecionada] = useState('');
     const [modeloSelecionado, setModeloSelecionado] = useState('');
     const navigation = useNavigation<NavigationProp<any>>();
-    const [uid, setUid] = useState<string | null>(null);
-
-    useEffect(() => {
-        const buscarUid = async () => {
-            const uidSalvo = await AsyncStorage.getItem('uid');
-            setUid(uidSalvo);
-        };
-
-        buscarUid();
-    }, []);
-
+    
 
     useEffect(() => {
         const carregarCarros = async () => {
@@ -84,6 +76,11 @@ export default function CadastroCarro() {
         setMarcaSelecionada(marcaSelecionada);
         setModeloSelecionado(modeloSelecionado);
 
+        if (!uid) {
+            Alert.alert("Erro", "Usuário não autenticado com o id encontrar.");
+            return;
+        }
+
         if (!nome || !marcaSelecionada || !modeloSelecionado || !ano || !mediaKmSemana) {
             console.log('Campos preenchidos:', {
                 nome,
@@ -114,7 +111,7 @@ export default function CadastroCarro() {
                 Alert.alert('Sucesso!', resposta.mensagem, [
                     {
                         text: 'OK',
-                        onPress: () => navigation.navigate('Login')
+                        onPress: () => navigation.navigate('BottomRoutes')
                     }
                 ]);
 
@@ -125,6 +122,11 @@ export default function CadastroCarro() {
         } catch (error) {
             Alert.alert('Erro', 'Não foi possível salvar o carro')
         }
+    }
+
+    const salvarCarroRedirecionar = async () => {
+        salvarCarro();
+        //navigation.navigate("Inicial");
     }
 
     return (
@@ -190,7 +192,7 @@ export default function CadastroCarro() {
                     </View>
 
                     <View style={style.done}>
-                        <TouchableOpacity style={style.button} onPress={salvarCarro} >
+                        <TouchableOpacity style={style.button} onPress={salvarCarroRedirecionar} >
                             <Text style={style.criar}>Concluído</Text>
                         </TouchableOpacity>
                     </View>

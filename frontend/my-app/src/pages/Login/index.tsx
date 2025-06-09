@@ -15,11 +15,15 @@ import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '@react-navigation/native';
 import { loginUsuario } from "../bff/userBff";
 import { SafeAreaView } from 'react-native';
+import { useUser } from "../UserContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 
 
 export default function Login() {
+    const { setUid } = useUser(); // <- acessa o setter do contexto
+
 
     const navigation = useNavigation<NavigationProp<any>>();
 
@@ -38,10 +42,14 @@ export default function Login() {
             console.log(resultado.mensagem);
 
             if (resultado.sucesso) {
+
+                 const uidSalvo = await AsyncStorage.getItem('uid');
+                setUid(uidSalvo); // <- atualiza o contexto com o UID
+
                 Alert.alert('Sucesso', resultado.mensagem, [
                     {
                         text: 'OK',
-                        onPress: () => navigation.navigate('BottomRoutes') // 🔥 Redireciona para a Home
+                        onPress: () => navigation.navigate('CadastroCarro') // 🔥 Redireciona para a Home
                     }
                 ]);
             } else {
