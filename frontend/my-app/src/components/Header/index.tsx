@@ -1,7 +1,9 @@
-
 import React, { forwardRef, useState, LegacyRef } from "react";
 
 import { Text, View, Image, TextInput, Button, TouchableOpacity, Alert, TextInputProps } from 'react-native';
+
+import { useNavigation } from '@react-navigation/native';
+import { NavigationProp } from '@react-navigation/native';
 
 import { style } from "./styles";
 
@@ -25,26 +27,36 @@ type Props = TextInputProps & {
     title?: string,
     left?: number,
     onIconLeftPress?: () => void,
-    onIconRightPress?: () => void
+    onIconRightPress?: () => void,
+    onBackPress?: () => void 
 }
 
 export const Header = forwardRef((Props: Props, ref: LegacyRef<TextInput> | null) => {
 
-    const { IconLeft, IconRight, IconLeftName, IconRightName, title, left, maxFontSizeMultiplier, onIconLeftPress, onIconRightPress, placeholder, ...rest } = Props
+    const navigation = useNavigation<NavigationProp<any>>();
+
+    const { IconLeft, IconRight, IconLeftName, IconRightName, title, left, maxFontSizeMultiplier, onIconLeftPress, onIconRightPress, onBackPress, placeholder, ...rest } = Props
+
+    const handleBackPress = () => {
+        if (onBackPress) {
+            onBackPress(); 
+        } else {           
+             navigation.navigate('Inicial'); 
+        }
+    };
 
     return (
         
             <View style={style.header}>
 
-                    <TouchableOpacity style={style.backButton}>
-                        <Image style={style.back}
-                            source={Back}></Image>
+                    <TouchableOpacity style={style.backButton} onPress={handleBackPress}>
+                        <Image style={style.back} source={Back} />
                     </TouchableOpacity>
 
 
                 <View
                     ref={ref}
-                    style={[style.backText]}  // ← aqui usamos o array para combinar estilos
+                    style={[style.backText]}  
                     {...rest}>
                     <Text style={style.textoAba}>{title}</Text>
                 </View>
@@ -52,7 +64,3 @@ export const Header = forwardRef((Props: Props, ref: LegacyRef<TextInput> | null
         
     )
 });
-
-
-
-
