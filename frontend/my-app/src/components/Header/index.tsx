@@ -47,7 +47,7 @@ export const Header = forwardRef((Props: Props, ref: LegacyRef<TextInput> | null
 
     return (
         
-            <View style={style.header}>
+               <View style={style.header}>
 
                     <TouchableOpacity style={style.backButton} onPress = {() => navigation.navigate("BottomRoutes")} >
                         <Image style={style.back}
@@ -62,6 +62,7 @@ export const Header = forwardRef((Props: Props, ref: LegacyRef<TextInput> | null
                     <Text style={style.textoAba}>{title}</Text>
                 </View>
             </View>
+
         
     )
 });

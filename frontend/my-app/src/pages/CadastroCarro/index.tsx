@@ -133,21 +133,21 @@ export default function CadastroCarro() {
                         <View style={style.acima}>
                             <Text style={style.subTitle}>Apelido</Text>
                         </View>
-                        <Input2 value={nome} onChangeText={setNome} width={380} height={50} alignSelf="center" backgroundColor="white" placeholder=" Apelido..."></Input2>
+                        <Input2 value={nome} onChangeText={setNome} placeholder=" Apelido..."></Input2>
                     </View>
 
                     <View style={style.apelido}>
                         <View style={style.acima}>
                             <Text style={style.subTitle}>Ano do carro</Text>
                         </View>
-                        <Input2 value={ano} onChangeText={setAno} width={380} height={50} alignSelf="center" backgroundColor="white" placeholder=" DD/MM/AAAA"></Input2>
+                        <Input2 value={ano} onChangeText={setAno} placeholder=" DD/MM/AAAA"></Input2>
                     </View>
 
                     <View style={style.apelido}>
                         <View style={style.acima}>
                             <Text style={style.subTitle}>Km/mês</Text>
                         </View>
-                        <Input2 value={mediaKmSemana} onChangeText={setMediaKmSemana} width={380} height={50} alignSelf="center" backgroundColor="white" placeholder=" Quilometros percorridos por mês"></Input2>
+                        <Input2 value={mediaKmSemana} onChangeText={setMediaKmSemana} placeholder=" Quilometros percorridos por mês"></Input2>
                     </View>
                     {/* lembrar de arrumar combobox para receber infos do backend */}
                     <View style={style.apelido2}>

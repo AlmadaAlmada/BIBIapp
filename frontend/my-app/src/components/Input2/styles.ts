@@ -2,11 +2,11 @@ import { Dimensions, StyleSheet } from "react-native";
 
 export const style = StyleSheet.create({
     input:{
-        width: '88%',
-        height: 40,
-        borderWidth: 0.6,
+        borderWidth: 1,
+        borderColor: '#ccc',
         borderRadius: 8,
-        borderColor: 'gray'
+        paddingHorizontal: 10,
+        fontSize: 16,
     }
 
 })

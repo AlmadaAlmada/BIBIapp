@@ -2,104 +2,37 @@ import { Dimensions, StyleSheet } from "react-native";
 import { themas } from "../../global/themes";
 
 export const style = StyleSheet.create({
-    container:{
+    container: {
         flex: 1,
         backgroundColor: themas.colors.secondary,
     },
-    boxTop:{
-        flex: 0.2,
+    boxTop: {
+        height: Dimensions.get('window').height * 0.12,
         width: '100%',
-        height: '13%',
         backgroundColor: themas.colors.primary,
-        alignItems: 'center',
-        justifyContent: 'center',
-        
+        justifyContent: 'flex-end',
+        paddingBottom: 15,
     },
-    boxMid:{
+    boxMid: {
         flex: 1,
         width: '100%',
         backgroundColor: themas.colors.secondary,
+        justifyContent: 'space-evenly',
+        paddingTop: 20,
         alignItems: 'center',
-        rowGap: 5,
-        paddingHorizontal: 1,
+        padding: 20,
     },
-    boxBottom:{
+    abaixa: {
         width: '100%',
-        height: '8%',
-        backgroundColor: themas.colors.secondary
-    },
-    boxButton:{
-        flexDirection: 'row',
-        columnGap: 30
-    },
-    button:{
-        borderWidth: 1.5,
-        backgroundColor: themas.colors.primary,
-        borderRadius: 14,
-        padding: 10,
-        paddingRight: 45,
-        paddingLeft: 45,
-        alignContent: 'center',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    button2:{
-        borderWidth: 1.5,
-        borderColor: themas.colors.primary,
+        borderRadius: 10,
         backgroundColor: 'white',
-        borderRadius: 14,
-        padding: 10,
-        paddingRight: 38,
-        paddingLeft: 38
+        overflow: 'hidden',
+                elevation: 5,
     },
-    criar:{
-        fontWeight: 'bold',
-        fontSize: 16,
-        color: 'white',
-        alignSelf: 'center'
-        
-    },
-    scroll:{
-        flexDirection: 'column',
-        rowGap: 10
-    },
-    done:{
-        paddingLeft: 17,
-        paddingRight: 17,
-    },
-    criar2:{
-        fontWeight: 'bold',
-        fontSize: 16,
-        color: themas.colors.primary
-    },
-    apelido:{
+    btn: {
         width: '100%',
-        marginTop: 15,
-        gap:15,
-        flexDirection: 'column'
-        
-    },
-    apelido2:{
-        width: '100%',
-        marginTop: 10,
-        flexDirection: 'column'
-        
-    },
-    subTitle:{
-        fontWeight: 'bold',
-        fontSize: 20,
-        color: '#003049',
-        alignSelf: 'flex-start'
-        
-    },
-    acima:{
-        marginLeft: 23
-    },
-    abaixa:{
-        alignContent: 'center',
-        alignItems: 'center',
-        marginTop: 8,
-        rowGap: 5,
+        shadowColor: '#000',
+        borderBottomWidth:1,
+        borderBottomColor:'#ccc',
     }
-
 })

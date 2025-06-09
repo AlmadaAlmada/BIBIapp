@@ -29,7 +29,7 @@ export default function SelectBox({
   }, [items]);
 
   return (
-    <View style={{ flex: 1, padding: 16, justifyContent: 'center', height: 80 }}>
+    <View style = {style.SelectBox}>
       <DropDownPicker
         open={open}
         value={value}
@@ -42,21 +42,6 @@ export default function SelectBox({
         }}
         setItems={setOptions}
         placeholder={placeholder}
-        style={[{
-          backgroundColor: '#eee',
-          borderColor: '#ccc',
-          zIndex: 2
-        }, style]}
-        dropDownContainerStyle={[{
-          backgroundColor: '#f5f5f5'
-        }, dropDownStyle]}
-        listItemLabelStyle={{
-          color: '#002b45',
-          fontWeight: 'bold'
-        }}
-        selectedItemLabelStyle={{
-          color: '#0071bc'
-        }}
       />
     </View>
   );

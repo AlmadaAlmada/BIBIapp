@@ -14,24 +14,18 @@ export const style = StyleSheet.create({
         zIndex: 2,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
         alignContent: 'center',
-        columnGap: 1,
-        borderRadius: 15,
-        borderBottomWidth: 3,
-        borderColor: themas.colors.primary
     },
     bola:{
         width: 40,
         height: 40,
-        zIndex: 1
+        resizeMode:'contain',
     },
     a1:{
         width: 60,
-        height: 20,
-        //borderColor: 'red',
-        //borderWidth: 3,
-        marginTop: 10
+        height: 70,
+        justifyContent:'center',
+        alignItems:'center'
     },
     a2:{
         alignSelf: 'center',
@@ -52,18 +46,12 @@ export const style = StyleSheet.create({
         //marginLeft: 25,
         //marginBottom: 2
     },
-    backText:{
-        left: -80,
-    },
     fixImage:{
-        top: -15,
-        position: 'absolute',
+        backgroundColor:'aquablue',
     },
     esquerda:{
         flexDirection: 'row',
         alignContent: 'center',
         alignItems: 'center',
     }
-
-
 })
