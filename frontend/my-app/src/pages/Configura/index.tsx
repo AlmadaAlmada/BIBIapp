@@ -40,53 +40,58 @@ export default function Configura() {
     return (
         <SafeAreaView style={style.container}>
             <View style={style.boxTop}>
-                <Header title="Configurações"></Header>
+                {/* Header component */}
+                <Header title="Configurações" onIconLeftPress={() => navigation.goBack()}></Header>
             </View>
             <View style={style.boxMid}>
-                
-                <View style={style.abaixa}>
-                    <CustomBtn
-                        imageLeft={Car2}
-                        subtitle="Adicionar carro"
-                        imageRight={Car2}
-                        left={-80}
-                        goToo="CadastroCarro">
-                    </CustomBtn>
+                {/* Wrap CustomBtns in a View with the settingsBlock style */}
+                <View style={style.settingsBlock}>
+                    <View style={style.abaixa}>
+                        <View style={style.btn}>
+                            <CustomBtn
+                                imageLeft={Car2}
+                                subtitle="Adicionar carro"
+                                goToo="CadastroCarro"
+                            >
+                            </CustomBtn>
+                        </View>
+                        <View style={style.btn}>
+                            <CustomBtn
+                                imageLeft={Sino}
+                                subtitle="Notificações"
+                            >
+                            </CustomBtn>
+                        </View>
+                        <View style={style.btn}>
+                            <CustomBtn
+                                imageLeft={Engrena}
+                                subtitle="Conta"
+                            >
+                            </CustomBtn>
+                        </View>
+                        <View style={style.btn}>
 
-                    <CustomBtn
-                        imageLeft={Sino}
-                        subtitle="Notificações"
-                        imageRight={Sino}
-                        left={-94}>
-                    </CustomBtn>
-
-                    <CustomBtn
-                        imageLeft={Engrena}
-                        subtitle="Conta"
-                        imageRight={Engrena}
-                        left={-127}>
-                    </CustomBtn>
-
-                    <CustomBtn
-                        imageLeft={World}
-                        subtitle="Idioma"
-                        imageRight={World}
-                        left={-122}>
-                    </CustomBtn>
-
-                    <CustomBtn
-                        imageLeft={Lock}
-                        subtitle="Privacidade"
-                        imageRight={Lock}
-                        left={-98}>
-                    </CustomBtn>
-
+                            <CustomBtn
+                                imageLeft={World}
+                                subtitle="Idioma"
+                            >
+                            </CustomBtn>
+                        </View>
+                        <View style={style.btn}>
+                            <CustomBtn
+                                imageLeft={Lock}
+                                subtitle="Privacidade"
+                            >
+                            </CustomBtn>
+                        </View>
+                    </View>
                 </View>
 
-            </View>
-
-            <View style={style.boxBottom}>
-
+                {/* Bottom text links */}
+                <View style={style.bottomTextContainer}>
+                    <Text style={style.bottomText}>Políticas de Privacidade - Termos de serviço</Text>
+                    <Text style={style.bottomText}>Declaração de acessibilidade</Text>
+                </View>
             </View>
         </SafeAreaView>
     );

@@ -11,14 +11,13 @@ export const style = StyleSheet.create({
         maxWidth: '97%',
         maxHeight: 70,
         backgroundColor: 'white',
-        zIndex: 2,
+        //zIndex: 2,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignContent: 'center',
         columnGap: 1,
-        borderRadius: 15,
-        borderBottomWidth: 3,
+        //borderRadius: 15,
         borderColor: themas.colors.primary
     },
     bola:{

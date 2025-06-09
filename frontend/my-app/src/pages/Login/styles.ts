@@ -3,7 +3,7 @@ import { themas } from "../../global/themes";
 
 export const style = StyleSheet.create({
     container: {
-        flex: 0.8,
+        flex: 0.7,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -14,30 +14,31 @@ export const style = StyleSheet.create({
         justifyContent: 'center',
     },
     boxMid: {
-        flex: 1,
         width: '100%',
-        paddingHorizontal: 12,
-        alignItems: 'flex-start',
-        rowGap: 40
+        paddingHorizontal: 10,
+        alignItems: 'center',
     },
     inputGroup: {
-        width: '100%',
-        rowGap: 10
+        width: '95%', 
+        marginBottom: 20,
     },
     inputLabel: {
         fontSize: 16,
         fontWeight: '600',
         color: '#333',
         marginBottom: 10,
+        left: 10,
     },
     boxBottom: {
         flex: 1,
         width: '100%',
     },
     boxButton: {
-        marginTop: '15%',
+        top: 25,
+        paddingTop: '10%',
         flexDirection: 'row',
-        columnGap: 30
+        columnGap: 30,
+        justifyContent: 'center',
     },
     button: {
         borderWidth: 1.5,
