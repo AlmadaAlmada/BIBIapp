@@ -1,5 +1,3 @@
-//const { cadastrarCarro } = require('../../src/carros/carroServico');
-//import { auth } from '../firebase/firebaseConfig.ts';
 import { Request, Response } from 'express';
 import { cadastrarCarro, buscarMarcasModelos, buscarCarrosPorUsuario} from '../carros/carroServico';
 
@@ -9,7 +7,6 @@ export const criarCarro = async (req: Request, res: Response) => {
     const { uidUsuario, nome, marca, modelo, ano, mediaKmSemana } = req.body;
 
     try {
-        // Validação rápida no controller (opcional, já existe no service)
         if (!uidUsuario || !nome || !marca || !modelo || !ano || !mediaKmSemana) {
             return res.status(400).json({ mensagem: 'Todos os campos são obrigatórios.' });
         }
@@ -31,7 +28,6 @@ export const criarCarro = async (req: Request, res: Response) => {
 export const obterCarrosPorUsuario = async (req: Request, res: Response) => {
   const { uidUsuario } = req.params;
 
-  console.log("uid capturado pela tela no Controller", uidUsuario);
 
   if (!uidUsuario) {
     return res.status(400).json({ sucesso: false, mensagem: "Parâmetro uidUsuario é obrigatório." });
@@ -40,7 +36,6 @@ export const obterCarrosPorUsuario = async (req: Request, res: Response) => {
   try {
     const resultado = await buscarCarrosPorUsuario(uidUsuario);
     if (resultado.sucesso) {
-      console.log("resultado do controller dados do caror", resultado)
       return res.status(200).json(resultado);
     } else {
       return res.status(500).json({ sucesso: false, mensagem: resultado.mensagem });

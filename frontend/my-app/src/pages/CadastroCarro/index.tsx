@@ -60,12 +60,6 @@ export default function CadastroCarro() {
                     setMarcas(nomesMarcas);
                     setModelosPorMarca(resposta.modelos);
 
-                    console.log('Marcas disponíveis:', nomesMarcas);
-                    console.log('Modelos por marca:', resposta.modelos);
-
-                    console.log("Estado de marcas:", marcas);
-                    console.log("Estado de modelosPorMarca:", modelosPorMarca);
-
                 }
             } catch (error) {
                 console.error('Erro ao buscar carros:', error);
@@ -93,7 +87,6 @@ export default function CadastroCarro() {
                 mediaKmSemana
             });
             Alert.alert('Todos os campos devem estar preenchidos !');
-            console.log("socorro" + nome, marcaSelecionada, modeloSelecionado, ano, mediaKmSemana);
             return;
         }
 
@@ -108,7 +101,6 @@ export default function CadastroCarro() {
 
         try {
             const resposta = await cadastrarCarro(uid!, nome, marcaSelecionada, modeloSelecionado, Number(ano), Number(mediaKmSemana));
-            console.log(resposta.mensagem);
 
             if (resposta.sucesso) {
                 Alert.alert('Sucesso!', resposta.mensagem, [

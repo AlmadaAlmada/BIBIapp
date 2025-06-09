@@ -41,7 +41,7 @@ export default function Login() {
                 Alert.alert('Sucesso', resultado.mensagem, [
                     {
                         text: 'OK',
-                        onPress: () => navigation.navigate('BottomRoutes') // 🔥 Redireciona para a Home
+                        onPress: () => navigation.navigate('BottomRoutes')
                     }
                 ]);
             } else {
