@@ -13,21 +13,14 @@ export const style = StyleSheet.create({
         height: '10%',
         backgroundColor: themas.colors.primary,
         alignItems: 'center',
-        justifyContent: 'center',
-        
-    },
-    backIcon:{
-
+        justifyContent: 'center',      
     },
     boxMid:{
         flex: 1,
         width: '100%',
-        //height: Dimensions.get('window').height/1.2,
         backgroundColor: themas.colors.secondary,
         alignItems: 'center',
         rowGap: 30,
-        //paddingHorizontal: 10,
-        //paddingVertical: 10
     },
     boxBottom:{
         width: '100%',

@@ -4,15 +4,13 @@ import { themas } from "../../global/themes";
 export const style = StyleSheet.create({
     container:{
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
         backgroundColor: themas.colors.secondary,
     },
     boxTop:{
-        //flex: 1,
+        flex: 0.2,
         width: '100%',
         height: '13%',
-        backgroundColor: 'green',
+        backgroundColor: themas.colors.primary,
         alignItems: 'center',
         justifyContent: 'center',
         
@@ -20,12 +18,10 @@ export const style = StyleSheet.create({
     boxMid:{
         flex: 1,
         width: '100%',
-        //height: Dimensions.get('window').height/1.2,
         backgroundColor: themas.colors.secondary,
         alignItems: 'center',
         rowGap: 5,
         paddingHorizontal: 1,
-        //paddingVertical: 10,
     },
     boxBottom:{
         width: '100%',
