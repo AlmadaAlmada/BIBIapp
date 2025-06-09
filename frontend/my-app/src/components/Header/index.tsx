@@ -41,7 +41,7 @@ export const Header = forwardRef((Props: Props, ref: LegacyRef<TextInput> | null
         if (onBackPress) {
             onBackPress(); 
         } else {           
-             navigation.navigate('Inicial'); 
+             navigation.navigate('BottomRoutes'); 
         }
     };
 

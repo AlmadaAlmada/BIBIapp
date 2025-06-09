@@ -48,7 +48,6 @@ export async function cadastrarCarro(
 
     await AsyncStorage.setItem('idCarro', data.idCarro);
 
-    console.log("xique xique -> ", data);
 
     return {sucesso: true, mensagem: "FINALMENTE BFF PORRA CARRO"};
   } catch (error) {
@@ -72,8 +71,6 @@ export async function buscarCarros(): Promise<ResultadoBusca> {
       throw data;
     }
 
-    console.log("xique xique -> " + response);
-    console.log('Resposta da API de marcas e modelos:', data);
     return data;
   } catch (error) {
     console.error('Erro ao buscar marcas e modelos:', error);

@@ -25,7 +25,6 @@ import Logo2 from '../../assets/logoApple.png'
 import {MaterialIcons, FontAwesome, Octicons} from '@expo/vector-icons';
 
 export default function Lowbar({ state, navigation }: BottomTabBarProps) {
-    console.log(state)
 
     const go = (screenName:string)=>{
         navigation.navigate(screenName)

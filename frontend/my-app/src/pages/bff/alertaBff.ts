@@ -31,8 +31,6 @@ export async function cadastrarAlerta(
 
     await AsyncStorage.setItem('idAlerta', data.idAlerta);
 
-    console.log("xique xique -> ", data);
-
     return {sucesso: true, mensagem: "FINALMENTE ALERTA DO CARALHO PORRA CARRO"};
   } catch (error) {
     console.error('Erro ao cadastrar carro na BFF:', error);

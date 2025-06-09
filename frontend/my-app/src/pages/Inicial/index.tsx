@@ -32,7 +32,6 @@ export default function Inicial() {
     useEffect(() => {
         const buscarUid = async () => {
             const uidSalvo = await AsyncStorage.getItem('uid');
-            console.log("UID carregado:", uidSalvo);
             setUid(uidSalvo);
         };
         buscarUid();
@@ -44,13 +43,10 @@ export default function Inicial() {
 
         const buscarDadosCarro = async () => {
             try {
-                console.log("uid tela inicial debto da busca carro:", uid)
                 const resposta = await buscarDadosCarroBff(uid!);
-                console.log("tem um texto aqui")
-                console.log(resposta);
+            
 
                 let imagemUrl = resposta.carros[0]?.imagemUrl;
-                console.log(" vetor na posicao 0 ", imagemUrl);
 
                 if (imagensCarros[imagemUrl]) {
                     setCarroImage(imagensCarros[imagemUrl]);
@@ -59,9 +55,7 @@ export default function Inicial() {
                 }
 
                 if (resposta.sucesso) {
-
-                    console.log("its so confusing sometimes to be a girl")
-
+                    console.log("Dados do carro:", resposta.carros);
                 } else {
                     Alert.alert('Erro', resposta.mensagem);
                 }

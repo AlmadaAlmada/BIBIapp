@@ -23,7 +23,6 @@ export async function cadastrarCarro(
     mediaKmSemana: number
   }
 ) {
-  // Validações (conferir com os meninos se a lógica está correta)
   if (!dados.nome || !dados.marca || !dados.modelo || !dados.ano || !dados.mediaKmSemana) {
     return { sucesso: false, mensagem: "Todos os campos são obrigatórios." };
   }
@@ -50,8 +49,6 @@ export async function cadastrarCarro(
     });
 
     const idCarro = documenta.id;
-    console.log("id do carro aa", idCarro);
-    console.log(documenta.id);
 
     return {
       sucesso: true,
