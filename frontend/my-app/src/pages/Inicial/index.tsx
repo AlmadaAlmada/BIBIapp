@@ -174,7 +174,7 @@ export default function Inicial() {
                                 <Card
                                     imageLeft={Bola}
                                     title={alerta.peca}
-                                    subtitle={`Próxima troca: ${alerta.mesesRestantes} meses`}
+                                    subtitle={`Próxima troca: ${Math.floor(alerta.mesesRestantes)} meses`}
                                     subtitle2={`Última troca: ${formatarData(alerta.dataUltimaTroca)}`}
                                     imageRight={getImagemStatus(alerta.status)}
                                     bottomText={alerta.status}
