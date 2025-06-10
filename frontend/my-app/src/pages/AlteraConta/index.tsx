@@ -109,7 +109,7 @@ export default function AlteraConta() {
 
                     {/* Nova Senha */}
                     <View style={style.inputGroup}>
-                        <Text style={style.inputLabel}>Confirmar Senha:</Text>
+                        <Text style={style.inputLabel}>Digite sua Nova Senha:</Text>
                         <Input
                             placeholder="confirm password"
                             value={senhaNova}
