@@ -18,26 +18,69 @@ import { NavigationProp } from '@react-navigation/native';
 import { PostCard } from "../../components/PostCard";
 import { Header } from "../../components/Header";
 import { BuscaTopo } from "../../components/BuscaTopo";
+import { alteraConta } from "../bff/userBff";
+
 
 export default function AlteraConta() {
     const navigation = useNavigation<NavigationProp<any>>();
 
+    const [emailAntigo, setEmailAntigo] = useState('');
+    const [senhaAntiga, setSenhaAntiga] = useState('');
+    const [emailNovo, setEmailNovo] = useState('');
+    const [senhaNova, setSenhaNova] = useState('');
+
+    const handleAlteraConta = async () => {
+
+        if (!emailAntigo || !senhaAntiga) {
+            Alert.alert('Erro', 'Por favor, preencha o email e a senha atuais.');
+            return;
+        }
+
+        if (!emailNovo && !senhaNova) {
+            Alert.alert('Erro', 'Por favor, preencha o novo email ou a nova senha para realizar a alteração.');
+            return;
+        }
+
+        if (emailNovo === emailAntigo && senhaNova === senhaAntiga) {
+            Alert.alert('Atenção', 'O novo email e a nova senha são iguais aos atuais. Nenhuma alteração será feita.');
+            return;
+        }
+
+        try {
+            const resultado = await alteraConta(emailAntigo, senhaAntiga, emailNovo, senhaNova);
+
+            if (resultado.sucesso) {
+                Alert.alert('Sucesso', resultado.mensagem);
+                navigation.goBack();
+            } else {
+
+                Alert.alert('Erro', resultado.mensagem || 'Ocorreu um erro desconhecido ao alterar a conta.');
+            }
+        } catch (erro) {
+            console.error('Erro ao alterar conta:', erro);
+            return {
+                sucesso: false,
+                mensagem: 'Erro ao conectar com o servidor.'
+            };
+        }
+    };
+
     return (
         <SafeAreaView style={style.container}>
-            <View style = {style.BoxTop}>
+            <View style={style.BoxTop}>
                 <Header title='Alterar Conta' />
             </View>
-            <View style = {style.BoxMid}>
+            <View style={style.BoxMid}>
                 <View>
                     {/* Email Antigo */}
                     <View style={style.inputGroup}>
-                        <Text style={style.inputLabel}>Digite seu Email atual:</Text>
+                        <Text style={style.inputLabel}>Digite seu Email antigo:</Text>
                         <Input
                             placeholder="email@domain.com"
                             keyboardType="email-address"
                             autoCapitalize="none"
-                        // value={emailAntigo}
-                        //</View>onChangeText={emailAntigo}
+                            value={emailAntigo}
+                            onChangeText={setEmailAntigo}
                         ></Input>
                     </View>
 
@@ -46,8 +89,8 @@ export default function AlteraConta() {
                         <Text style={style.inputLabel}> Digite sua senha antiga:</Text>
                         <Input
                             placeholder="password"
-                            //value={senhaAntiga}
-                            //onChangeText={senhaAntiga}
+                            value={senhaAntiga}
+                            onChangeText={setSenhaAntiga}
                             secureTextEntry
                         ></Input>
                     </View>
@@ -59,8 +102,8 @@ export default function AlteraConta() {
                             placeholder="email@domain.com"
                             keyboardType="email-address"
                             autoCapitalize="none"
-                        //value={novoEmail}
-                        //onChangeText={novaSenha}
+                            value={emailNovo}
+                            onChangeText={setEmailNovo}
                         ></Input>
                     </View>
 
@@ -69,14 +112,12 @@ export default function AlteraConta() {
                         <Text style={style.inputLabel}>Confirmar Senha:</Text>
                         <Input
                             placeholder="confirm password"
-                            //value={novaSenha}
-                            //onChangeText={novaSenha}
+                            value={senhaNova}
+                            onChangeText={setSenhaNova}
                             secureTextEntry></Input>
                     </View>
                     <View style={style.boxButton}>
-                        <TouchableOpacity style={style.button}
-                        //onPress={alterarConta}
-                        >
+                        <TouchableOpacity style={style.button} onPress={handleAlteraConta} >
                             <Text style={style.criar}>Concluído</Text>
                         </TouchableOpacity>
                     </View>
