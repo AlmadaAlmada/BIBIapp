@@ -7,12 +7,6 @@ interface ResultadoPost {
   post?: any;
 }
 
-interface ResultadoComentario {
-  sucesso: boolean;
-  mensagem: string;
-  comentario?: any;
-}
-
 interface ResultadoListagem {
   sucesso: boolean;
   mensagem: string;
@@ -85,52 +79,6 @@ const listarTodosPosts = async (req: Request, res: Response) => {
   }
 };
 
-const comentar = async (req: Request, res: Response) => {
-  const { postAutorId, postId } = req.params;
-  const { autorId, autorNome, texto } = req.body;
-
-  if (!postAutorId || !postId || !autorId || !autorNome || !texto) {
-    return res.status(400).json({
-      sucesso: false,
-      mensagem: 'Todos os campos (incluindo IDs de post e autor) são obrigatórios para comentar.',
-    });
-  }
-
-  try {
-    const resultado: ResultadoComentario = await forumService.comentar(postAutorId, postId, { autorId, autorNome, texto });
-
-    return res.status(resultado.sucesso ? 201 : 400).json(resultado);
-  } catch (error) {
-    console.error('Erro no controller de comentar:', error);
-    return res.status(500).json({
-      sucesso: false,
-      mensagem: 'Erro interno no servidor.',
-    });
-  }
-};
-
-const listarComentarios = async (req: Request, res: Response) => {
-  const { postAutorId, postId } = req.params;
-
-  if (!postAutorId || !postId) {
-    return res.status(400).json({
-      sucesso: false,
-      mensagem: 'ID do autor do post e ID do post são obrigatórios para listar comentários.',
-    });
-  }
-
-  try {
-    const resultado: ResultadoListagem = await forumService.listarComentarios(postAutorId, postId);
-
-    return res.status(resultado.sucesso ? 200 : 400).json(resultado);
-  } catch (error) {
-    console.error('Erro no controller de listar comentários:', error);
-    return res.status(500).json({
-      sucesso: false,
-      mensagem: 'Erro interno no servidor.',
-    });
-  }
-};
 
 const excluirPost = async (req: Request, res: Response) => {
   const { userId, postId } = req.params;
@@ -154,28 +102,6 @@ const excluirPost = async (req: Request, res: Response) => {
   }
 };
 
-const excluirComentario = async (req: Request, res: Response) => {
-  const { postAutorId, postId, commentId } = req.params;
-
-  if (!postAutorId || !postId || !commentId) {
-    return res.status(400).json({
-      sucesso: false,
-      mensagem: 'ID do autor do post, ID do post e ID do comentário são obrigatórios para excluir comentário.',
-    });
-  }
-
-  try {
-    const resultado: ResultadoOperacao = await forumService.excluirComentario(postAutorId, postId, commentId);
-
-    return res.status(resultado.sucesso ? 200 : 400).json(resultado);
-  } catch (error) {
-    console.error('Erro no controller de excluir comentário:', error);
-    return res.status(500).json({
-      sucesso: false,
-      mensagem: 'Erro interno no servidor.',
-    });
-  }
-};
 
 const pesquisarPosts = async (req: Request, res: Response) => {
   const busca = req.query.search as string;
@@ -203,10 +129,7 @@ const pesquisarPosts = async (req: Request, res: Response) => {
 export default {
   criarPost,
   listarPosts,
-  comentar,
-  listarComentarios,
   excluirPost,
-  excluirComentario,
   listarTodosPosts,
   pesquisarPosts,
 };

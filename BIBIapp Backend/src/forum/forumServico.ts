@@ -8,22 +8,10 @@ export interface NovoPost {
   texto: string;
 }
 
-export interface NovoComentario {
-  autorId: string;
-  autorNome: string;
-  texto: string;
-}
-
 interface ResultadoPost {
   sucesso: boolean;
   mensagem: string;
   post?: any;
-}
-
-interface ResultadoComentario {
-  sucesso: boolean;
-  mensagem: string;
-  comentario?: any;
 }
 
 interface ResultadoListagem {
@@ -105,59 +93,6 @@ export async function listarPosts(userId: string, busca?: string): Promise<Resul
   }
 }
 
-export async function comentar(postAutorId: string, postId: string, { autorId, autorNome, texto }: NovoComentario): Promise<ResultadoComentario> {
-  if (!postAutorId || !postId || !autorId || !autorNome || !texto) {
-    return { sucesso: false, mensagem: "Todos os campos são obrigatórios para comentar." };
-  }
-
-  try {
-    const comment = {
-      autorId,
-      autorNome,
-      texto,
-      createdAt: serverTimestamp(),
-    };
-
-    const docRef = await addDoc(collection(db, "usuarios", postAutorId, "posts", postId, "comments"), comment);
-
-    return {
-      sucesso: true,
-      mensagem: "Comentário criado com sucesso.",
-      comentario: { id: docRef.id, ...comment }
-    };
-  } catch (erro: any) {
-    console.error("Erro ao comentar:", erro);
-    return {
-      sucesso: false,
-      mensagem: traduzirErroFirebase(erro.code) || "Erro ao criar comentário."
-    };
-  }
-}
-
-export async function listarComentarios(postAutorId: string, postId: string): Promise<ResultadoListagem> {
-  if (!postAutorId || !postId) {
-    return { sucesso: false, mensagem: "ID do autor do post e ID do post são obrigatórios." };
-  }
-
-  try {
-    const commentsCollectionRef = collection(db, "usuarios", postAutorId, "posts", postId, "comments");
-    const q = query(commentsCollectionRef, orderBy("createdAt", "asc"));
-    const snapshot = await getDocs(q);
-    const comments = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-
-    return {
-      sucesso: true,
-      mensagem: comments.length > 0 ? "Comentários listados com sucesso." : "Nenhum comentário encontrado.",
-      dados: comments
-    };
-  } catch (erro: any) {
-    console.error("Erro ao listar comentários:", erro);
-    return {
-      sucesso: false,
-      mensagem: traduzirErroFirebase(erro.code) || "Erro ao listar comentários."
-    };
-  }
-}
 
 export async function excluirPost(userId: string, postId: string): Promise<ResultadoOperacao> {
   if (!userId || !postId) {
@@ -232,23 +167,3 @@ export async function pesquisarPostsPorPalavraChave(busca: string): Promise<Resu
   }
 }
 
-export async function excluirComentario(postAutorId: string, postId: string, commentId: string): Promise<ResultadoOperacao> {
-  if (!postAutorId || !postId || !commentId) {
-    return { sucesso: false, mensagem: "ID do autor do post, ID do post e ID do comentário são obrigatórios." };
-  }
-
-  try {
-    await deleteDoc(doc(db, "usuarios", postAutorId, "posts", postId, "comments", commentId));
-
-    return {
-      sucesso: true,
-      mensagem: "Comentário excluído com sucesso."
-    };
-  } catch (erro: any) {
-    console.error("Erro ao excluir comentário:", erro);
-    return {
-      sucesso: false,
-      mensagem: traduzirErroFirebase(erro.code) || "Erro ao excluir comentário."
-    };
-  }
-}
