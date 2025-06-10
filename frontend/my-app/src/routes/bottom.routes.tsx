@@ -10,6 +10,7 @@ import Lowbar from '../components/Lowbar';
 import CadastroCarro from '../pages/CadastroCarro';
 import Configura from '../pages/Configura';
 import PostModal from '../pages/PostModal';
+import AlteraConta from "../pages/AlteraConta"
 
 
 const Tab = createBottomTabNavigator()
@@ -25,7 +26,7 @@ export default function BottomRoutes() {
             <Tab.Screen name='Inicial' component={Inicial}></Tab.Screen>
             <Tab.Screen name='Alerta' component={Alerta}></Tab.Screen>
             <Tab.Screen name='Forum1' component={Forum1}></Tab.Screen> 
-            <Tab.Screen name='Perfil' component={Perfil}></Tab.Screen>
+            <Tab.Screen name='AlteraConta' component={AlteraConta}></Tab.Screen>
             
         </Tab.Navigator>
     );

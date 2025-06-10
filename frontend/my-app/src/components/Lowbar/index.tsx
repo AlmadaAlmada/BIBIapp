@@ -66,11 +66,14 @@ export default function Lowbar({ state, navigation }: BottomTabBarProps) {
                     </View>
 
                     <View>
-                        <TouchableOpacity onPress={()=>go("Perfil")}>
+                        <View>
+                        <TouchableOpacity onPress={()=>go("AlteraConta")}>
                             <Image style={style.icons}
                             source={Profile}>
                             </Image>
                         </TouchableOpacity>
+                    </View>
+                    
                     </View>
 
                     
