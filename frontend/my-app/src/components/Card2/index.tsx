@@ -35,12 +35,13 @@ type Props = TextInputProps & {
     imageLeftStyle?: object,
     imageRightStyle?: object,
     onIconLeftPress?: () => void,
-    onIconRightPress?: () => void
+    onIconRightPress?: () => void,
+    onImageRightPress?: () => void,
 }
 
 export const Card2 = forwardRef((Props:Props, ref: LegacyRef<TextInput> | null )=> {
 
-    const { title = "Produto", subtitle = "Próxima troca: XX/XX", subtitle2 = "Última troca: XX/XX", bottomText = "Estado Vazio", imageLeft, imageRight, goToo, imageLeftStyle, imageRightStyle, ...rest} = Props
+    const { title = "Produto", subtitle = "Próxima troca: XX/XX", subtitle2 = "Última troca: XX/XX", bottomText = "Estado Vazio", imageLeft, imageRight, goToo, imageLeftStyle, imageRightStyle, onImageRightPress, ...rest} = Props
 
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
@@ -61,7 +62,7 @@ export const Card2 = forwardRef((Props:Props, ref: LegacyRef<TextInput> | null )
                         <Text>{subtitle2}</Text>
                     </View>
                     <View style= {style.a1}>
-                        <TouchableOpacity style={style.editbutton} onPress={() => navigation.navigate("TestModal")}>
+                        <TouchableOpacity style={style.editbutton} onPress={onImageRightPress}>
                             <Image style={[style.teste, Props.imageLeftStyle]}
                             source={imageRight}>
                             </Image>

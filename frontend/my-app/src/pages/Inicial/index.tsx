@@ -18,6 +18,7 @@ import { buscarDadosCarroBff } from "../bff/carroBff";
 import { listarAlertasComStatusBff } from "../bff/alertaBff";
 import { useFocusEffect } from '@react-navigation/native';
 import { useCallback } from 'react';
+import { useAlertas } from "../AlertaContext";
 
 
 const { width, height } = Dimensions.get('window');
@@ -30,11 +31,12 @@ const imagensCarros: Record<string, any> = {
 
 export default function Inicial() {
 
+    const { alertas } = useAlertas();
+
     const [carroImage, setCarroImage] = useState('');
 
     const [idCarro, setidCarro] = useState<string | null>(null);
 
-    const [alertas, setAlertas] = useState<any[]>([]);
 
 
     useFocusEffect(
@@ -71,7 +73,7 @@ export default function Inicial() {
         const buscarDadosCarro = async () => {
             try {
                 const resposta = await buscarDadosCarroBff(uid!);
-            
+
 
                 let imagemUrl = resposta.carros[0]?.imagemUrl;
 
@@ -94,60 +96,45 @@ export default function Inicial() {
         buscarDadosCarro();
     }, [uid]);
 
-    useEffect(() => {
 
-        if (!uid) return;
-        if (!idCarro) return;
+
+    useEffect(() => {
+        if (!uid || !idCarro) return;
 
         const listarAlertasComStatus = async () => {
             try {
+                console.log("Resposta dos cards do alerta com status:");
+                console.log(alertas);
 
-                const resposta = await listarAlertasComStatusBff(uid!, idCarro!);
-
-                console.log("Resposta dos cards do alerta com status:")
-                console.log(resposta);
-
-                if (resposta.sucesso && Array.isArray(resposta.alertas)) {
-                    resposta.alertas.forEach((alerta: { peca: any; dataUltimaTroca: any; status: any; kmRestante: any; mesesRestantes: any; }, index: number) => {
-                        console.log(`Alerta ${index + 1}`);
-                        console.log(`Peça: ${alerta.peca}`);
-                        console.log(`Última troca: ${alerta.dataUltimaTroca}`);
-                        console.log(`Status: ${alerta.status}`);
-                        console.log(`KM restante: ${alerta.kmRestante}`);
-                        console.log(`Meses restantes: ${alerta.mesesRestantes}`);
-                    });
-
-                    setAlertas(resposta.alertas);
-                }
-
-                if (resposta.sucesso) {
-
-                    console.log("alertas com status vieram perfeitos!")
-
-                } else {
-                    Alert.alert('Erro', resposta.mensagem);
-                }
+                alertas.forEach((a, i) => {
+                    console.log(`Alerta ${i + 1}`);
+                    console.log(`Peça: ${a.peca}`);
+                    console.log(`Última troca: ${a.dataUltimaTroca}`);
+                    console.log(`Status: ${a.status}`);
+                    console.log(`KM restante: ${a.kmRestante}`);
+                    console.log(`Meses restantes: ${a.mesesRestantes}`);
+                });
             } catch (error) {
-                Alert.alert('Erro', 'Não foi possível salvar o carro')
+                Alert.alert('Erro', 'erro ao puxar dados');
             }
-        }
+        };
 
         listarAlertasComStatus();
-    }, [uid, idCarro]);
+    }, [uid, idCarro, alertas]);
+
 
     function formatarData(data: string): string {
-    const objData = new Date(data);
-    if (isNaN(objData.getTime())) return "Data inválida";
-    return objData.toISOString().split("T")[0];
+        const objData = new Date(data);
+        if (isNaN(objData.getTime())) return "Data inválida";
+        return objData.toISOString().split("T")[0];
     }
 
     function getImagemStatus(status: string) {
-  if (status === "ok") return Ok;
-  if (status === "recomendada") return Recomendada;
-  if (status === "necessaria") return Necessaria;
-  return "Logo";
-}
-
+        if (status === "ok") return Ok;
+        if (status === "recomendada") return Recomendada;
+        if (status === "necessaria") return Necessaria;
+        return "Logo";
+    }
 
 
     return (
