@@ -33,8 +33,4 @@ route.get('/posts/search', forumController.pesquisarPosts);
 route.get('/posts/:userId', forumController.listarPosts);
 route.delete('/posts/:userId/:postId', forumController.excluirPost);
 
-route.post('/posts/:postAutorId/:postId/comments', forumController.comentar);
-route.get('/posts/:postAutorId/:postId/comments', forumController.listarComentarios);
-route.delete('/posts/:postAutorId/:postId/comments/:commentId', forumController.excluirComentario);
-
 export default route;
