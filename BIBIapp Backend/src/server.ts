@@ -11,11 +11,11 @@ app.use(express.json());
 app.use('/api', routes);
 
 app.get('/', (_req: Request, res: Response) => {
-  res.send('API rodando em TypeScript ✅');
+  res.send('API rodando em TypeScript');
 });
 
 app.listen(port, () => {
-  console.log(`🚀 Servidor rodando em http://localhost:${port}`);
+  console.log(`Servidor rodando em http://localhost:${port}`);
 });
 
 

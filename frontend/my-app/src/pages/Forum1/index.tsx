@@ -44,7 +44,6 @@ export default function Forum1() {
             const buscarUid = async () => {
                 const uidSalvo = await AsyncStorage.getItem('uid');
                 setUid(uidSalvo);
-                console.log("CADE O ID DO DO DIVO Q PUBLICOU A MESAGEM?????", uidSalvo);
             };
 
             buscarUid();
@@ -57,7 +56,6 @@ export default function Forum1() {
             const buscarIdPostagem = async () => {
                 const idPostagemSalvo = await AsyncStorage.getItem('idPostagem');
                 setIdPostagem(idPostagemSalvo);
-                console.log("CADE O ID DA POSTAGEMMM?????", idPostagemSalvo);
             };
 
             buscarIdPostagem();

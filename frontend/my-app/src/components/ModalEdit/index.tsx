@@ -14,6 +14,8 @@ import Teste from '../../assets/teste.png'
 import Calendar from '../../assets/calendar.png'
 
 import Logo from '../../assets/logoGoogle.png'
+import { useAlertas } from '../../pages/AlertaContext'; // certifique-se que está importado
+
 
 import Logo2 from '../../assets/logoApple.png'
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -23,6 +25,7 @@ import { Input } from "../Input";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/core";
 import { buscarAlertaPorIdBff, editarAlertaBff, excluirAlertaBff } from "../../pages/bff/alertaBff";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type IconComponent = React.ComponentType<React.ComponentProps<typeof MaterialIcons>> |
     React.ComponentType<React.ComponentProps<typeof FontAwesome>> |
@@ -51,6 +54,8 @@ type Props = TextInputProps & {
 
 export const ModalEdit = forwardRef((props: Props, ref: LegacyRef<TextInput> | null) => {
 
+    const { setAlertas } = useAlertas();
+
     const [alerta, setAlerta] = useState<any>(null);
 
     const [data, setData] = useState(new Date());
@@ -74,7 +79,7 @@ export const ModalEdit = forwardRef((props: Props, ref: LegacyRef<TextInput> | n
 
     useEffect(() => {
         if (alerta) {
-            console.log("alerta atualizado:", alerta);
+        
         }
     }, [alerta]);
 
@@ -106,14 +111,17 @@ export const ModalEdit = forwardRef((props: Props, ref: LegacyRef<TextInput> | n
             const resposta = await excluirAlertaBff(uid, idCarro, idAlerta);
 
             if (resposta.sucesso) {
+                setAlertas([]);
                 Alert.alert('Sucesso!', resposta.mensagem, [
                     {
                         text: 'OK',
-                        onPress: () => navigation.goBack()
+                        onPress: () => navigation.navigate('BottomRoutes')
                     }
+             
                 ]);
 
-                navigation.goBack()
+                
+                //navigation.goBack()
             } else {
                 Alert.alert('Erro', resposta.mensagem);
             }

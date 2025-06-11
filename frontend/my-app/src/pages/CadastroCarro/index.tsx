@@ -49,7 +49,6 @@ export default function CadastroCarro() {
             const buscarUid = async () => {
                 const uidSalvo = await AsyncStorage.getItem('uid');
                 setUid(uidSalvo);
-                console.log("CADE O ID DO USUARIO NA TELA DE ALERTAS?", uidSalvo);
             };
 
             buscarUid();
@@ -90,25 +89,11 @@ export default function CadastroCarro() {
         }
 
         if (!nome || !marcaSelecionada || !modeloSelecionado || !ano || !mediaKmSemana) {
-            console.log('Campos preenchidos:', {
-                nome,
-                marcaSelecionada,
-                modeloSelecionado,
-                ano,
-                mediaKmSemana
-            });
+            
             Alert.alert('Todos os campos devem estar preenchidos !');
             return;
         }
 
-        console.log('Dados antes do cadastro:', {
-            uid,
-            nome,
-            marcaSelecionada,
-            modeloSelecionado,
-            ano: Number(ano),
-            mediaKmSemana: Number(mediaKmSemana)
-        });
 
         try {
             const resposta = await cadastrarCarro(uid!, nome, marcaSelecionada, modeloSelecionado, Number(ano), Number(mediaKmSemana));
