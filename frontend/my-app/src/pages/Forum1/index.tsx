@@ -1,67 +1,141 @@
-import React, { useState } from "react";
-
-import { Text, View, Image, TextInput, Button, TouchableOpacity, Alert, ScrollView, SafeAreaView } from 'react-native';
-
+import React, { useState, useEffect, useCallback } from "react";
+import { Text, View, Image, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
 import { style } from "./styles";
-
-import Logo from '../../assets/logoGoogle.png'
-import Camera from '../../assets/camera.png'
-import Teste from '../../assets/teste.png'
 import Plus from '../../assets/plus.png'
-
-import Profile2 from '../../assets/profile2.png'
-import { Input } from "../../components/Input";
-import { Or } from "../../components/Or";
-import { Google } from "../../components/Google";
-import { Title } from "../../components/Title";
-import { useNavigation } from '@react-navigation/native';
-import { NavigationProp } from '@react-navigation/native';
+import { useNavigation, NavigationProp, useIsFocused, useFocusEffect } from '@react-navigation/native';
 import { PostCard } from "../../components/PostCard";
-import { Header } from "@react-navigation/stack";
 import { BuscaTopo } from "../../components/BuscaTopo";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { criarPostBff, listarTodosPostsBff } from "../bff/forumBff";
+import ModalPost from "../../components/ModalPost";
+
+interface Post {
+    id: string;
+    autorId: string;
+    texto: string;
+    autorNome: string;
+}
 
 
 
 export default function Forum1() {
-
     const navigation = useNavigation<NavigationProp<any>>();
+    const isFocused = useIsFocused();
+    const [posts, setPosts] = useState<Post[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [autorNome, setAutorNome] =  useState<string | null>(null);
 
+    useFocusEffect(
+    useCallback(() => {
+        const buscarAutorNome = async () => {
+            const nome = await AsyncStorage.getItem('nomeUsuario');
+            setAutorNome(nome || '');
+        };
+        buscarAutorNome();
+    }, [])
+);
 
+    const [uid, setUid] = useState<string | null>(null);
+
+    useFocusEffect(
+        useCallback(() => {
+            const buscarUid = async () => {
+                const uidSalvo = await AsyncStorage.getItem('uid');
+                setUid(uidSalvo);
+                console.log("CADE O ID DO DO DIVO Q PUBLICOU A MESAGEM?????", uidSalvo);
+            };
+
+            buscarUid();
+        }, [])
+    );
+
+    const [idPostagem, setIdPostagem] = useState<string | null>(null);
+     useFocusEffect(
+        useCallback(() => {
+            const buscarIdPostagem = async () => {
+                const idPostagemSalvo = await AsyncStorage.getItem('idPostagem');
+                setIdPostagem(idPostagemSalvo);
+                console.log("CADE O ID DA POSTAGEMMM?????", idPostagemSalvo);
+            };
+
+            buscarIdPostagem();
+        }, [])
+    );
+
+    const autorId = uid;
+
+    const fetchPosts = async () => {
+        setLoading(true);
+        try {
+            const response = await listarTodosPostsBff();
+            if (response.sucesso && response.dados) {
+                setPosts(response.dados);
+            }
+        } catch (error) {
+            console.error("Erro ao buscar posts:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleNewPost = async (newPostContent: string) => {
+        try {
+
+            if (!autorId ) {
+                console.error("Usuário não autenticado.");
+                return;
+            }
+
+            const resposta = await criarPostBff(autorId, newPostContent);
+
+            if (resposta.sucesso && resposta.post) {
+                setPosts(prev => [resposta.post, ...prev]);
+            } else {
+                console.error("Erro ao criar post:", resposta.mensagem);
+            }
+
+            setModalVisible(false);
+        } catch (error) {
+            console.error("Erro no handleNewPost:", error);
+        }
+    };
+
+    React.useEffect(() => {
+        if (isFocused) {
+            fetchPosts();
+        }
+    }, [isFocused]);
 
     return (
         <SafeAreaView style={style.container}>
             <View style={style.boxTop}>
-                <BuscaTopo></BuscaTopo>
+                <BuscaTopo />
             </View>
 
             <View style={style.boxMid}>
                 <ScrollView>
-                    <PostCard
-                        userName="Nome do usuário"
-                        userImage={Profile2}
-                        content="texto texto texto texto texto texto texto texto texto texto"
-                        postImage={Teste}
-                        comments={[
-                            "texto texto texto texto texto texto texto texto texto",
-                            "texto texto texto texto texto texto texto texto texto",
-                        ]}
-                    />
-
-                    <PostCard
-                        userName="Nome do usuário"
-                        userImage={Profile2}
-                        content="texto texto texto texto texto texto texto texto texto texto"
-                        comments={["texto texto texto texto texto texto texto texto texto"]}
-                    />
+                    {posts.map((post) => (
+                        <PostCard
+                            key={post.id}
+                            userName={post.autorNome}
+                            content={post.texto}
+                        />
+                    ))}
                 </ScrollView>
             </View>
 
             <View style={style.boxBottom}>
-                        <TouchableOpacity onPress={()=> navigation.navigate("PostModal") }>
-                                            <Image style={style.plus}
-                                            source={Plus}></Image>
-                        </TouchableOpacity>
+                <TouchableOpacity onPress={() => setModalVisible(true)}>
+                    <Image style={style.plus} source={Plus} />
+                </TouchableOpacity>
             </View>
+
+            <ModalPost
+                visible={modalVisible}
+                onClose={() => setModalVisible(false)}
+                onPost={handleNewPost}
+            />
         </SafeAreaView>
     );
 }

@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const BASE_URL = 'http://10.0.2.2:3100/api';
+const BASE_URL = 'http://192.168.3.6:3100/api';
 
 export interface ResultadoPost {
   sucesso: boolean;
@@ -38,9 +38,8 @@ export async function criarPostBff(
       throw data;
     }
 
-    if (data.post?.id) {
-      await AsyncStorage.setItem('idPost', data.post.id);
-    }
+    await AsyncStorage.setItem('idPostagem', data.post.id);
+    console.log(data.post.id);
 
     return data;
   } catch (error) {

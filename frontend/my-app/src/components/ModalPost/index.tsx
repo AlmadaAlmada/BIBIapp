@@ -1,91 +1,61 @@
-import React, { useState } from 'react';
-import { Modal, View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
-import { style } from '../ModalPost/styles';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useNavigation } from '@react-navigation/core';
+    import React, { useState } from 'react';
+    import { Modal, View, Text, TextInput, TouchableOpacity } from 'react-native';
+    import { style } from '../ModalPost/styles';
 
-type ModalPostProps = {
-  visible: boolean;
-  onClose: () => void;
-  onPost: (data: { text: string; image: string | null }) => void;
-};
+    type ModalPostProps = {
+        visible: boolean;
+        onClose: () => void;
+        onPost: (text: string) => void;
+    };
 
-const ModalPost = ({ visible, onClose, onPost }: ModalPostProps) => {
-  const [text, setText] = useState('');
-  const [image, setImage] = useState<string | null>(null);
+    const ModalPost: React.FC<ModalPostProps>  = ({ visible, onClose, onPost }: ModalPostProps) => {
+        const [text, setText] = useState('');
 
-  const navigation = useNavigation<NativeStackNavigationProp<any>>();
+        const handlePost = () => {
+            if (text.trim() === '') return;
+            onPost(text);
+            setText('');
+            onClose();
+        };
 
-  const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      quality: 1,
-    });
+        return (
+            <Modal
+                animationType="slide"
+                transparent
+                visible={visible}
+                onRequestClose={onClose}
+            >
+                <View style={style.modalOverlay}>
+                    <View style={style.modalContainer}>
+                        <Text style={style.title}>Criar Publicação</Text>
 
-    if (!result.canceled) {
-      setImage(result.assets[0].uri);
-    }
-  };
+                        <TextInput
+                            style={style.input}
+                            placeholder="Escreva algo..."
+                            multiline
+                            maxLength={300}
+                            value={text}
+                            onChangeText={setText}
+                            placeholderTextColor="#7a8a99"
+                        />
+                        <Text style={style.charCount}>{text.length}/300</Text>
 
-  const handlePost = () => {
-    onPost({ text, image });
-    setText('');
-    setImage(null);
-    onClose();
-  };
-
-    return (
-        <Modal
-            animationType="slide"
-            transparent={true}
-            visible={visible}
-            onRequestClose={onClose}
-        >
-            <View style={style.modalOverlay}>
-                <View style={style.modalContainer}>
-                    <Text style={style.title}>Criar Publicação</Text>
-
-                    <TextInput
-                        style={style.input}
-                        placeholder="Escreva algo..."
-                        multiline
-                        maxLength={300}
-                        value={text}
-                        onChangeText={setText}
-                        placeholderTextColor="#7a8a99"
-                    />
-                    <Text style={style.charCount}>{text.length}/300</Text>
-
-                    {image && (
-                        <Image source={{ uri: image }} style={style.imagePreview} />
-                    )}
-
-                    <View style={style.buttonRow}>
-                        <TouchableOpacity style={style.imageButton} onPress={pickImage}>
-                            <Text style={style.buttonText}>Adicionar Imagem</Text>
-                        </TouchableOpacity>
-                    </View>
-
-                    <View style={style.buttonRow}>
-                        <TouchableOpacity style={style.cancelButton} onPress={() => navigation.goBack()}>
-                            <Text style={style.buttonText}>Cancelar</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={style.postButton}
-                            onPress={handlePost}
-                            disabled={text.trim() === ''}
-                        >
-                            <Text style={style.postButtonText}>Publicar</Text>
-                        </TouchableOpacity>
+                        <View style={style.buttonRow}>
+                            <TouchableOpacity style={style.cancelButton} onPress={onClose}>
+                                <Text style={style.buttonText}>Cancelar</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={style.postButton}
+                                onPress={handlePost}
+                                disabled={text.trim() === ''}
+                            >
+                                <Text style={style.postButtonText}>Publicar</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
-            </View>
-        </Modal>
-    );
-};
+            </Modal>
+        );
+    };
 
-
-
-export default ModalPost;
+    export default ModalPost;
