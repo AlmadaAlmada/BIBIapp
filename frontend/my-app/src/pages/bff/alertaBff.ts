@@ -42,8 +42,7 @@ export async function listarAlertasComStatusBff(
   uidUsuario: string,
   carroId: string
 ){ 
-  console.log("CADE O ID DO USUARIO PARA LISTAR OS PARAMETROS DE LISTAR ALERTAS COM STATUS?", uidUsuario);
-  console.log("CADE O ID DO CARRO PARA LISTAR OS PARAMETROS DE LISTAR ALERTAS COM STATUS?", carroId);
+
   try {
     const response = await fetch(`${BASE_URL}/alertas/status/${uidUsuario}/${carroId}`, {
       method: 'GET',
@@ -58,12 +57,9 @@ export async function listarAlertasComStatusBff(
       throw data;
     }
 
-
-    console.log("xique xique -> " + response);
-    console.log('dados do bff:', data);
     return data;
   } catch (error) {
-    console.error('Erro ao listar alertas com status na BFF:', error);
+    
     throw error;
   }
 }
@@ -82,8 +78,7 @@ export async function obterPecasDisponiveis() {
     if (!response.ok) {
       throw data;
     }
-
-    console.log('Peças disponíveis:', data.pecas);
+;
     return data;
   } catch (error) {
     console.error('Erro ao buscar peças disponíveis na BFF:', error);
@@ -106,10 +101,9 @@ export async function buscarAlertaPorIdBff(uidUsuario: string, carroId: string, 
       throw data;
     }
 
-    console.log('Alerta por id:', data);
     return data;
   } catch (error) {
-    console.error('Erro ao buscar o alerta por id na BFF:', error);
+    
     throw error;
   }
 }
@@ -136,7 +130,6 @@ export async function editarAlertaBff(uidUsuario: string, carroId: string, alert
       throw data;
     }
 
-    console.log('Alerta editado:', data);
     return data;
   } catch (error) {
     console.error('Erro ao buscar o retorno da edição do alerta na BFF:', error);

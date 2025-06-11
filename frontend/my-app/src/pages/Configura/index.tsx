@@ -36,7 +36,6 @@ export default function Configura() {
             const buscarUid = async () => {
                 const uidSalvo = await AsyncStorage.getItem('uid');
                 setUid(uidSalvo);
-                console.log("CADE O ID DO USUARIO NA TELA DE ALERTAS?", uidSalvo);
             };
 
             buscarUid();
@@ -50,7 +49,6 @@ export default function Configura() {
             const buscarToken = async () => {
                 const TokenSalvo = await AsyncStorage.getItem('uid');
                 setUid(TokenSalvo);
-                console.log("CADE O TOKEN NA TELA DE ALERTAS?", TokenSalvo);
             };
 
             buscarToken();

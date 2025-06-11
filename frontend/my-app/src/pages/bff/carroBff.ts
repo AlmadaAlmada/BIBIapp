@@ -93,8 +93,6 @@ export async function buscarDadosCarroBff(uidUsuario: string,) {
       throw data;
     }
 
-    console.log('Response', response);
-    console.log('Resposta da API de marcas e modelos:', data);
     return data;
   } catch (error) {
     console.error('Erro ao buscar marcas e modelos:', error);

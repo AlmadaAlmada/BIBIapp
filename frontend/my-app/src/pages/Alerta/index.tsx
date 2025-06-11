@@ -19,6 +19,7 @@ import { useAlertas } from '../AlertaContext';
 import { listarAlertasComStatusBff } from "../bff/alertaBff";
 
 
+
 export default function Alerta() {
     const { alertas, setAlertas } = useAlertas();
 
@@ -31,7 +32,6 @@ export default function Alerta() {
             const buscaridCarro = async () => {
                 const idCarroSalvo = await AsyncStorage.getItem('idCarro');
                 setidCarro(idCarroSalvo);
-                console.log("CADE O ID DO CARRO NA TELA DE ALERTAS?", idCarroSalvo);
             };
 
             buscaridCarro();
@@ -47,7 +47,6 @@ export default function Alerta() {
             const buscarUid = async () => {
                 const uidSalvo = await AsyncStorage.getItem('uid');
                 setUid(uidSalvo);
-                console.log("CADE O ID DO USUARIO NA TELA DE ALERTAS?", uidSalvo);
             };
 
             buscarUid();

@@ -127,12 +127,12 @@ export const ModalCreate = forwardRef((Props: Props, ref: LegacyRef<TextInput> |
             return;
         }
 
-        console.log('Dados antes do cadastro:', {
-            uid,
-            idCarro,
-            peca,
-            data: dataTexto,
-        });
+        // console.log('Dados antes do cadastro:', {
+        //     uid,
+        //     idCarro,
+        //     peca,
+        //     data: dataTexto,
+        // });
 
         try {
             const resposta = await cadastrarAlerta(uid!, idCarro!, peca, dataTexto);

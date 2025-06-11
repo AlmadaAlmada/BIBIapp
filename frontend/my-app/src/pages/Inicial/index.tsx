@@ -26,7 +26,7 @@ const { width, height } = Dimensions.get('window');
 const imagensCarros: Record<string, any> = {
     "BIBIapp Backendimagenshilux.png": require('../../assets/hilux.png'),
     "BIBIapp Backendimagenscorolla.png": require('../../assets/corolla.png'),
-    "BIBIapp Backendimagensonix.avif": require('../../assets/Onix.png'),
+    //9"BIBIapp Backendimagensonix.avif": require('../../assets/Onix.png'),
     "BIBIapp Backendimagenss10.avif": require('../../assets/s10.png')
 };
 
@@ -46,7 +46,6 @@ export default function Inicial() {
             const buscaridCarro = async () => {
                 const idCarroSalvo = await AsyncStorage.getItem('idCarro');
                 setidCarro(idCarroSalvo);
-                console.log("CADE O ID DO CARRO NA TELA INICIAL??", idCarroSalvo);
             };
 
             buscaridCarro();
@@ -62,7 +61,6 @@ export default function Inicial() {
             const buscarUid = async () => {
                 const uidSalvo = await AsyncStorage.getItem('uid');
                 setUid(uidSalvo);
-                console.log("CADE O ID DO USUARIO NA TELA INICIAL?", uidSalvo);
             };
 
             buscarUid();
@@ -86,7 +84,7 @@ export default function Inicial() {
                     }
 
                     if (resposta.sucesso) {
-                        console.log("Dados do carro:", resposta.carros);
+                    
                     } else {
                         Alert.alert('Erro', resposta.mensagem);
                     }
@@ -121,7 +119,6 @@ export default function Inicial() {
     
                     if (resposta.sucesso) {
     
-                        console.log("alertas com status vieram perfeitos!")
     
                     } else {
                         Alert.alert('Erro', resposta.mensagem);
