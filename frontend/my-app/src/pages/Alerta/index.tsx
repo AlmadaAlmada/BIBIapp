@@ -124,7 +124,7 @@ export default function Alerta() {
                                 <Card2
                                     imageLeft={Bola}
                                     title={alerta.peca}
-                                    subtitle={`Próxima troca: ${alerta.mesesRestantes} meses`}
+                                    subtitle={`Próxima troca: ${Math.floor(alerta.mesesRestantes)} meses`}
                                     subtitle2={`Última troca: ${formatarData(alerta.dataUltimaTroca)}`}
                                     imageRight={Editar}
                                     onImageRightPress={() => navigation.navigate("TestModal", {
