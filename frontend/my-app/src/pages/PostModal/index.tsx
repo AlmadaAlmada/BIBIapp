@@ -1,34 +1,34 @@
-import React, { useState } from 'react';
-import { Modal, View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
+import React from 'react';
+import {  View, Text, StyleSheet } from 'react-native';
 import ModalPost from '../../components/ModalPost';
+import { useNavigation, useRoute, RouteProp} from '@react-navigation/native';
 import { style } from './styles';
+
+type RootStackParamList = {
+    PostModal: { onAddPost: (content: string) => void };
+};
+
+type PotModalRouteProp = RouteProp<RootStackParamList, 'PostModal'>
 
 export default function PostModal() {
 
+    const navigation = useNavigation();
+    const route = useRoute<PotModalRouteProp>();
+    const { onAddPost } = route.params;
+
+    const handlePost = (text: string) =>{
+        onAddPost(text);
+    };
 
     return (
         <View style={style.container}>
-
-            <View style={style.boxTop}>
-
+            <View style={style.modalCentro}>
+                <ModalPost
+                    visible={true}
+                    onClose={() => navigation.goBack()} 
+                    onPost={handlePost}
+                />
             </View>
-
-            <View style={style.boxMid}>
-                <View style={style.modalCentro}>
-                    <ModalPost visible={true} onClose={function (): void {
-                        throw new Error('Function not implemented.');
-                    }} onPost={function (data: { text: string; image: string | null; }): void {
-                        throw new Error('Function not implemented.');
-                    }}></ModalPost>
-                </View>
-            </View>
-
-            <View style={style.boxBottom}>
-
-
-            </View>
-
         </View>
     );
 };

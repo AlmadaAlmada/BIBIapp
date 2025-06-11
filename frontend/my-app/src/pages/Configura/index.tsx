@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import {
   Text,
   View,
@@ -16,7 +16,7 @@ import World from '../../assets/world.png'
 import Lock from '../../assets/lock.png'
 import logout from '../../assets/logout.png';
 
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '@react-navigation/native';
 
 import { Header } from "../../components/Header";
@@ -27,14 +27,45 @@ import { logoutUsuario } from "../bff/userBff";
 import AsyncStorage from "@react-native-async-storage/async-storage"; 
 
 export default function Configura() {
+
+    const [uid, setUid] = useState<string | null>(null);
+
+
+    useFocusEffect(
+        useCallback(() => {
+            const buscarUid = async () => {
+                const uidSalvo = await AsyncStorage.getItem('uid');
+                setUid(uidSalvo);
+                console.log("CADE O ID DO USUARIO NA TELA DE ALERTAS?", uidSalvo);
+            };
+
+            buscarUid();
+        }, [])
+    );
+
+      const [token, setToken] = useState<string | null>(null);
+
+    useFocusEffect(
+        useCallback(() => {
+            const buscarToken = async () => {
+                const TokenSalvo = await AsyncStorage.getItem('uid');
+                setUid(TokenSalvo);
+                console.log("CADE O TOKEN NA TELA DE ALERTAS?", TokenSalvo);
+            };
+
+            buscarToken();
+        }, [])
+    );
+
   const navigation = useNavigation<NavigationProp<any>>();
 
   const handleLogout = async () => {
     try {
-      const resultado = await logoutUsuario();
+      const resultado = await logoutUsuario(String(token));
       Alert.alert("Sucesso", resultado.mensagem);
 
       await AsyncStorage.removeItem("uid");
+      await AsyncStorage.removeItem("token");
 
       navigation.reset({
         index: 0,
