@@ -29,8 +29,6 @@ export const style = StyleSheet.create({
     a1:{
         width: 60,
         height: 20,
-        //borderColor: 'red',
-        //borderWidth: 3,
         marginTop: 10
     },
     a2:{
@@ -49,8 +47,6 @@ export const style = StyleSheet.create({
     teste:{
         width: '46%',
         height: '42%',
-        //marginLeft: 25,
-        //marginBottom: 2
     },
     backText:{
         left: -80,

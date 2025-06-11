@@ -21,7 +21,7 @@ import { Input2 } from "../../components/Input2";
 import { buscarCarros, cadastrarCarro } from "../bff/carroBff";
 import { useEffect } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useUser } from "../UserContext"; // ajuste o caminho se necessário
+import { useUser } from "../UserContext"; 
 
 
 
@@ -117,7 +117,6 @@ export default function CadastroCarro() {
 
     const salvarCarroRedirecionar = async () => {
         salvarCarro();
-        //navigation.navigate("Inicial");
     }
 
     return (

@@ -23,7 +23,6 @@ export const style = StyleSheet.create({
         
     },
     boxCard:{
-        //marginTop:245,
         marginLeft: 2,
         width: '95%',
         height: 340,
@@ -48,7 +47,6 @@ export const style = StyleSheet.create({
         justifyContent: 'center',
         alignContent: 'center',
         width: '100%',
-        //marginTop: -40
     },
     A2:{
         flexDirection: 'column',

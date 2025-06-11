@@ -61,21 +61,17 @@ export const ModalCreate = forwardRef((Props: Props, ref: LegacyRef<TextInput> |
     const [modalVisible, setModalVisible] = useState(false);
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
-    // Estados para os dados do alerta
     const [idCarro, setidCarro] = useState<string | null>(null);
     const [peca, setPeca] = useState('');
     const [data, setData] = useState(new Date());
     const [dataTexto, setDataTexto] = useState('');
     const [uid, setUid] = useState<string | null>(null);
 
-    // Estados para as peças disponíveis
     const [pecasDisponiveis, setPecasDisponiveis] = useState<string[]>([]);
     const [showPecasDropdown, setShowPecasDropdown] = useState(false);
 
-    // Estados para o DatePicker
     const [showDatePicker, setShowDatePicker] = useState(false);
 
-    // Buscar dados do AsyncStorage
     useEffect(() => {
         const buscarDados = async () => {
             const idCarroSalvo = await AsyncStorage.getItem('idCarro');
@@ -86,7 +82,6 @@ export const ModalCreate = forwardRef((Props: Props, ref: LegacyRef<TextInput> |
         buscarDados();
     }, []);
 
-    // Buscar peças disponíveis
     useEffect(() => {
         const buscarPecas = async () => {
             try {
@@ -126,13 +121,6 @@ export const ModalCreate = forwardRef((Props: Props, ref: LegacyRef<TextInput> |
             Alert.alert('Atenção', 'Todos os campos devem estar preenchidos!');
             return;
         }
-
-        // console.log('Dados antes do cadastro:', {
-        //     uid,
-        //     idCarro,
-        //     peca,
-        //     data: dataTexto,
-        // });
 
         try {
             const resposta = await cadastrarAlerta(uid!, idCarro!, peca, dataTexto);

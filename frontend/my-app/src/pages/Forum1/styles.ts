@@ -65,6 +65,5 @@ export const style = StyleSheet.create({
      plus:{
         width: 60,
         height: 60,
-        //marginLeft: 340,
     }
 })

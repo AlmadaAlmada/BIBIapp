@@ -25,7 +25,6 @@ async function cadastrarAlerta(uidUsuario, carroId, peca, dataUltimaTroca) {
     if (!exports.PECAS_DISPONIVEIS.includes(peca)) {
         return { sucesso: false, mensagem: "Peça inválida." };
     }
-    // Validação: não permitir peça duplicada
     const alertasRef = (0, firestore_1.collection)(firebaseConfig_1.db, "usuarios", uidUsuario, "carros", carroId, "alertas");
     const q = (0, firestore_1.query)(alertasRef, (0, firestore_1.where)("peca", "==", peca));
     const querySnapshot = await (0, firestore_1.getDocs)(q);

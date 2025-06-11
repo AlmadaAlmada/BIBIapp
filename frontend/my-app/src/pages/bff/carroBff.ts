@@ -49,7 +49,7 @@ export async function cadastrarCarro(
     await AsyncStorage.setItem('idCarro', data.idCarro);
 
 
-    return {sucesso: true, mensagem: "FINALMENTE BFF PORRA CARRO"};
+    return {sucesso: true, mensagem: 'Carro cadastrado com sucesso.'};
   } catch (error) {
     console.error('Erro ao cadastrar carro na BFF:', error);
     throw error;
