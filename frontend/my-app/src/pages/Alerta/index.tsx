@@ -64,19 +64,11 @@ export default function Alerta() {
             try {
 
                 const resposta = await listarAlertasComStatusBff(uid!, idCarro!);
-
-                // console.log("Resposta dos cards do alerta com status:")
-                // console.log(resposta);
+            
 
                 if (resposta.sucesso && Array.isArray(resposta.alertas)) {
                     resposta.alertas.forEach((alerta: { id: any; peca: any; dataUltimaTroca: any; status: any; kmRestante: any; mesesRestantes: any; }, index: number) => {
-                        // console.log(`Alerta ${index + 1}`);
-                        // console.log(`id do Alerta ${alerta.id}`);
-                        // console.log(`Peça: ${alerta.peca}`);
-                        // console.log(`Última troca: ${alerta.dataUltimaTroca}`);
-                        // console.log(`Status: ${alerta.status}`);
-                        // console.log(`KM restante: ${alerta.kmRestante}`);
-                        // console.log(`Meses restantes: ${alerta.mesesRestantes}`);
+               
                     });
 
                     setAlertas(resposta.alertas);
@@ -90,7 +82,7 @@ export default function Alerta() {
                     Alert.alert('Erro', resposta.mensagem);
                 }
             } catch (error) {
-                //Alert.alert('Erro', 'Não foi possível salvar o carro')
+                
             }
         }
 

@@ -33,7 +33,7 @@ const imagensCarros: Record<string, any> = {
 
 export default function Inicial() {
 
-    const { alertas } = useAlertas();
+    const { alertas, setAlertas } = useAlertas();
 
     const [carroImage, setCarroImage] = useState('');
 
@@ -100,33 +100,39 @@ export default function Inicial() {
     );
 
 
-
-
-    // useFocusEffect(
-    //     useCallback(() => {
-    //         if (!uid || !idCarro) return;
-
-    //         const listarAlertasComStatus = async () => {
-    //             try {
-    //                 // console.log("Resposta dos cards do alerta com status:");
-    //                 // console.log(alertas);
-
-    //                 // alertas.forEach((a, i) => {
-    //                 //     console.log(`Alerta ${i + 1}`);
-    //                 //     console.log(`Peça: ${a.peca}`);
-    //                 //     console.log(`Última troca: ${a.dataUltimaTroca}`);
-    //                 //     console.log(`Status: ${a.status}`);
-    //                 //     console.log(`KM restante: ${a.kmRestante}`);
-    //                 //     console.log(`Meses restantes: ${a.mesesRestantes}`);
-    //                 // });
-    //             } catch (error) {
-    //                 Alert.alert('Erro', 'erro ao puxar dados');
-    //             }
-    //         };
-
-    //         listarAlertasComStatus();
-    //     }, [uid, idCarro, alertas])
-    // );
+    useFocusEffect(
+            useCallback(() => {
+    
+            if (!uid) return;
+            if (!idCarro) return;
+    
+            const listarAlertasComStatus = async () => {
+                try {
+    
+                    const resposta = await listarAlertasComStatusBff(uid!, idCarro!);
+    
+                    if (resposta.sucesso && Array.isArray(resposta.alertas)) {
+                        resposta.alertas.forEach((alerta: { id: any; peca: any; dataUltimaTroca: any; status: any; kmRestante: any; mesesRestantes: any; }, index: number) => {
+                     
+                        });
+    
+                        setAlertas(resposta.alertas);
+                    }
+    
+                    if (resposta.sucesso) {
+    
+                        console.log("alertas com status vieram perfeitos!")
+    
+                    } else {
+                        Alert.alert('Erro', resposta.mensagem);
+                    }
+                } catch (error) {
+                    
+                }
+            }
+    
+            listarAlertasComStatus();
+        }, [uid, idCarro]));
 
 
     function formatarData(data: string): string {
