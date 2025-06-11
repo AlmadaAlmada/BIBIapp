@@ -26,7 +26,7 @@ export default function Alerta() {
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
     const [idCarro, setidCarro] = useState<string | null>(null);
 
-    useFocusEffect(
+ useFocusEffect(
         useCallback(() => {
             const buscaridCarro = async () => {
                 const idCarroSalvo = await AsyncStorage.getItem('idCarro');
@@ -54,7 +54,8 @@ export default function Alerta() {
         }, [])
     );
 
-    useEffect(() => {
+     useFocusEffect(
+        useCallback(() => {
 
         if (!uid) return;
         if (!idCarro) return;
@@ -94,7 +95,7 @@ export default function Alerta() {
         }
 
         listarAlertasComStatus();
-    }, [uid, idCarro]);
+    }, [uid, idCarro]));
 
     function formatarData(data: string): string {
         const objData = new Date(data);

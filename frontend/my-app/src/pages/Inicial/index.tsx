@@ -39,7 +39,7 @@ export default function Inicial() {
 
 
 
-    useFocusEffect(
+     useFocusEffect(
         useCallback(() => {
             const buscaridCarro = async () => {
                 const idCarroSalvo = await AsyncStorage.getItem('idCarro');
@@ -67,60 +67,64 @@ export default function Inicial() {
         }, [])
     );
 
-    useEffect(() => {
+    useFocusEffect(
+        useCallback(() => {
+            const buscarDadosCarro = async () => {
+                if (!uid) return;
 
+                try {
+                    const resposta = await buscarDadosCarroBff(uid);
 
-        const buscarDadosCarro = async () => {
-            try {
-                const resposta = await buscarDadosCarroBff(uid!);
+                    let imagemUrl = resposta.carros[0]?.imagemUrl;
 
+                    if (imagensCarros[imagemUrl]) {
+                        setCarroImage(imagensCarros[imagemUrl]);
+                    } else {
+                        console.warn("Imagem não encontrada:", imagemUrl);
+                    }
 
-                let imagemUrl = resposta.carros[0]?.imagemUrl;
-
-                if (imagensCarros[imagemUrl]) {
-                    setCarroImage(imagensCarros[imagemUrl]);
-                } else {
-                    console.warn("Imagem não encontrada:", imagemUrl);
+                    if (resposta.sucesso) {
+                        console.log("Dados do carro:", resposta.carros);
+                    } else {
+                        Alert.alert('Erro', resposta.mensagem);
+                    }
+                } catch (error) {
+                    Alert.alert('Erro', 'Não foi possível salvar o carro');
                 }
+            };
 
-                if (resposta.sucesso) {
-                    console.log("Dados do carro:", resposta.carros);
-                } else {
-                    Alert.alert('Erro', resposta.mensagem);
-                }
-            } catch (error) {
-                Alert.alert('Erro', 'Não foi possível salvar o carro')
-            }
-        }
-
-        buscarDadosCarro();
-    }, [uid]);
+            buscarDadosCarro();
+        }, [uid])
+    );
 
 
 
-    useEffect(() => {
-        if (!uid || !idCarro) return;
 
-        const listarAlertasComStatus = async () => {
-            try {
-                console.log("Resposta dos cards do alerta com status:");
-                console.log(alertas);
+    // useFocusEffect(
+    //     useCallback(() => {
+    //         if (!uid || !idCarro) return;
 
-                alertas.forEach((a, i) => {
-                    console.log(`Alerta ${i + 1}`);
-                    console.log(`Peça: ${a.peca}`);
-                    console.log(`Última troca: ${a.dataUltimaTroca}`);
-                    console.log(`Status: ${a.status}`);
-                    console.log(`KM restante: ${a.kmRestante}`);
-                    console.log(`Meses restantes: ${a.mesesRestantes}`);
-                });
-            } catch (error) {
-                Alert.alert('Erro', 'erro ao puxar dados');
-            }
-        };
+    //         const listarAlertasComStatus = async () => {
+    //             try {
+    //                 // console.log("Resposta dos cards do alerta com status:");
+    //                 // console.log(alertas);
 
-        listarAlertasComStatus();
-    }, [uid, idCarro, alertas]);
+    //                 // alertas.forEach((a, i) => {
+    //                 //     console.log(`Alerta ${i + 1}`);
+    //                 //     console.log(`Peça: ${a.peca}`);
+    //                 //     console.log(`Última troca: ${a.dataUltimaTroca}`);
+    //                 //     console.log(`Status: ${a.status}`);
+    //                 //     console.log(`KM restante: ${a.kmRestante}`);
+    //                 //     console.log(`Meses restantes: ${a.mesesRestantes}`);
+    //                 // });
+    //             } catch (error) {
+    //                 Alert.alert('Erro', 'erro ao puxar dados');
+    //             }
+    //         };
+
+    //         listarAlertasComStatus();
+    //     }, [uid, idCarro, alertas])
+    // );
 
 
     function formatarData(data: string): string {

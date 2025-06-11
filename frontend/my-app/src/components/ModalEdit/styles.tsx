@@ -124,7 +124,14 @@ export const style = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-      },
+    },
+    calendar:{
+        width: 24,
+        height: 24,
+        left: 285,
+        top: -32.5
+    },
+
       
 
 

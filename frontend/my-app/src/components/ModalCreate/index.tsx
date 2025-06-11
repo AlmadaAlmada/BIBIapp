@@ -141,10 +141,10 @@ export const ModalCreate = forwardRef((Props: Props, ref: LegacyRef<TextInput> |
                 Alert.alert('Sucesso!', resposta.mensagem, [
                     {
                         text: 'OK',
-                        onPress: () => navigation.navigate('BottomRoutes')
+                        onPress: () => navigation.goBack()
                     }
                 ]);
-                navigation.navigate("BottomRoutes");
+                
             } else {
                 Alert.alert('Erro', resposta.mensagem);
             }
