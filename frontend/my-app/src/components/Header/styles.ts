@@ -3,33 +3,36 @@ import { themas } from "../../global/themes";
 
 export const style = StyleSheet.create({
 
-     header:{
+     header: {
         width: '100%',
-        height: '60%',
+        height: '100%',
         backgroundColor: themas.colors.primary,
         flexDirection: 'row',
-        alignContent: 'center',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
+        alignItems: 'flex-end',
         paddingHorizontal: 20,
+        paddingBottom: 10,
     },
-    backButton:{
-        marginRight: 12,
+    backButton: {
+        position: 'absolute',
+        left: 20,
+        bottom: 10,
+        zIndex: 1,
     },
-    backText:{
-
+    backText: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        paddingBottom: 0,
+        marginRight: 0,
     },
-    back:{
-        width: 35,
-        height: 35,
+    back: {
+        width: 25,
+        height: 25,
         resizeMode: 'contain',
-
     },
-    textoAba:{
+    textoAba: {
         fontWeight: 'bold',
-        fontSize: 22,
+        fontSize: 25,
         color: 'white',
-        paddingLeft: 25,
-        marginBottom: 20
     }
 })
