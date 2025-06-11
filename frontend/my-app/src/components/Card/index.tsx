@@ -42,12 +42,10 @@ export const Card = forwardRef((Props:Props, ref: LegacyRef<TextInput> | null )=
     return(
         <SafeAreaView>
             <View style= {style.boxCard}>
-                    <View style= {style.a1}>
-                        <Image style={style.bola}
-                        source={imageLeft}></Image>
+                    <View style= {style.peca}>
                         <Text style= {style.t1}>{title}</Text>
                     </View>
-                    <View style= {style.a1}>
+                    <View style= {style.data}>
                         <Text style= {style.t2}>{subtitle}</Text>
                         <Text>{subtitle2}</Text>
                     </View>
@@ -59,6 +57,7 @@ export const Card = forwardRef((Props:Props, ref: LegacyRef<TextInput> | null )=
                             <Text>{bottomText}</Text>
                         </View> 
                     </View>
+
                 </View>    
         </SafeAreaView>  
     )

@@ -2,7 +2,7 @@ import { Dimensions, StyleSheet } from "react-native";
 import { themas } from "../../global/themes";
 
 export const style = StyleSheet.create({
-   
+    //card da tela inicial
     boxCard:{
         width: '95%',
         height: 90,
@@ -10,35 +10,33 @@ export const style = StyleSheet.create({
         borderRadius: 10,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent:'space-around',
     },
-    bola:{
-        width: 52,
-        height: 52,
-        zIndex: 1
+    peca:{
+        height: '100%',
+        justifyContent:'center',
+        marginLeft:10,
+        width:65,
+    },
+    data:{
+        marginLeft:20,
     },
     a1:{
-        backgroundColor:'pink',
-        borderWidth: 0,
+        marginLeft:60,
+        alignItems:'center',
     },
     t1:{
         width:'100%',
-        backgroundColor:'purple',
         fontWeight: 'bold',
         fontSize: 16,
         color: '#003049',
     },
     t2:{
-        backgroundColor:'green',
+        top:2,
         fontWeight: 'bold',
         fontSize: 15,
         color: '#003049',
     },
     teste:{
-        backgroundColor:'aqua',
-        width: '46%',
-        height: '42%',
-        marginLeft: 25,
-        marginBottom: 2
+        width: 30,
     }
 })

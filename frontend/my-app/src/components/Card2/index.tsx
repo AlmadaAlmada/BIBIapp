@@ -52,17 +52,15 @@ export const Card2 = forwardRef((Props:Props, ref: LegacyRef<TextInput> | null )
     return(
         <>
             <View style= {style.boxCard}>
-                    <View style= {style.a1}>
-                        <Image style={style.bola}
-                        source={imageLeft}></Image>
+                    <View style= {style.peca}>
                         <Text style= {style.t1}>{title}</Text>
                     </View>
-                    <View style= {style.a1}>
+                    <View style= {style.data}>
                         <Text style= {style.t2}>{subtitle}</Text>
                         <Text>{subtitle2}</Text>
                     </View>
                     <View style= {style.a1}>
-                        <TouchableOpacity style={style.editbutton} onPress={onImageRightPress}>
+                        <TouchableOpacity onPress={onImageRightPress}>
                             <Image style={[style.teste, Props.imageLeftStyle]}
                             source={imageRight}>
                             </Image>

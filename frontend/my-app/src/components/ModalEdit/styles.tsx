@@ -23,12 +23,10 @@ export const style = StyleSheet.create({
         
     },
     boxCard:{
-        //marginTop:245,
         marginLeft: 2,
         width: '95%',
         height: 340,
-        backgroundColor: 'white',
-        zIndex: 2,
+        backgroundColor: '#ffff',
         borderRadius: 10,
         flexDirection: 'column',
         alignItems: 'center',
@@ -48,47 +46,31 @@ export const style = StyleSheet.create({
         justifyContent: 'center',
         alignContent: 'center',
         width: '100%',
-        //marginTop: -40
     },
     A2:{
         flexDirection: 'column',
         justifyContent: 'center',
         alignContent: 'center',
-        width: '100%',
-        marginLeft: 25,
+        width: '90%',
         marginTop: 6,
         marginBottom: 10
     },
-    A3:{
-        marginTop: 2
-    },
     a1:{
-        flexDirection: 'column',
-        left: 23,
-        bottom: -15,
-        
+        left: 20,
     },
     a2:{
         flexDirection: 'column',
-        left: 120,
+        left: 100,
         top: -30
     },
     b1:{
-        marginLeft: 20,
         flexDirection: 'column',
     },
-    b2:{
-
-    },
-    c1:{
-
-    },
     t0:{
+        alignSelf:'center',
         fontWeight: 'bold',
         fontSize: 16,
         color: '#003049',
-        marginLeft: 8,
-        marginTop: 8
     },
     t1:{
         fontWeight: 'bold',
@@ -103,8 +85,7 @@ export const style = StyleSheet.create({
     delete:{
         width: 42,
         height: 53,
-        marginTop: 30,
-        
+        marginTop: 30,     
     },
     button:{
         borderWidth: 1.5,

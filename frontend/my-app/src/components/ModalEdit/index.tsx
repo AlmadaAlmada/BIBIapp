@@ -182,7 +182,7 @@ export const ModalEdit = forwardRef((props: Props, ref: LegacyRef<TextInput> | n
                             <View style={style.A2}>
                                 <View style={style.b1}>
                                     <Text style={style.t1}>Última troca</Text>
-                                    <View style={style.b2}>
+                                    <View>
                                         <TouchableOpacity onPress={() => setShowDatePicker(true)}>
                                         <View style={{
                                             backgroundColor: 'white',
@@ -217,8 +217,8 @@ export const ModalEdit = forwardRef((props: Props, ref: LegacyRef<TextInput> | n
                                 </View>
                             </View>
 
-                            <View style={style.A3}>
-                                <View style={style.c1}>
+                            <View>
+                                <View>
                                     <TouchableOpacity style={style.button} onPress={editarAlerta}>
                                         <View>
                                             <Text style={style.criar}>Concluído</Text>

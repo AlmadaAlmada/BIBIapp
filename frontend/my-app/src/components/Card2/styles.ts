@@ -2,53 +2,42 @@ import { Dimensions, StyleSheet } from "react-native";
 import { themas } from "../../global/themes";
 
 export const style = StyleSheet.create({
-   
-    boxCard:{
+    //card da tela de alertas
+    boxCard: {
         width: '95%',
         height: 90,
         backgroundColor: 'white',
-        zIndex: 2,
         borderRadius: 10,
         flexDirection: 'row',
         alignItems: 'center',
+    },
+    peca: {
+        height: '100%',
         justifyContent: 'center',
-        alignContent: 'center',
-        columnGap: 25,
+        marginLeft: 10,
+        width: 65,
     },
-    bola:{
-        width: 52,
-        height: 52,
-        zIndex: 1
+    data: {
+        marginLeft: 20,
     },
-    a1:{
-        borderColor: '',
-        borderWidth: 0,
-        marginRight: 15,
-        marginBottom: 5
+    a1: {
+        marginLeft: 60,
+        alignItems: 'center',
     },
-    t1:{
+    t1: {
+        width: '100%',
         fontWeight: 'bold',
         fontSize: 16,
         color: '#003049',
     },
-    t2:{
+    t2: {
+        top: 2,
         fontWeight: 'bold',
         fontSize: 15,
         color: '#003049',
     },
-    teste:{
-        width: '80%',
-        height: '42%',
-        marginLeft: 25,
-        marginBottom: -5
-    },
-    editbutton:{
-        alignItems: 'center',
-        justifyContent: 'center',
+    teste: {
+        objectFit:'contain',
         width: 40,
-        height: 90
-        
-    }
-
-
+    },
 })
