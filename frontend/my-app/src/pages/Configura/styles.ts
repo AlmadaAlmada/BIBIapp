@@ -7,13 +7,11 @@ export const style = StyleSheet.create({
         backgroundColor: themas.colors.secondary,
     },
     boxTop:{
-        flex: 0.2,
+        flex: 0.15,
         width: '100%',
-        height: '13%',
         backgroundColor: themas.colors.primary,
         alignItems: 'center',
         justifyContent: 'center',
-        
     },
     boxMid:{
         flex: 1,
