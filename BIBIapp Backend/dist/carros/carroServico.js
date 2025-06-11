@@ -14,7 +14,6 @@ const IMAGENS_MODELO = {
     "S10": "BIBIapp Backend\imagens\s10.avif"
 };
 async function cadastrarCarro(uidUsuario, dados) {
-    // Validações (conferir com os meninos se a lógica está correta)
     if (!dados.nome || !dados.marca || !dados.modelo || !dados.ano || !dados.mediaKmSemana) {
         return { sucesso: false, mensagem: "Todos os campos são obrigatórios." };
     }

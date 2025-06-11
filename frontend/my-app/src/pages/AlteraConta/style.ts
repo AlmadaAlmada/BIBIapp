@@ -4,7 +4,7 @@ import { Colors } from "react-native/Libraries/NewAppScreen";
 
 export const style = StyleSheet.create({
     container: {
-        width: '100%', // provavelmente quis dizer isso, não "with:10"
+        width: '100%',
         flex: 0.1,
         justifyContent: 'flex-start',
         backgroundColor:themas.colors.primary,

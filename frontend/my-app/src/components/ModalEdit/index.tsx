@@ -67,7 +67,7 @@ export const ModalEdit = forwardRef((props: Props, ref: LegacyRef<TextInput> | n
         const buscarAlertaPorId = async () => {
             try {
                 const resposta = await buscarAlertaPorIdBff(uid, idCarro, idAlerta);
-                setAlerta(resposta.alerta); // Aqui você já torna "global"
+                setAlerta(resposta.alerta); 
 
             } catch (error) {
                 Alert.alert('Erro', 'Não foi possível salvar o carro')
@@ -120,8 +120,6 @@ export const ModalEdit = forwardRef((props: Props, ref: LegacyRef<TextInput> | n
              
                 ]);
 
-                
-                //navigation.goBack()
             } else {
                 Alert.alert('Erro', resposta.mensagem);
             }

@@ -11,7 +11,6 @@ export const style = StyleSheet.create({
     boxTop:{
         flex: 1,
         width: '100%',
-        //height: Dimensions.get('window').height/2.0,
         backgroundColor: themas.colors.secondary,
         alignItems: 'center',
         justifyContent: 'center',
@@ -20,7 +19,6 @@ export const style = StyleSheet.create({
     boxMid:{
         flex: 1,
         width: '100%',
-        //height: Dimensions.get('window').height/2.1,
         backgroundColor: themas.colors.secondary,
         alignItems: 'center',
         rowGap: 12
@@ -28,13 +26,11 @@ export const style = StyleSheet.create({
     boxBottom:{
         flex: 1,
         width: '100%',
-        //height: Dimensions.get('window').height/7.90,
-        //backgroundColor: themas.colors.primary, 
+
     },
     boxCores:{
         marginBottom: 50,
         flexDirection: 'row',
-        //position: 'relative', // contêiner relativo
     },
     foto:{
         marginTop: 40,

@@ -71,7 +71,6 @@ export const style = StyleSheet.create({
   likeIcon: {
     width: 24,
     height: 24,
-    //marginRight: 12,
   },
   commenIcon: {
     width: 24,

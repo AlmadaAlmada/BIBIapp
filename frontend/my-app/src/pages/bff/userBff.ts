@@ -1,8 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const BASE_URL = 'http://10.0.2.2:3100/api'; // Atualize conforme necessário
+const BASE_URL = 'http://10.0.2.2:3100/api'; 
 
-// Interfaces
 export interface ResultadoAPI {
   sucesso: boolean;
   mensagem: string;
@@ -12,10 +11,6 @@ export interface ResultadoLogin extends ResultadoAPI {
   token?: string;
   uid?: string;
 }
-
-// export interface ResultadoCadastro extends ResultadoAPI {
-//   uid?: string;
-// }
 
 export async function cadastrarUsuario(
   nome: string,

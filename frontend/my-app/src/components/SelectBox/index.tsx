@@ -23,7 +23,6 @@ export default function SelectBox({
   const [value, setValue] = useState(defaultValue);
   const [options, setOptions] = useState(items);
 
-  // 🔥 Atualiza as opções sempre que items mudar
   useEffect(() => {
     setOptions(items);
   }, [items]);

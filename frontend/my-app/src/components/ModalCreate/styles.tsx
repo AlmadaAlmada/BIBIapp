@@ -23,7 +23,6 @@ export const style = StyleSheet.create({
         marginLeft: 0,
         width: '95%',
         height: 340,
-        //backgroundColor: '#C4C4C4',
         backgroundColor: 'rgb(135, 159, 171)',
         zIndex: 2,
         borderRadius: 10,
@@ -45,7 +44,6 @@ export const style = StyleSheet.create({
         justifyContent: 'center',
         alignContent: 'center',
         width: '100%',
-        //marginTop: -40
     },
     A2:{
         flexDirection: 'column',
