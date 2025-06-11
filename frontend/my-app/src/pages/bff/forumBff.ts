@@ -21,7 +21,6 @@ export interface ResultadoOperacao {
 
 export async function criarPostBff(
   autorId: string,
-  autorNome: string,
   texto: string
 ): Promise<ResultadoPost> {
   try {
@@ -30,7 +29,7 @@ export async function criarPostBff(
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ autorId, autorNome, texto }),
+      body: JSON.stringify({ autorId, texto }),
     });
 
     const data: ResultadoPost = await response.json();

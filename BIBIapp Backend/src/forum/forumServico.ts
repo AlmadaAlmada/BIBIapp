@@ -1,10 +1,9 @@
 import { db } from "../firebase/firebaseConfig";
-import { collection, addDoc, getDocs, query, where, orderBy, serverTimestamp, doc, deleteDoc, collectionGroup} from "firebase/firestore";
+import { collection, addDoc, getDocs, query, where, orderBy, serverTimestamp, doc, deleteDoc, collectionGroup, getDoc} from "firebase/firestore";
 import { traduzirErroFirebase } from "../autenticacao/errosAutenticacao";
 
 export interface NovoPost {
   autorId: string;
-  autorNome: string;
   texto: string;
 }
 
@@ -25,12 +24,22 @@ interface ResultadoOperacao {
   mensagem: string;
 }
 
-export async function criarPost({ autorId, autorNome, texto }: NovoPost): Promise<ResultadoPost> {
-  if (!autorId || !autorNome || !texto) {
-    return { sucesso: false, mensagem: "Todos os campos são obrigatórios." };
+export async function criarPost({ autorId, texto }: NovoPost): Promise<ResultadoPost> {
+  if (!autorId || !texto) {
+    return { sucesso: false, mensagem: "ID do autor e texto são obrigatórios." };
   }
 
   try {
+    const usuarioRef = doc(db, "usuarios", autorId);
+    const usuarioSnap = await getDoc(usuarioRef);
+
+    if (!usuarioSnap.exists()) {
+      return { sucesso: false, mensagem: "Usuário não encontrado." };
+    }
+
+    const usuarioData = usuarioSnap.data();
+    const autorNome = usuarioData.nome || "Usuário Desconhecido";
+
     const keywords = texto.toLowerCase().split(/\s+/).filter(Boolean);
 
     const post = {

@@ -19,17 +19,17 @@ interface ResultadoOperacao {
 }
 
 const criarPost = async (req: Request, res: Response) => {
-  const { autorId, autorNome, texto } = req.body;
+  const { autorId, texto } = req.body;
 
-  if (!autorId || !autorNome || !texto) {
+  if (!autorId || !texto) {
     return res.status(400).json({
       sucesso: false,
-      mensagem: 'Todos os campos são obrigatórios.',
+      mensagem: 'ID do autor e texto são obrigatórios.',
     });
   }
 
   try {
-    const resultado: ResultadoPost = await forumService.criarPost({ autorId, autorNome, texto });
+    const resultado: ResultadoPost = await forumService.criarPost({ autorId, texto });
 
     return res.status(resultado.sucesso ? 201 : 400).json(resultado);
   } catch (error) {
@@ -40,6 +40,7 @@ const criarPost = async (req: Request, res: Response) => {
     });
   }
 };
+
 
 const listarPosts = async (req: Request, res: Response) => {
   const { userId } = req.params;
