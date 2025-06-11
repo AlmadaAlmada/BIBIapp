@@ -22,10 +22,11 @@ export default function BottomRoutes() {
                 }}
             tabBar={pros=> <Lowbar {...pros}/>}
         >   
-            <Tab.Screen name='Configura' component={Configura}></Tab.Screen>
+            
             <Tab.Screen name='Inicial' component={Inicial}></Tab.Screen>
             <Tab.Screen name='Alerta' component={Alerta}></Tab.Screen>
-            <Tab.Screen name='Forum1' component={Forum1}></Tab.Screen> 
+            <Tab.Screen name='Forum1' component={Forum1}></Tab.Screen>
+            <Tab.Screen name='Configura' component={Configura}></Tab.Screen> 
             <Tab.Screen name='AlteraConta' component={AlteraConta}></Tab.Screen>
             
         </Tab.Navigator>

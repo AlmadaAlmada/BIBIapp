@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 
 import { Text, View, Image, TextInput, Button, TouchableOpacity, Alert } from 'react-native';
 
@@ -11,9 +11,10 @@ import { Input } from "../../components/Input";
 import { Or } from "../../components/Or";
 import { Google } from "../../components/Google";
 import { Title } from "../../components/Title";
-import { NavigationProp, useNavigation } from "@react-navigation/core";
+import { NavigationProp, useFocusEffect, useNavigation } from "@react-navigation/core";
 import { cadastrarUsuario } from "../bff/userBff";
 import back from "../../assets/backAzul.png"
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Cadastro() {
 
@@ -42,7 +43,7 @@ export default function Cadastro() {
                 Alert.alert('Sucesso', resultado.mensagem, [
                     {
                         text: 'OK',
-                        onPress: () => navigation.navigate('Login')  // ← redireciona para a Home
+                        onPress: () => navigation.navigate('CadastroCarro') 
                     }
                 ]);
             } else {

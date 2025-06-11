@@ -23,6 +23,8 @@ export async function cadastrarUsuario(nome, email, senha, confirmarSenha) {
       throw data;
     }
 
+    await AsyncStorage.setItem('uid', data.uid);
+
     return data;
   } catch (error) {
     console.error('Erro ao cadastrar usuário:', error);

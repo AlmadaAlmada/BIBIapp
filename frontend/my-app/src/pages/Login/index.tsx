@@ -43,14 +43,14 @@ export default function Login() {
 
             if (resultado.sucesso) {
 
-                 const uidSalvo = await AsyncStorage.getItem('uid');
+                const uidSalvo = await AsyncStorage.getItem('uid');
                 setUid(uidSalvo); // <- atualiza o contexto com o UID
 
                 Alert.alert('Sucesso', resultado.mensagem, [
                     {
                         text: 'OK',
 
-                        onPress: () => navigation.navigate('CadastroCarro') 
+                        onPress: () => navigation.navigate('BottomRoutes') 
                     }
                 ]);
             } else {

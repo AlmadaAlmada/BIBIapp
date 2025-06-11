@@ -1,4 +1,4 @@
-import React, { use, useState } from "react";
+import React, { use, useCallback, useState } from "react";
 
 import { Text, View, Image, TextInput, Button, TouchableOpacity, Alert, SafeAreaView } from 'react-native';
 
@@ -12,7 +12,7 @@ import { Input } from "../../components/Input";
 import { Or } from "../../components/Or";
 import { Google } from "../../components/Google";
 import { Title } from "../../components/Title";
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '@react-navigation/native';
 import { Header } from "../../components/Header";
 import SelectBox from "../../components/SelectBox";
@@ -33,7 +33,6 @@ type ResultadoBusca = {
 
 
 export default function CadastroCarro() {
-    const { uid } = useUser();
     const [marcas, setMarcas] = useState<string[]>([]);
     const [modelosPorMarca, setModelosPorMarca] = useState<{ [key: string]: string[] }>({});
     const [modelosDisponiveis, setModelosDisponiveis] = useState<string[]>([]);
@@ -41,7 +40,22 @@ export default function CadastroCarro() {
     const [marcaSelecionada, setMarcaSelecionada] = useState('');
     const [modeloSelecionado, setModeloSelecionado] = useState('');
     const navigation = useNavigation<NavigationProp<any>>();
-    
+
+    const [uid, setUid] = useState<string | null>(null);
+
+
+    useFocusEffect(
+        useCallback(() => {
+            const buscarUid = async () => {
+                const uidSalvo = await AsyncStorage.getItem('uid');
+                setUid(uidSalvo);
+                console.log("CADE O ID DO USUARIO NA TELA DE ALERTAS?", uidSalvo);
+            };
+
+            buscarUid();
+        }, [])
+    );
+
 
     useEffect(() => {
         const carregarCarros = async () => {
