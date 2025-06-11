@@ -6,7 +6,7 @@ import { useNavigation, NavigationProp, useIsFocused, useFocusEffect } from '@re
 import { PostCard } from "../../components/PostCard";
 import { BuscaTopo } from "../../components/BuscaTopo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { criarPostBff, listarTodosPostsBff } from "../bff/forumBff";
+import { criarPostBff, listarTodosPostsBff, pesquisarPostsBff } from "../bff/forumBff";
 import ModalPost from "../../components/ModalPost";
 
 interface Post {
@@ -25,6 +25,7 @@ export default function Forum1() {
     const [loading, setLoading] = useState(true);
     const [modalVisible, setModalVisible] = useState(false);
     const [autorNome, setAutorNome] =  useState<string | null>(null);
+    const [busca, setBusca] = useState("");
 
     useFocusEffect(
     useCallback(() => {
@@ -33,8 +34,8 @@ export default function Forum1() {
             setAutorNome(nome || '');
         };
         buscarAutorNome();
-    }, [])
-);
+            }, [])
+    );
 
     const [uid, setUid] = useState<string | null>(null);
 
@@ -107,10 +108,29 @@ export default function Forum1() {
         }
     }, [isFocused]);
 
+        const handleBusca = async (texto: string) => {
+        setBusca(texto);
+        if (!texto.trim()) {
+            fetchPosts(); 
+            return;
+        }
+
+        try {
+            const resultado = await pesquisarPostsBff(texto);
+            if (resultado.sucesso && resultado.dados) {
+                setPosts(resultado.dados);
+            } else {
+                setPosts([]);
+            }
+        } catch (error) {
+            console.error("Erro ao buscar posts:", error);
+        }
+    };
+
     return (
         <SafeAreaView style={style.container}>
             <View style={style.boxTop}>
-                <BuscaTopo />
+                <BuscaTopo onBuscar={handleBusca} />
             </View>
 
             <View style={style.boxMid}>
