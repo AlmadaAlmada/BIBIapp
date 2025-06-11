@@ -21,9 +21,6 @@ type Props = TextInputProps & {
     IconRightName?: string,
     title?: string,
     backgroundColor?: string,
-    // alignSelf?: 'auto' | 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'baseline',
-    // width?: number,
-    // height?: number,
     onIconLeftPress?: () => void,
     onIconRightPress?: () => void
 }
@@ -36,7 +33,7 @@ export const Input = forwardRef((Props:Props, ref: LegacyRef<TextInput> | null )
         <>
             <TextInput placeholder={placeholder}
             ref={ref}
-            style={[style.input, { backgroundColor }]}  // ← aqui usamos o array para combinar estilos
+            style={[style.input, { backgroundColor }]}  
             {...rest}
         
             >

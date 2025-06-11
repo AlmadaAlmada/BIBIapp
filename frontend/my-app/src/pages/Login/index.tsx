@@ -44,7 +44,7 @@ export default function Login() {
             if (resultado.sucesso) {
 
                 const uidSalvo = await AsyncStorage.getItem('uid');
-                setUid(uidSalvo); // <- atualiza o contexto com o UID
+                setUid(uidSalvo);
 
                 Alert.alert('Sucesso', resultado.mensagem, [
                     {

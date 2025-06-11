@@ -1,7 +1,6 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
-import routes from './routes/route'; // Suas rotas em TS
-
+import routes from './routes/route'; 
 const app = express();
 const port = 3100;
 

@@ -7,21 +7,21 @@
     import Logo from '../../assets/logoGoogle.png'
     import Back from '../../assets/back.png'
 
-    import Logo2 from '../../assets/logoApple.png'
-    import { Input } from "../../components/Input";
-    import { Or } from "../../components/Or";
-    import { Google } from "../../components/Google";
-    import { Title } from "../../components/Title";
-    import { useFocusEffect, useNavigation } from '@react-navigation/native';
-    import { NavigationProp } from '@react-navigation/native';
-    import { Header } from "../../components/Header";
-    import SelectBox from "../../components/SelectBox";
-    import { FlatList, ScrollView } from "react-native-gesture-handler";
-    import { Input2 } from "../../components/Input2";
-    import { buscarCarros, cadastrarCarro } from "../bff/carroBff";
-    import { useEffect } from "react";
-    import AsyncStorage from '@react-native-async-storage/async-storage';
-    import { useUser } from "../UserContext"; // ajuste o caminho se necessário
+import Logo2 from '../../assets/logoApple.png'
+import { Input } from "../../components/Input";
+import { Or } from "../../components/Or";
+import { Google } from "../../components/Google";
+import { Title } from "../../components/Title";
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { NavigationProp } from '@react-navigation/native';
+import { Header } from "../../components/Header";
+import SelectBox from "../../components/SelectBox";
+import { FlatList, ScrollView } from "react-native-gesture-handler";
+import { Input2 } from "../../components/Input2";
+import { buscarCarros, cadastrarCarro } from "../bff/carroBff";
+import { useEffect } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useUser } from "../UserContext"; 
 
 
 
@@ -114,10 +114,30 @@
                 Alert.alert('Erro', 'Não foi possível salvar o carro')
             }
         }
+    }
+
+    const salvarCarroRedirecionar = async () => {
+        salvarCarro();
+    }
+
+    return (
+        <SafeAreaView style={style.container}>
+            <View style={style.boxTop}>
+                <Header left={-50} title="Cadastro de carro"></Header>
+            </View>
+            <View style={style.boxMid}>
+
+                <View style={style.scroll} >
+                    <View style={style.apelido}>
+                        <View style={style.acima}>
+                            <Text style={style.subTitle}>Apelido</Text>
+                        </View>
+                        <Input2 value={nome} onChangeText={setNome} width={380} height={50} alignSelf="center" backgroundColor="white" placeholder=" Apelido..."></Input2>
+                    </View>
 
         const salvarCarroRedirecionar = async () => {
             salvarCarro();
-            //navigation.navigate("Inicial");
+  
         }
 
         return (
@@ -148,7 +168,7 @@
                             </View>
                             <Input2 value={mediaKmSemana} onChangeText={setMediaKmSemana} placeholder=" Quilometros percorridos por mês"></Input2>
                         </View>
-                        {/* lembrar de arrumar combobox para receber infos do backend */}
+
                         <View style={style.apelido2}>
                             <View style={style.acima}>
                                 <Text style={style.subTitle}>Marca</Text>

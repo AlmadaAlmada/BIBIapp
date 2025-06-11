@@ -37,7 +37,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var autenticacaoServico_1 = require("../autenticacao/autenticacaoServico");
-// Troque o email para um novo a cada teste, para evitar conflito de "email já cadastrado"
 var nome = "Usuário Teste";
 var email = "teste".concat(Math.floor(Math.random() * 10000), "@email.com");
 var senha = "senha123";

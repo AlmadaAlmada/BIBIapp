@@ -11,7 +11,6 @@ export const style = StyleSheet.create({
     boxTop:{
         flex: 1,
         width: '100%',
-        //height: Dimensions.get('window').height/2.0,
         backgroundColor: themas.colors.secondary,
         alignItems: 'center',
         justifyContent: 'center',
@@ -20,7 +19,6 @@ export const style = StyleSheet.create({
     boxMid:{
         flex: 1,
         width: '100%',
-        //height: Dimensions.get('window').height/2.1,
         backgroundColor: themas.colors.secondary,
         alignItems: 'center',
         rowGap: 12

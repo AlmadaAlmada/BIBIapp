@@ -4,8 +4,6 @@ import { themas } from "../../global/themes";
 export const style = StyleSheet.create({
 
      header:{
-        //borderWidth: 3,
-        //borderColor: 'yellow',
         width: '100%',
         backgroundColor: themas.colors.primary,
         color: themas.colors.primary,
@@ -20,7 +18,6 @@ export const style = StyleSheet.create({
     backButton:{
         left: 10,
         position: 'absolute'
-        //borderWidth: 3,
 
     },
     backText:{

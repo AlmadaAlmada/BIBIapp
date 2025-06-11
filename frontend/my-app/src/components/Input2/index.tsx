@@ -25,9 +25,6 @@ type Props = TextInputProps & {
     height?: number,
     alignSelf?: 'auto' | 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'baseline';
     backgroundColor?: string,
-    // alignSelf?: 'auto' | 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'baseline',
-    // width?: number,
-    // height?: number,
     onIconLeftPress?: () => void,
     onIconRightPress?: () => void
 }
