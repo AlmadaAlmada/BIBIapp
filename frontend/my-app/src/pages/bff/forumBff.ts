@@ -38,9 +38,8 @@ export async function criarPostBff(
       throw data;
     }
 
-    if (data.post?.id) {
-      await AsyncStorage.setItem('idPost', data.post.id);
-    }
+    await AsyncStorage.setItem('idPostagem', data.post.id);
+    console.log(data.post.id);
 
     return data;
   } catch (error) {
