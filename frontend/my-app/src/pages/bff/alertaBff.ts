@@ -90,4 +90,80 @@ export async function obterPecasDisponiveis() {
     throw error;
   }
 }
+
+export async function buscarAlertaPorIdBff(uidUsuario: string, carroId: string, alertaId: string) {
+  try {
+    const response = await fetch(`${BASE_URL}/alertas/${uidUsuario}/${carroId}/${alertaId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw data;
+    }
+
+    console.log('Alerta por id:', data);
+    return data;
+  } catch (error) {
+    console.error('Erro ao buscar o alerta por id na BFF:', error);
+    throw error;
+  }
+}
+
+
+export async function editarAlertaBff(uidUsuario: string, carroId: string, alertaId: string, novaDataUltimaTroca: string) {
+  try {
+    const response = await fetch(`${BASE_URL}/alertas`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        uidUsuario,
+        carroId,
+        alertaId,
+        novaDataUltimaTroca,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw data;
+    }
+
+    console.log('Alerta editado:', data);
+    return data;
+  } catch (error) {
+    console.error('Erro ao buscar o retorno da edição do alerta na BFF:', error);
+    throw error;
+  }
+}
+
+export async function excluirAlertaBff(uidUsuario: string, carroId: string, alertaId: string ) {
+  try {
+    const response = await fetch(`${BASE_URL}/alertas/${uidUsuario}/${carroId}/${alertaId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw data;
+    }
+
+    console.log('Alerta Excluido:', data);
+    return data;
+  } catch (error) {
+    console.error('Erro ao buscar o retorno da exclusão do alerta na BFF:', error);
+    throw error;
+  }
+}
   
