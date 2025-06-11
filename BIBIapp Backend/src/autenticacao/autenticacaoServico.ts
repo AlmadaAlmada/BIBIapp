@@ -46,7 +46,12 @@ export async function cadastrarUsuario(nome: string, email: string, senha: strin
   try {
     const usuarioCred = await createUserWithEmailAndPassword(auth, email, senha);
     await salvarUsuario(usuarioCred.user.uid, nome, email);
-    return { sucesso: true, mensagem: "Usuário cadastrado com sucesso." };
+
+    return {
+      sucesso: true,
+      mensagem: "Usuário cadastrado com sucesso.",
+      uid: usuarioCred.user.uid  
+    };
   } catch (erro: any) {
     console.error("Erro detalhado do Firebase:", erro);
     return { sucesso: false, mensagem: traduzirErroFirebase(erro.code) };
