@@ -34,17 +34,14 @@ type Props = TextInputProps & {
 
 export const Input2 = forwardRef((Props:Props, ref: LegacyRef<TextInput> | null )=> {
 
-    const {IconLeft, IconRight, IconLeftName, IconRightName, title, onIconLeftPress, onIconRightPress, backgroundColor,left, width,height, alignSelf, placeholder, ...rest} = Props
+    const { placeholder, ...rest } = Props
 
-    return(
-        <>
-            <TextInput placeholder={placeholder}
-            ref={ref}
-            style={[style.input, { backgroundColor, width, height, alignSelf}]}  // ← aqui usamos o array para combinar estilos
-            {...rest}
-        
-            >
-            </TextInput>  
-        </>  
-    )
+    return (
+      <TextInput
+        ref={ref}
+        placeholder={placeholder}
+        style={[style.inputPadrao, Props.style]}
+        {...rest}
+      />
+    );
 });

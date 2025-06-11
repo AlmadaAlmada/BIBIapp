@@ -23,13 +23,12 @@ export default function SelectBox({
   const [value, setValue] = useState(defaultValue);
   const [options, setOptions] = useState(items);
 
-  // 🔥 Atualiza as opções sempre que items mudar
   useEffect(() => {
     setOptions(items);
   }, [items]);
 
   return (
-    <View style={{ flex: 1, padding: 16, justifyContent: 'center', height: 80 }}>
+    <View style={{ width:'100%',  justifyContent: 'center', height: 80 }}>
       <DropDownPicker
         open={open}
         value={value}

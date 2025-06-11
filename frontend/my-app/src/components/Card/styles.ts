@@ -7,13 +7,10 @@ export const style = StyleSheet.create({
         width: '95%',
         height: 90,
         backgroundColor: 'white',
-        zIndex: 2,
         borderRadius: 10,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
-        alignContent: 'center',
-        columnGap: 25,
+        justifyContent:'space-around',
     },
     bola:{
         width: 52,
@@ -21,25 +18,27 @@ export const style = StyleSheet.create({
         zIndex: 1
     },
     a1:{
-        borderColor: '',
+        backgroundColor:'pink',
         borderWidth: 0,
     },
     t1:{
+        width:'100%',
+        backgroundColor:'purple',
         fontWeight: 'bold',
         fontSize: 16,
         color: '#003049',
     },
     t2:{
+        backgroundColor:'green',
         fontWeight: 'bold',
         fontSize: 15,
         color: '#003049',
     },
     teste:{
+        backgroundColor:'aqua',
         width: '46%',
         height: '42%',
         marginLeft: 25,
         marginBottom: 2
     }
-
-
 })

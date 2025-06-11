@@ -4,7 +4,7 @@ import { Input } from "../../components/Input";
 
 export const style = StyleSheet.create({
      container: {
-        flex: 1,
+        flex: 0.5,
         alignItems: 'center',
         justifyContent: 'flex-start',
     },
@@ -12,7 +12,7 @@ export const style = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'flex-start',
-        marginTop: 40,
+        paddingTop:'10%',
     },
     buttonTitle: {
         flexDirection: 'row',
@@ -37,11 +37,11 @@ export const style = StyleSheet.create({
         fontSize: 20,
         fontWeight: '700',
         color: themas.colors.primary,
-        marginVertical: 20,
+        marginVertical: '5%',
     },
     inputGroup: {
         width: '95%',
-        marginBottom: 20,
+        paddingBottom:'5%',
     },
     inputLabel: {
         fontSize: 16,
@@ -77,11 +77,11 @@ export const style = StyleSheet.create({
         color: 'white',
         paddingLeft: 10
     },
-    criar2: {
+  /*  criar2: {
         fontWeight: 'bold',
         fontSize: 16,
         color: themas.colors.primary
-    },
+    },*/
     boxTermo: {
         alignContent: 'center',
         justifyContent: 'center',

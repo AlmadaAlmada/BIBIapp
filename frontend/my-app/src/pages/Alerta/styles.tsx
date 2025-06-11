@@ -10,26 +10,20 @@ export const style = StyleSheet.create({
     },
     boxTopzao:{
         height: '8%',
-        backgroundColor: 'red',
         zIndex: 2
     },
     boxTop:{
         flex: 1,
         width: '100%',
-        //height: Dimensions.get('window').height/1.3,
-        backgroundColor: themas.colors.secondary,
         alignItems: 'center',
         justifyContent: 'center',
-        //marginTop: 30
     },
     boxMid:{
         width: '100%',
         height: '10%',
-        backgroundColor: themas.colors.secondary,
         alignItems: 'center',
         rowGap: 12,
         justifyContent: 'center',
-        //paddingLeft: 310
     },
     boxBottom:{
         width: '100%',
@@ -38,16 +32,13 @@ export const style = StyleSheet.create({
     },
     scroll:{
         width: '100%',
-        //height: '100%',
         alignSelf: 'center',
         marginLeft: '5%',
         flexDirection: 'column',
-        //columnGap: 100
     },
     formata:{
         flexDirection: 'column',
         gap: 10,
-        //marginTop: 80
     },
     plus:{
         width: 60,
