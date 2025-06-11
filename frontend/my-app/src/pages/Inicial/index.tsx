@@ -25,6 +25,8 @@ const { width, height } = Dimensions.get('window');
 const imagensCarros: Record<string, any> = {
     "BIBIapp Backendimagenshilux.png": require('../../assets/hilux.png'),
     "BIBIapp Backendimagenscorolla.png": require('../../assets/corolla.png'),
+    "BIBIapp Backendimagensonix.avif": require('../../assets/Onix.png'),
+    "BIBIapp Backendimagenss10.avif": require('../../assets/s10.png')
 };
 
 
