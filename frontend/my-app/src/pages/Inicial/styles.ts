@@ -26,13 +26,13 @@ export const style = StyleSheet.create({
     boxBottom:{
         flex: 1,
         width: '100%',
-
     },
     boxCores:{
         marginBottom: 50,
         flexDirection: 'row',
     },
     foto:{
+        objectFit:'contain',
         marginTop: 40,
         width: '100%',
         height: 274

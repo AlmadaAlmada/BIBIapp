@@ -143,7 +143,7 @@ export const ModalCreate = forwardRef((Props: Props, ref: LegacyRef<TextInput> |
 
     return (
         <>
-            <Modal style={style.modal} visible={true} transparent animationType="slide">
+            <Modal visible={true} transparent animationType="slide">
                 <View style={style.modal2}>
                     <View style={style.boxCard}>
                         <View style={style.A1}>
@@ -160,7 +160,7 @@ export const ModalCreate = forwardRef((Props: Props, ref: LegacyRef<TextInput> |
                         <View style={style.A2}>
                             <View style={style.b1}>
                                 {/* Seleção de Peça */}
-                                <View style={style.b2}>
+                                <View>
                                     <Text style={style.t1}>Selecione uma peça</Text>
                                     <TouchableOpacity onPress={() => setShowPecasDropdown(!showPecasDropdown)}>
                                         <View style={{
@@ -219,7 +219,7 @@ export const ModalCreate = forwardRef((Props: Props, ref: LegacyRef<TextInput> |
                                 </View>
 
                                 {/* Seleção de Data */}
-                                <View style={style.b22}>
+                                <View >
                                     <Text style={style.t1}>Última troca</Text>
                                     <TouchableOpacity onPress={() => setShowDatePicker(true)}>
                                         <View style={{
@@ -255,8 +255,8 @@ export const ModalCreate = forwardRef((Props: Props, ref: LegacyRef<TextInput> |
                             </View>
                         </View>
 
-                        <View style={style.A3}>
-                            <View style={style.c1}>
+                        <View>
+                            <View>
                                 <TouchableOpacity style={style.button} onPress={salvarAlerta}>
                                     <View>
                                         <Text style={style.criar}>Concluído</Text>

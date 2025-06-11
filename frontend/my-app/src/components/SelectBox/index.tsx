@@ -28,7 +28,7 @@ export default function SelectBox({
   }, [items]);
 
   return (
-    <View style={{ flex: 1, padding: 16, justifyContent: 'center', height: 80 }}>
+    <View style={{ width:'100%',  justifyContent: 'center', height: 80 }}>
       <DropDownPicker
         open={open}
         value={value}

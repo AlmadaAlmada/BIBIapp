@@ -4,18 +4,8 @@ import { Text, View, Image, TextInput, Button, TouchableOpacity, Alert, Modal } 
 
 import { style } from "./styles";
 
-import Bola from '../../assets/bola.png'
-import Delete from '../../assets/delete.png'
-
-import { Input } from "../../components/Input";
-import { Or } from "../../components/Or";
-import { Google } from "../../components/Google";
-import { Title } from "../../components/Title";
-import { Card } from "../../components/Card";
-import { themas } from "../../global/themes";
 import { ModalEdit } from "../../components/ModalEdit";
-import { useRoute } from "@react-navigation/native";
-import { ModalCreate } from "../../components/ModalCreate";
+import { useRoute } from "@react-navigation/native";;
 
 export default function TestModal() {
     const route = useRoute();
@@ -36,13 +26,7 @@ export default function TestModal() {
                 <View style={style.modalCentro}>
                     <ModalEdit idAlerta={idAlerta} idCarro={idCarro} uid={uid} ></ModalEdit>
                 </View>
-            </View>
-
-            <View style={style.boxBottom}>
-                
-                
-            </View>
-    
+            </View>    
         </View>
     );
 }

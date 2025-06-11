@@ -3,8 +3,8 @@ import { themas } from "../../global/themes";
 
 export const style = StyleSheet.create({
     container:{
-        flex: 1,
-        alignItems: 'center',
+   //     flex: 1,
+     //   alignItems: 'center',
         justifyContent: 'center',
     },
     boxTop:{
@@ -23,11 +23,11 @@ export const style = StyleSheet.create({
         alignContent: 'center',
         justifyContent: 'center',
     },
-    boxBottom:{
+ /*   boxBottom:{
         width: '100%',
         height: Dimensions.get('window').height/8,
         backgroundColor: ''
-    },
+    },*/
     modalCentro:{
         alignContent: 'center',
         alignItems: 'center',

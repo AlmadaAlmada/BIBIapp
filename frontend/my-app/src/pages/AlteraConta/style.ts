@@ -5,28 +5,24 @@ import { Colors } from "react-native/Libraries/NewAppScreen";
 export const style = StyleSheet.create({
     container: {
         width: '100%',
-        flex: 0.1,
+        flex: 0.12,
         justifyContent: 'flex-start',
         backgroundColor:themas.colors.primary,
-        
     },
     BoxTop: {
         backgroundColor:themas.colors.primary,
         width: '100%',
-        top:'20%',
         alignItems: 'center',
-        justifyContent: 'flex-start',
     },
     BoxMid: {
+        marginTop:50,
         width: '100%',
-        top:'40%',
         paddingHorizontal: 10,
     },
     inputGroup: {
         width: '95%',
         alignSelf: 'center',
-        marginTop: '10%',
-        marginBottom: 20,
+        marginVertical: 20,
     },
     inputLabel: {
         width:'100%',
@@ -37,13 +33,12 @@ export const style = StyleSheet.create({
         left: 10,
     },
     boxButton: {
+        top:20,
         alignSelf: 'center',
-        marginTop:'15%',
     },
     button: {
         backgroundColor: themas.colors.primary,
         borderRadius: 14,
-        padding: 10,
         paddingVertical: 12,
         paddingHorizontal: '32%',
     },
